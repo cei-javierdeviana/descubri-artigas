@@ -276,6 +276,44 @@ body.on-detail .top{position:static;background:var(--hero-bg)}
 .foot .foot-credit{display:flex;align-items:center;gap:10px;margin:0 0 18px;padding:12px 16px;border:1px solid var(--hero-line);border-radius:14px;max-width:none;width:fit-content;font-family:var(--font-body);font-size:clamp(16px,1.8vw,19px);line-height:1.4;color:var(--hero-ink)}
 .foot .foot-credit svg{width:18px;height:22px;flex:none}
 .foot .foot-credit b{font-weight:600;color:var(--hero-accent)}
+
+/* ---------- fichas (láminas hechas por docentes) ---------- */
+[hidden]{display:none!important}
+.d-actions{display:flex;flex-wrap:wrap;gap:10px;margin:16px 0 0}
+.btn-ficha{background:var(--hero-accent);color:#24160A;box-shadow:0 6px 18px rgba(0,0,0,.3)}
+.btn-ficha svg,.f-actions svg{width:16px;height:16px;flex:none;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.ficha-card a{display:block;border:1px solid var(--line);border-radius:14px;overflow:hidden;background:var(--surface);box-shadow:var(--shadow-sm);text-decoration:none;color:var(--ink);transition:transform .25s ease,box-shadow .25s ease}
+.ficha-card a:hover{transform:translateY(-3px);box-shadow:var(--shadow)}
+.ficha-card img{display:block;width:100%;aspect-ratio:4/5;object-fit:cover;object-position:top;background:var(--map-bg)}
+.ficha-card .go{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:10px 12px;border-top:1px solid var(--line);font-family:var(--font-mono);font-size:13px}
+.ficha-card p{margin:8px 0 0;font-size:13.5px;line-height:1.4;color:var(--muted)}
+@media (prefers-reduced-motion: reduce){.ficha-card a{transition:none}}
+.f-head{background:var(--hero-bg);color:var(--hero-ink);padding-block:16px clamp(24px,3vw,32px)}
+.f-head .back{background:rgba(255,255,255,.08)}
+.f-head .back:hover{background:rgba(255,255,255,.16)}
+.f-kicker{display:flex;align-items:center;gap:8px;margin:18px 0 0;font-family:var(--font-mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--hero-accent)}
+.f-kicker .ico *{stroke:var(--hero-bg);stroke-width:1.5}
+.f-head h1{margin:8px 0 0;font-family:var(--font-display);font-weight:900;font-size:clamp(40px,5.8vw,74px);line-height:.88;text-transform:uppercase;letter-spacing:.005em;text-wrap:balance}
+.f-by{margin:12px 0 0;max-width:62ch;color:var(--hero-muted)}
+.f-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}
+.f-head .btn{background:var(--hero-accent);color:#24160A}
+.f-head .btn-quiet{background:transparent;color:var(--hero-ink);border:1px solid #4B3B5C}
+.f-body{display:grid;justify-items:center;gap:14px;padding-block:clamp(24px,4vw,44px) 0}
+.f-sheet{margin:0;width:100%;max-width:880px;display:grid;gap:10px}
+.f-sheet a{display:block;border-radius:6px;overflow:hidden;box-shadow:var(--shadow);background:var(--surface)}
+.f-sheet img{display:block;width:100%;height:auto}
+.f-sheet figcaption{font-family:var(--font-mono);font-size:12px;color:var(--muted);text-align:center}
+.f-wait{margin:40px 0;font-family:var(--font-mono);font-size:13px;color:var(--muted)}
+.f-missing{display:grid;justify-items:center;gap:14px;max-width:46ch;margin:28px auto;padding:28px 24px;text-align:center;background:var(--surface);border:1px solid var(--line);border-radius:18px}
+.f-missing p{margin:0}
+@media print{
+  body.on-ficha{background:#fff}
+  body.on-ficha .top,body.on-ficha .foot,body.on-ficha .f-head,body.on-ficha .f-sheet figcaption{display:none!important}
+  body.on-ficha .f-body{padding:0}
+  body.on-ficha .f-sheet{max-width:none}
+  body.on-ficha .f-sheet a{box-shadow:none;border-radius:0}
+  body.on-ficha .f-sheet img{width:auto;max-width:100%;max-height:100vh;margin:0 auto}
+}
 </style>
 
 </head>
@@ -1585,6 +1623,7 @@ function renderDetail(p) {
         <h1>${esc(p.name)}</h1>
         <p class="d-lead">${esc(p.short)}</p>
         <p class="d-meta"><span>${esc(p.where)}</span><span>${coordText(p)}${p.approx ? " (ubicación aproximada)" : ""}</span></p>
+        <p class="d-actions" data-ficha hidden><a class="btn btn-ficha" href="#${esc(p.id)}/ficha">${FICHA_ICON}Ver ficha</a></p>
       </div>
       ${refTag(p)}${main ? `<p class="credit">${main.ref ? `Foto de referencia: ${esc(main.alt)} · ` : ""}${creditLine(main)}</p>` : `<p class="credit">Ilustración</p>`}
     </header>
@@ -1594,6 +1633,7 @@ function renderDetail(p) {
           <aside class="curious"><span class="lab">${icon(p.cat)}Dato curioso</span><p>${esc(p.curious)}</p></aside>
         </div>
         <aside class="d-side">
+          <section class="ficha-card" data-ficha hidden><h2>Ficha del lugar</h2><a href="#${esc(p.id)}/ficha"><img data-ficha-img alt="Ficha de ${esc(p.name)}"><span class="go">Ver ficha <span aria-hidden="true">→</span></span></a><p>${FICHA_BY}</p></section>
           <figure class="locator">${locatorSVG(p)}<figcaption>Ubicación en el departamento</figcaption></figure>
           <section class="facts"><h2>Datos útiles</h2><dl>${p.facts.map(([k, v]) => `<dt>${esc(k)}</dt><dd>${esc(v)}</dd>`).join("")}</dl></section>
           <section class="howto"><h2>Cómo llegar</h2><p>${esc(p.howto)}</p></section>
@@ -1607,6 +1647,53 @@ function renderDetail(p) {
       </section>
     </div>`;
 }
+/* ---------- fichas: una imagen por lugar en fichas/<id>.jpg (o .png); si no existe, no se muestra nada ---------- */
+const FICHA_BY = "Ficha elaborada por docentes del CEI Javier de Viana.";
+const FICHA_ICON = `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h7l5 5v13H7z"/><path d="M14 3v5h5M10 13h6M10 17h6"/></svg>`;
+const FICHA_EXT = ["jpg", "png", "jpeg"];
+const fichaCache = {};
+function findFicha(p, cb) {
+  if (p.id in fichaCache) { cb(fichaCache[p.id]); return; }
+  let k = 0;
+  const tryNext = () => {
+    if (k >= FICHA_EXT.length) { fichaCache[p.id] = null; cb(null); return; }
+    const url = `fichas/${p.id}.${FICHA_EXT[k++]}`, img = new Image();
+    img.onload = () => { fichaCache[p.id] = url; cb(url); };
+    img.onerror = tryNext;
+    img.src = url;
+  };
+  tryNext();
+}
+function renderFicha(p) {
+  return `<header class="f-head cat-${p.cat}"><div class="wrap">
+      <a class="back" href="#${esc(p.id)}"><span aria-hidden="true">←</span> Volver a ${esc(p.name)}</a>
+      <p class="f-kicker">${icon(p.cat)}Ficha del lugar · ${CATS[p.cat].name}</p>
+      <h1>${esc(p.name)}</h1>
+      <p class="f-by">${FICHA_BY} Toda su información también está en la <a href="#${esc(p.id)}" style="color:inherit">página del lugar</a>.</p>
+      <div class="f-actions" data-ficha hidden><a class="btn" data-ficha-dl download>${FICHA_ICON}Descargar</a><button type="button" class="btn btn-quiet" data-print>Imprimir</button></div>
+    </div></header>
+    <div class="wrap f-body" id="f-body"><p class="f-wait">Cargando la ficha…</p></div>`;
+}
+function fillFicha(p, url) {
+  const body = $("#f-body", viewDetail);
+  if (!body || viewDetail.dataset.view !== "ficha:" + p.id) return;
+  if (!url) {
+    body.innerHTML = `<div class="f-missing"><p>Este lugar todavía no tiene ficha.</p><a class="btn" href="#${esc(p.id)}">Ir a la página del lugar</a></div>`;
+    return;
+  }
+  body.innerHTML = `<figure class="f-sheet"><a href="${esc(url)}" target="_blank" rel="noopener"><img src="${esc(url)}" alt="Ficha de ${esc(p.name)}. ${esc(p.short)}"></a><figcaption>Tocá la ficha para abrirla en tamaño completo.</figcaption></figure>`;
+  const dl = $("[data-ficha-dl]", viewDetail);
+  dl.href = url; dl.setAttribute("download", `Ficha - ${p.name}.${url.split(".").pop()}`);
+  viewDetail.querySelectorAll("[data-ficha]").forEach(el => { el.hidden = false; });
+}
+function showFichaLinks(p, url) {
+  if (!url || viewDetail.dataset.view !== "detail:" + p.id) return;
+  const im = $("[data-ficha-img]", viewDetail);
+  if (im) im.src = url;
+  viewDetail.querySelectorAll("[data-ficha]").forEach(el => { el.hidden = false; });
+}
+$("#view-detail").addEventListener("click", e => { if (e.target.closest("[data-print]")) { try { window.print(); } catch (_) { /* impresión no disponible */ } } });
+
 /* lightbox de fotos */
 const lb = {el: $("#lightbox"), p: null, k: 0};
 function openLightbox(p, k) { lb.p = p; lb.k = k; showLb(); lb.el.hidden = false; $("#lb-close").focus(); }
@@ -1628,19 +1715,24 @@ const MAP_ANCHORS = ["", "mapa", "inicio", "explorar", "postales"];
 let mapScroll = 0, onMap = true;
 function route() {
   const id = decodeURIComponent(location.hash.replace(/^#/, ""));
-  const p = byId[id];
+  const fm = id.match(/^(.+)\/ficha$/);
+  const fp = fm ? byId[fm[1]] : null;
+  const p = fp || byId[id];
   if (p) {
     if (onMap) mapScroll = window.scrollY;
     onMap = false;
-    viewDetail.innerHTML = renderDetail(p);
+    viewDetail.dataset.view = (fp ? "ficha:" : "detail:") + p.id;
+    viewDetail.innerHTML = fp ? renderFicha(p) : renderDetail(p);
     viewMap.hidden = true; viewDetail.hidden = false; document.body.classList.add("on-detail");
-    document.title = `${p.name} · Descubrí Artigas`;
+    document.body.classList.toggle("on-ficha", !!fp);
+    document.title = fp ? `Ficha · ${p.name} · Descubrí Artigas` : `${p.name} · Descubrí Artigas`;
     window.scrollTo({top: 0, behavior: "auto"});
     setSelected(p.id);
+    findFicha(p, url => fp ? fillFicha(p, url) : showFichaLinks(p, url));
   } else {
     const wasDetail = !onMap;
     onMap = true;
-    viewDetail.hidden = true; viewMap.hidden = false; viewDetail.innerHTML = ""; document.body.classList.remove("on-detail");
+    viewDetail.hidden = true; viewMap.hidden = false; viewDetail.innerHTML = ""; viewDetail.dataset.view = ""; document.body.classList.remove("on-detail", "on-ficha");
     document.title = "Descubrí Artigas";
     applyView(true);
     const target = MAP_ANCHORS.includes(id) && id && id !== "mapa" ? document.getElementById(id) : null;

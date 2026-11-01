@@ -6,7 +6,7 @@ Dirección de la web: **https://cei-javierdeviana.github.io/descubri-artigas/**
 
 Guía web con diecisiete lugares para conocer en el departamento de Artigas (Uruguay): un mapa interactivo, una postal por lugar y una ficha completa con fotos, datos útiles y fuentes.
 
-Es un sitio estático: no necesita servidor ni instalación. Todo está en `index.html` y las fotos en la carpeta `img/`.
+Es un sitio estático: no necesita servidor ni instalación. Todo está en `index.html`, las fotos en la carpeta `img/` y las fichas de cada lugar en la carpeta `fichas/`.
 
 ## Contenido de la carpeta
 
@@ -14,6 +14,7 @@ Es un sitio estático: no necesita servidor ni instalación. Todo está en `inde
 |---|---|
 | `index.html` | La página completa (textos, mapa, estilos y código) |
 | `img/` | Las fotos de cada lugar (portadas, tarjetas y galerías) |
+| `fichas/` | Las fichas (láminas) que elaboran los docentes, una por lugar |
 | `.nojekyll` | Le indica a GitHub Pages que publique los archivos tal cual |
 
 ## Publicarla en GitHub Pages (organización del CEI)
@@ -32,7 +33,7 @@ La web se publica en una **organización** de GitHub llamada `cei-javierdeviana`
 1. En la organización, tocá **New repository**. Revisá que el dueño (*Owner*) sea `cei-javierdeviana`.
 2. Nombre: `descubri-artigas`. Visibilidad: **Public**. No agregues README.
 3. En el repositorio vacío, entrá al enlace **uploading an existing file**.
-4. Arrastrá **el contenido** de esta carpeta (el `index.html`, la carpeta `img` y el `README.md`), no la carpeta entera. GitHub acepta hasta 100 archivos por vez y esta carpeta tiene 75.
+4. Arrastrá **el contenido** de esta carpeta (el `index.html`, las carpetas `img` y `fichas` y el `README.md`), no la carpeta entera. GitHub acepta hasta 100 archivos por vez y esta carpeta tiene 77.
 5. Tocá **Commit changes**.
 
 ### 3. Activar la página
@@ -55,6 +56,37 @@ La web se publica en una **organización** de GitHub llamada `cei-javierdeviana`
 3. La **primera** foto de cada lugar es la portada del mapa, la postal y la ficha. Para cambiar la portada, mové la línea al primer lugar.
 4. Si una foto muestra el entorno o el tema y no el lugar exacto, agregá `"ref": true` y la página la marca como «Foto de referencia».
 
+## Agregar la ficha de un lugar
+
+Cada lugar puede tener una ficha: una lámina informativa hecha por docentes. Cuando un lugar tiene ficha, su página muestra el botón **Ver ficha**. Si no la tiene, el botón no aparece y la página se ve igual que siempre.
+
+1. Guardá la ficha como imagen **JPG** (también sirve PNG), en formato vertical. Con unos 1000 a 1500 px de ancho se lee bien.
+2. Ponele exactamente el nombre del lugar que figura en la tabla de abajo, por ejemplo `piedra-pintada.jpg`: en minúsculas, sin tildes ni espacios.
+3. Copiala en la carpeta `fichas/`.
+4. En GitHub Desktop: escribí un resumen (por ejemplo «Agrego ficha de Piedra Pintada»), tocá **Commit to main** y después **Push origin**.
+
+No hay que tocar `index.html`: la página encuentra la ficha sola por su nombre. Para reemplazar una ficha, guardá la nueva con el mismo nombre encima de la anterior.
+
+| Lugar | Nombre del archivo |
+|---|---|
+| Estación Fluvial de Bella Unión | `estacion-fluvial.jpg` |
+| Parque Rivera | `parque-rivera.jpg` |
+| Museo Santa Rosa del Cuareim | `museo-santa-rosa.jpg` |
+| Isla Brasilera y la triple frontera | `isla-brasilera.jpg` |
+| Rincón de Franquía | `rincon-de-franquia.jpg` |
+| Estación de Baltasar Brum | `baltasar-brum.jpg` |
+| Codo del Cuareim | `codo-del-cuareim.jpg` |
+| Cueva del Indio | `cueva-del-indio.jpg` |
+| Estación ferroviaria de Javier de Viana | `javier-de-viana.jpg` |
+| Plaza Artigas e Iglesia San Eugenio | `centro-artigas.jpg` |
+| Jefatura de Policía de Artigas | `jefatura-de-policia.jpg` |
+| Museo Histórico Departamental | `museo-historico.jpg` |
+| Carnaval de Artigas | `carnaval-de-artigas.jpg` |
+| Museo de la Piedra Preciosa | `museo-piedra-preciosa.jpg` |
+| Paseo 7 de Setiembre y Puente de la Concordia | `paseo-7-de-setiembre.jpg` |
+| Piedra Pintada | `piedra-pintada.jpg` |
+| Minas de amatistas de Los Catalanes | `los-catalanes.jpg` |
+
 ## Sumar a otras personas del CEI
 
 Para que la web no dependa de una sola persona, sumá al menos a otra persona del CEI como dueña de la organización:
@@ -69,7 +101,7 @@ Si más adelante el CEI quiere una web propia en la dirección principal `https:
 
 ## Créditos de las fotos
 
-La mayoría de las fotos vienen de [Wikimedia Commons](https://commons.wikimedia.org) y tienen licencias libres. Las licencias CC BY y CC BY-SA piden citar al autor y la licencia: por eso cada ficha muestra estos datos y no hay que borrarlos. Las fotos de la Cueva del Indio y del Museo Histórico Departamental salen de láminas informativas aportadas por docentes del CEI. Las fotos se redujeron o ampliaron de tamaño para la web.
+La mayoría de las fotos vienen de [Wikimedia Commons](https://commons.wikimedia.org) y tienen licencias libres. Las licencias CC BY y CC BY-SA piden citar al autor y la licencia: por eso cada ficha muestra estos datos y no hay que borrarlos. Las fotos del Museo Histórico Departamental salen de una lámina informativa aportada por docentes del CEI. Las de la Cueva del Indio son capturas del capítulo 6 del documental «La Huella de Sepé» (Identidad Antídoto y TNU, 2011), tomadas por estudiantes y mejoradas con inteligencia artificial para la web. Las fotos se redujeron o ampliaron de tamaño para la web.
 
 **Estación Fluvial de Bella Unión**
 
@@ -121,9 +153,10 @@ La mayoría de las fotos vienen de [Wikimedia Commons](https://commons.wikimedia
 
 **Cueva del Indio**
 
-- `img/cueva-del-indio-1.jpg` — La Cueva del Indio, entre piedras y monte nativo. Foto: Lámina informativa «Cabaña El Indio».
-- `img/cueva-del-indio-2.jpg` — Los Talas del Sacrificio, a orillas del río Cuareim. Foto: Lámina informativa «Cabaña El Indio».
-- `img/cueva-del-indio-3.jpg` — El Árbol de los Sacrificios. Foto: Lámina informativa «Cabaña El Indio».
+- `img/cueva-del-indio-1.jpg` — La Cueva del Indio, un gran amontonamiento de piedras en medio del monte. Foto: Captura del documental [«La Huella de Sepé», cap. 6](https://www.youtube.com/playlist?list=PLuuHImgA8d0_C9KC72ZmXfp8_vbRcbxFM) (Identidad Antídoto y TNU, 2011).
+- `img/cueva-del-indio-2.jpg` — Un jinete entre los Talas del Sacrificio, a orillas del río Cuareim. Foto: Captura del documental [«La Huella de Sepé», cap. 6](https://www.youtube.com/playlist?list=PLuuHImgA8d0_C9KC72ZmXfp8_vbRcbxFM) (Identidad Antídoto y TNU, 2011).
+- `img/cueva-del-indio-3.jpg` — El Árbol de los Sacrificios. Foto: Captura del documental [«La Huella de Sepé», cap. 6](https://www.youtube.com/playlist?list=PLuuHImgA8d0_C9KC72ZmXfp8_vbRcbxFM) (Identidad Antídoto y TNU, 2011).
+- `img/cueva-del-indio-4.jpg` — Un mapa del departamento con la ubicación de la Cueva del Indio marcada en rojo. Foto: Captura del documental [«La Huella de Sepé», cap. 6](https://www.youtube.com/playlist?list=PLuuHImgA8d0_C9KC72ZmXfp8_vbRcbxFM) (Identidad Antídoto y TNU, 2011).
 
 **Estación ferroviaria de Javier de Viana**
 
