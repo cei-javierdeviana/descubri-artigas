@@ -32,7 +32,7 @@ La web se publica en una **organización** de GitHub llamada `cei-javierdeviana`
 1. En la organización, tocá **New repository**. Revisá que el dueño (*Owner*) sea `cei-javierdeviana`.
 2. Nombre: `descubri-artigas`. Visibilidad: **Public**. No agregues README.
 3. En el repositorio vacío, entrá al enlace **uploading an existing file**.
-4. Arrastrá **el contenido** de esta carpeta (el `index.html`, la carpeta `img` y el `README.md`), no la carpeta entera. GitHub acepta hasta 100 archivos por vez y esta carpeta tiene 73.
+4. Arrastrá **el contenido** de esta carpeta (el `index.html`, la carpeta `img` y el `README.md`), no la carpeta entera. GitHub acepta hasta 100 archivos por vez y esta carpeta tiene 75.
 5. Tocá **Commit changes**.
 
 ### 3. Activar la página
