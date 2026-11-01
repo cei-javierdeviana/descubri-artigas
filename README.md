@@ -4,7 +4,7 @@ Un proyecto realizado por los docentes del **CEI Javier de Viana** (Artigas, Uru
 
 Dirección de la web: **https://cei-javierdeviana.github.io/descubri-artigas/**
 
-Guía web con quince lugares para conocer en el departamento de Artigas (Uruguay): un mapa interactivo, una postal por lugar y una ficha completa con fotos, datos útiles y fuentes.
+Guía web con diecisiete lugares para conocer en el departamento de Artigas (Uruguay): un mapa interactivo, una postal por lugar y una ficha completa con fotos, datos útiles y fuentes.
 
 Es un sitio estático: no necesita servidor ni instalación. Todo está en `index.html` y las fotos en la carpeta `img/`.
 
@@ -32,7 +32,7 @@ La web se publica en una **organización** de GitHub llamada `cei-javierdeviana`
 1. En la organización, tocá **New repository**. Revisá que el dueño (*Owner*) sea `cei-javierdeviana`.
 2. Nombre: `descubri-artigas`. Visibilidad: **Public**. No agregues README.
 3. En el repositorio vacío, entrá al enlace **uploading an existing file**.
-4. Arrastrá **el contenido** de esta carpeta (el `index.html`, la carpeta `img` y el `README.md`), no la carpeta entera. GitHub acepta hasta 100 archivos por vez y esta carpeta tiene 66.
+4. Arrastrá **el contenido** de esta carpeta (el `index.html`, la carpeta `img` y el `README.md`), no la carpeta entera. GitHub acepta hasta 100 archivos por vez y esta carpeta tiene 73.
 5. Tocá **Commit changes**.
 
 ### 3. Activar la página
@@ -69,7 +69,7 @@ Si más adelante el CEI quiere una web propia en la dirección principal `https:
 
 ## Créditos de las fotos
 
-Todas las fotos vienen de [Wikimedia Commons](https://commons.wikimedia.org) y tienen licencias libres. Las licencias CC BY y CC BY-SA piden citar al autor y la licencia: por eso cada ficha muestra estos datos y no hay que borrarlos. Las fotos se redujeron de tamaño para la web.
+La mayoría de las fotos vienen de [Wikimedia Commons](https://commons.wikimedia.org) y tienen licencias libres. Las licencias CC BY y CC BY-SA piden citar al autor y la licencia: por eso cada ficha muestra estos datos y no hay que borrarlos. Las fotos de la Cueva del Indio y del Museo Histórico Departamental salen de láminas informativas aportadas por docentes del CEI. Las fotos se redujeron o ampliaron de tamaño para la web.
 
 **Estación Fluvial de Bella Unión**
 
@@ -119,6 +119,12 @@ Todas las fotos vienen de [Wikimedia Commons](https://commons.wikimedia.org) y t
 - `img/codo-del-cuareim-2.jpg` — El río Cuareim con vista hacia Brasil, en Bella Unión. Foto: [Montecruz Foto](https://commons.wikimedia.org/wiki/File:Cuareim.jpg), [CC BY-SA 2.0](https://creativecommons.org/licenses/by-sa/2.0/). *(foto de referencia)*
 - `img/codo-del-cuareim-3.jpg` — El río Cuareim en una fotografía de 1888. Foto: [Lorenzo Spátola (Biblioteca Nacional de Uruguay)](https://commons.wikimedia.org/wiki/File:ABN_10881.jpg), Dominio público. *(foto de referencia)*
 
+**Cueva del Indio**
+
+- `img/cueva-del-indio-1.jpg` — La Cueva del Indio, entre piedras y monte nativo. Foto: Lámina informativa «Cabaña El Indio».
+- `img/cueva-del-indio-2.jpg` — Los Talas del Sacrificio, a orillas del río Cuareim. Foto: Lámina informativa «Cabaña El Indio».
+- `img/cueva-del-indio-3.jpg` — El Árbol de los Sacrificios. Foto: Lámina informativa «Cabaña El Indio».
+
 **Estación ferroviaria de Javier de Viana**
 
 - `img/javier-de-viana-1.jpg` — Antigua estación de Cuareim, otra estación del ferrocarril en el departamento. Foto: [Ulises Icardi](https://commons.wikimedia.org/wiki/File:Antigua_estaci%C3%B3n_ferroviaria_de_Cuareim.jpg), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/). *(foto de referencia)*
@@ -143,6 +149,13 @@ Todas las fotos vienen de [Wikimedia Commons](https://commons.wikimedia.org) y t
 - `img/jefatura-de-policia-5.jpg` — El patio visto a través de un arco. Foto: [Alejandro Gil Álvarez](https://commons.wikimedia.org/wiki/File:Jefatura_de_Polic%C3%ADa_%28Patio%29.jpg), [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/).
 - `img/jefatura-de-policia-6.jpg` — Una de las torres almenadas. Foto: [Alejandro Gil Álvarez](https://commons.wikimedia.org/wiki/File:Torre_Jefatura_de_Polic%C3%ADa.jpg), [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/).
 - `img/jefatura-de-policia-7.jpg` — La Jefatura Política de San Eugenio en 1907. Foto: [Dornaleche y Reyes Impresores](https://commons.wikimedia.org/wiki/File:Jefatura_Pol%C3%ADtica_de_San_Eugenio_-_Artigas.tif), Dominio público.
+
+**Museo Histórico Departamental**
+
+- `img/museo-historico-1.jpg` — Fachada del Museo Histórico Departamental. Foto: Lámina informativa del museo.
+- `img/museo-historico-2.jpg` — Una de las salas del museo. Foto: Lámina informativa del museo.
+- `img/museo-historico-3.jpg` — Fósiles de megafauna: Glossotherium y Toxodon. Foto: Lámina informativa del museo.
+- `img/museo-historico-4.jpg` — Una maqueta con soldados a caballo, en una de las salas. Foto: Lámina informativa del museo.
 
 **Carnaval de Artigas**
 
@@ -183,4 +196,4 @@ Todas las fotos vienen de [Wikimedia Commons](https://commons.wikimedia.org) y t
 
 ## Fuentes de la información
 
-Cada ficha lista sus fuentes: Intendencia de Artigas, Ministerio de Turismo, Ministerio de Ambiente, Ministerio del Interior, Presidencia, IMPO, AFE, Museos del Uruguay, Udelar, prensa local y Wikipedia. Información reunida entre octubre y noviembre de 2026; horarios, tarifas y accesos pueden cambiar.
+Cada ficha lista sus fuentes: Intendencia de Artigas, Ministerio de Turismo, Ministerio de Ambiente, Ministerio del Interior, Presidencia, IMPO, AFE, Museos del Uruguay, Udelar, prensa local y Wikipedia, además de láminas informativas aportadas por docentes del CEI. Información reunida entre octubre y noviembre de 2026; horarios, tarifas y accesos pueden cambiar.

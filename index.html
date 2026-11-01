@@ -206,7 +206,7 @@ body.on-detail .top{position:static;background:var(--hero-bg)}
 /* ---------- detail ---------- */
 .d-cover{position:relative;min-height:clamp(440px,74vh,720px);display:flex;flex-direction:column;justify-content:flex-end;color:#fff;overflow:hidden;background:#221A2C}
 .d-cover-img{position:absolute;inset:0}
-.d-cover-shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(14,10,20,.35) 0%,rgba(14,10,20,0) 30%,rgba(14,10,20,.15) 55%,rgba(14,10,20,.82) 100%)}
+.d-cover-shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(14,10,20,.4) 0%,rgba(14,10,20,.05) 26%,rgba(14,10,20,.42) 50%,rgba(14,10,20,.88) 100%)}
 .d-cover-in{position:relative;width:100%;padding-block:84px clamp(14px,2.5vw,24px)}
 .d-cover-top{position:absolute;top:0;left:0;right:0;padding-top:18px;z-index:2}
 .back{display:inline-flex;align-items:center;gap:8px;min-height:40px;padding:6px 14px;border-radius:999px;background:rgba(20,14,26,.55);font-family:var(--font-mono);font-size:13px;color:#fff;text-decoration:none}
@@ -301,10 +301,10 @@ body.on-detail .top{position:static;background:var(--hero-bg)}
       <div>
         <p class="kicker">Departamento de Artigas · Uruguay</p>
         <h1>Del Cuareim <em>al río Uruguay</em></h1>
-        <p class="lead">Una piedra que parece pintada, minas de amatistas, viejas estaciones de tren, un carnaval con escuelas de samba y una frontera con dos países. Quince lugares para descubrir en el norte del Uruguay.</p>
+        <p class="lead">Una piedra que parece pintada, minas de amatistas, viejas estaciones de tren, un carnaval con escuelas de samba y una frontera con dos países. Diecisiete lugares para descubrir en el norte del Uruguay.</p>
         <div class="hero-cta"><a class="btn" href="#explorar">Explorar el mapa <span aria-hidden="true">↓</span></a><a class="btn btn-quiet" href="#postales">Ver las postales</a></div>
         <dl class="stats">
-          <div><dt>15</dt><dd>lugares para conocer</dd></div>
+          <div><dt>17</dt><dd>lugares para conocer</dd></div>
           <div><dt>3</dt><dd>países en la triple frontera</dd></div>
           <div><dt>130 M</dt><dd>de años tienen sus amatistas</dd></div>
         </dl>
@@ -367,8 +367,8 @@ body.on-detail .top{position:static;background:var(--hero-bg)}
   <div class="wrap">
     <strong>Descubrí Artigas</strong>
     <p class="foot-credit"><svg viewBox="0 0 22 26" aria-hidden="true"><path d="M11 0 21 8 17 26H5L1 8Z" style="fill:#B48BEA"/><path d="M11 0 7 9l4 17 4-17Z" fill="#fff" fill-opacity=".3"/></svg><span>Un proyecto realizado por los docentes del <b>CEI Javier de Viana</b>, Artigas, Uruguay.</span></p>
-    <p>Información reunida entre octubre y noviembre de 2026 a partir de fuentes públicas: Intendencia de Artigas, ministerios de Turismo y Ambiente, Presidencia, AFE, prensa local y Wikipedia. Cada ficha lista sus fuentes. Horarios, tarifas y accesos pueden cambiar: confirmá antes de viajar.</p>
-    <p>Las fotos provienen de Wikimedia Commons y tienen licencias libres; cada ficha indica autor y licencia. Las marcadas como «foto de referencia» muestran el entorno o el tema del lugar, no el lugar exacto. El mapa usa un contorno simplificado del departamento; en zonas urbanas algunas ubicaciones son aproximadas y así se indica en cada ficha.</p>
+    <p>Información reunida entre octubre y noviembre de 2026 a partir de fuentes públicas (Intendencia de Artigas, ministerios, Presidencia, AFE, Museos del Uruguay, Udelar, prensa local y Wikipedia) y de materiales aportados por docentes del CEI. Cada ficha lista sus fuentes. Horarios, tarifas y accesos pueden cambiar: confirmá antes de viajar.</p>
+    <p>La mayoría de las fotos provienen de Wikimedia Commons y tienen licencias libres; cada ficha indica su origen, autor y licencia. Las marcadas como «foto de referencia» muestran el entorno o el tema del lugar, no el lugar exacto. El mapa usa un contorno simplificado del departamento; en zonas urbanas algunas ubicaciones son aproximadas y así se indica en cada ficha.</p>
   </div>
 </footer>
 
@@ -820,6 +820,41 @@ const PLACES = [
   ]
 },
 {
+  id: "cueva-del-indio", cat: "his", name: "Cueva del Indio",
+  lat: -30.125, lon: -56.83, approx: true,
+  where: "Estancia El Indio, a unos 20 km de Topador",
+  short: "Un refugio de piedra a orillas del Cuareim, ligado a la memoria de los charrúas que sobrevivieron a Salsipuedes.",
+  body: [
+    {h: "Un refugio junto al Cuareim", p: [
+      "La Cueva del Indio está en la estancia «El Indio», también conocida como Cabaña «El Indio», sobre la costa del río Cuareim y a unos 20 kilómetros del pueblo de Topador. Según la leyenda, allí se refugiaron charrúas que sobrevivieron a la masacre de Salsipuedes.",
+      "Hoy el lugar se puede visitar, y en los alrededores todavía se encuentran utensilios."
+    ]},
+    {h: "La historia detrás del lugar", p: [
+      "El 11 de abril de 1831, a orillas del arroyo Salsipuedes Grande, el ejército uruguayo atacó a los charrúas. La campaña la encabezó el presidente Fructuoso Rivera, y la tropa estaba al mando de su sobrino, Bernabé Rivera. Unos 300 charrúas fueron tomados prisioneros, llevados a Montevideo y vendidos como esclavos. Se recuerda como el hecho que exterminó a los charrúas como pueblo.",
+      "En junio de 1832, un grupo de charrúas sobrevivientes enfrentó a Bernabé Rivera en Yacaré Cururú, hoy departamento de Artigas, y le dio muerte. Las versiones difieren: el parte militar dice que murió en el combate, mientras que el relato charrúa y la tradición local cuentan que fue capturado y ejecutado días después."
+    ]},
+    {h: "El Árbol de los Sacrificios", p: [
+      "En la misma estancia están los talas conocidos como «Árbol de los Sacrificios» o «Talas del Sacrificio», a orillas del Cuareim. Según la tradición local, allí los charrúas ejecutaron a Bernabé Rivera después de tenerlo varios días prisionero."
+    ]},
+    {h: "Visitas", list: [
+      "La entrada es gratuita y la visita se coordina con el propietario, Gustavo Riani.",
+      "Puede cobrarse un costo por el traslado.",
+      "En el Día del Patrimonio, el primer fin de semana de octubre, se hacen visitas guiadas. En 2026 fueron el domingo 4 de octubre, de 9 a 16 h, con los profesores Rodrigo Rocha y Enzo Román."
+    ]}
+  ],
+  curious: "Cerca de allí, la localidad de Bernabé Rivera lleva ese nombre desde 1956. Antes la llamaban «Allende» o «Yacaré».",
+  facts: [["Ubicación", "A unos 20 km de Topador, junto al Cuareim"], ["Visitas", "Gratuitas, coordinadas con el propietario"], ["Propietario", "Gustavo Riani"], ["Contacto", "099 772 192"]],
+  howto: "La estancia está a unos 20 kilómetros de Topador, sobre la costa del Cuareim. A Topador se llega por un camino de unos 20 km que sale de la Ruta 30. Antes de ir, coordiná la visita con Gustavo Riani al 099 772 192.",
+  sources: [
+    ["Lámina informativa «Cabaña El Indio», aportada por docentes del CEI Javier de Viana", ""],
+    ["Ministerio de Educación y Cultura: Día del Patrimonio 2026 en Artigas", "https://www.gub.uy/ministerio-educacion-cultura/patrimonio-uruguay/guia-actividades-dia-del-patrimonio-2026/region-norte/artigas"],
+    ["Wikipedia: Massacre of Salsipuedes", "https://en.wikipedia.org/wiki/Massacre_of_Salsipuedes"],
+    ["Chancharrua: Yacaré Cururú, la justicia charrúa", "https://chancharrua.wordpress.com/2012/06/24/yacare-cururu-la-justicia-charrua/"],
+    ["Wikipedia: Topador", "https://en.wikipedia.org/wiki/Topador"],
+    ["Wikipedia: Bernabé Rivera (localidad)", "https://en.wikipedia.org/wiki/Bernab%C3%A9_Rivera"]
+  ]
+},
+{
   id: "javier-de-viana", cat: "his", name: "Estación ferroviaria de Javier de Viana",
   lat: -30.4328, lon: -56.7872,
   where: "Javier de Viana, kilómetro 100 de la Ruta 30",
@@ -898,8 +933,36 @@ const PLACES = [
   ]
 },
 {
+  id: "museo-historico", cat: "his", name: "Museo Histórico Departamental",
+  lat: -30.4045, lon: -56.4695,
+  where: "José Pedro Varela 278, esquina Av. Lecueder, ciudad de Artigas",
+  short: "Fósiles de megafauna, objetos y documentos de la historia del departamento y muestras de arte, con entrada gratuita.",
+  body: [
+    {h: "Un viaje por nuestra historia", p: [
+      "El museo depende de la Intendencia de Artigas, a través de la Dirección de Cultura, Turismo y Deporte. Sus salas recorren la historia, la arqueología y la paleontología del departamento, con exposiciones permanentes y temporales."
+    ]},
+    {h: "Qué vas a encontrar", list: [
+      "Paleontología: restos de la megafauna del Pleistoceno, como el Glossotherium y el Toxodon.",
+      "Historia y arqueología: objetos y documentos que cuentan el proceso histórico y cultural del departamento.",
+      "Muestras de arte: exposiciones temporales de artistas locales y nacionales, como Carlos Páez Vilaró.",
+      "Charlas y visitas guiadas, por ejemplo en el Día del Patrimonio."
+    ]},
+    {h: "Abierto a todos", p: [
+      "La entrada es gratuita y el edificio tiene rampas de acceso."
+    ]}
+  ],
+  curious: "En el Día del Patrimonio 2026, el museo abrió sus puertas con la propuesta «50 años preservando nuestras raíces».",
+  facts: [["Horario", "Lunes a viernes, de 9 a 18 h"], ["Entrada", "Gratuita"], ["Teléfono", "1884, interno 3130"], ["Depende de", "Intendencia de Artigas"]],
+  howto: "Está en la calle José Pedro Varela 278, esquina avenida Carlos Lecueder, en el centro de Artigas, junto a la Plaza Batlle. Abre de lunes a viernes de 9 a 18 h. Para visitas de grupos, consultá al 1884, interno 3130.",
+  sources: [
+    ["Lámina informativa del Museo Histórico Departamental, aportada por docentes del CEI Javier de Viana", ""],
+    ["Ministerio de Educación y Cultura: Día del Patrimonio 2026 en Artigas", "https://www.gub.uy/ministerio-educacion-cultura/patrimonio-uruguay/guia-actividades-dia-del-patrimonio-2026/region-norte/artigas"],
+    ["Ministerio de Educación y Cultura: Día del Patrimonio 2025 en Artigas", "https://www.gub.uy/ministerio-educacion-cultura/patrimonio-uruguay/guia-actividades-dia-del-patrimonio-2025/region-norte/artigas"]
+  ]
+},
+{
   id: "carnaval-de-artigas", cat: "his", name: "Carnaval de Artigas",
-  lat: -30.4040, lon: -56.4692, approx: true,
+  lat: -30.4021, lon: -56.4669, approx: true,
   where: "Avenida Carlos Lecueder, ciudad de Artigas",
   short: "Escuelas de samba, carros alegóricos y baterías desfilan por la avenida principal, en una fiesta inspirada en el carnaval de Río de Janeiro.",
   body: [
@@ -1052,7 +1115,8 @@ const LABELS = {
   "baltasar-brum": "Estación Baltasar Brum", "codo-del-cuareim": "Codo del Cuareim", "javier-de-viana": "Estación Javier de Viana",
   "centro-artigas": "Plaza Artigas", "museo-piedra-preciosa": "Museo de la Piedra Preciosa", "paseo-7-de-setiembre": "Paseo 7 de Setiembre",
   "piedra-pintada": "Piedra Pintada", "los-catalanes": "Minas de Los Catalanes",
-  "parque-rivera": "Parque Rivera", "museo-santa-rosa": "Museo Santa Rosa", "jefatura-de-policia": "Jefatura de Policía", "carnaval-de-artigas": "Carnaval"
+  "parque-rivera": "Parque Rivera", "museo-santa-rosa": "Museo Santa Rosa", "jefatura-de-policia": "Jefatura de Policía", "carnaval-de-artigas": "Carnaval",
+  "cueva-del-indio": "Cueva del Indio", "museo-historico": "Museo Histórico"
 };
 /* FOTOS — la primera de cada lugar es la portada (mapa, postal y ficha); todas forman la galería.
    Para sumar una foto propia: copiala a img/ y agregá una línea al lugar, por ejemplo:
@@ -1153,6 +1217,17 @@ const PHOTOS = {
     {"src": "img/carnaval-de-artigas-6.jpg", "alt": "Un ala de bailarines con fantasías blancas", "by": "Gerardo c", "lic": "CC0", "page": "https://commons.wikimedia.org/wiki/File:W_004.jpg"},
     {"src": "img/carnaval-de-artigas-7.jpg", "alt": "Una fantasía con alas negras sobre la avenida", "by": "Gerardo c", "lic": "CC0", "page": "https://commons.wikimedia.org/wiki/File:W_011.jpg"},
     {"src": "img/carnaval-de-artigas-8.jpg", "alt": "Hinchas de la escuela Académicos en 2007", "by": "Da dinges", "lic": "Public domain", "page": "https://commons.wikimedia.org/wiki/File:Los_Academicos_1.JPG"}
+  ],
+  "cueva-del-indio": [
+    {"src": "img/cueva-del-indio-1.jpg", "alt": "La Cueva del Indio, entre piedras y monte nativo", "by": "Lámina informativa «Cabaña El Indio»", "lic": "", "page": ""},
+    {"src": "img/cueva-del-indio-2.jpg", "alt": "Los Talas del Sacrificio, a orillas del río Cuareim", "by": "Lámina informativa «Cabaña El Indio»", "lic": "", "page": ""},
+    {"src": "img/cueva-del-indio-3.jpg", "alt": "El Árbol de los Sacrificios", "by": "Lámina informativa «Cabaña El Indio»", "lic": "", "page": ""}
+  ],
+  "museo-historico": [
+    {"src": "img/museo-historico-1.jpg", "alt": "Fachada del Museo Histórico Departamental", "by": "Lámina informativa del museo", "lic": "", "page": ""},
+    {"src": "img/museo-historico-2.jpg", "alt": "Una de las salas del museo", "by": "Lámina informativa del museo", "lic": "", "page": ""},
+    {"src": "img/museo-historico-3.jpg", "alt": "Fósiles de megafauna: Glossotherium y Toxodon", "by": "Lámina informativa del museo", "lic": "", "page": ""},
+    {"src": "img/museo-historico-4.jpg", "alt": "Una maqueta con soldados a caballo, en una de las salas", "by": "Lámina informativa del museo", "lic": "", "page": ""}
   ]
 };
 
@@ -1488,7 +1563,7 @@ function renderCards() { $("#cards").innerHTML = visiblePlaces().map(p => cardHT
 /* ---------- detail page ---------- */
 function locatorSVG(p) {
   const [x, y] = p.xy, [ax, ay] = proj(-30.3995, -56.4650);
-  return `<svg viewBox="0 0 ${GEO.w} ${GEO.h}" role="img" aria-label="Ubicación de ${esc(p.name)} en el departamento de Artigas"><rect class="bgfill" width="${GEO.w}" height="${GEO.h}"/><path class="dept" d="${GEO.artigas}" style="stroke-width:2"/><path class="river river-glow" d="${GEO.uruguay}" stroke-width="16"/><path class="river river-line" d="${GEO.uruguay}" stroke-width="7"/><path class="river river-line" d="${GEO.cuareim}" stroke-width="3.5"/>${["centro-artigas", "jefatura-de-policia", "carnaval-de-artigas", "museo-piedra-preciosa", "paseo-7-de-setiembre"].includes(p.id) ? "" : `<g class="lbl lbl-town" transform="translate(${ax} ${ay}) scale(2)"><circle r="3.2"/><text x="-10" y="20" text-anchor="end">Artigas</text></g>`}<g class="cat-${p.cat}"><circle class="loc-ring" cx="${x}" cy="${y}" r="40"/><g transform="translate(${x} ${y}) scale(2.6)">${shapeSVG(CATS[p.cat].shape, 8, "loc-pin")}</g></g></svg>`;
+  return `<svg viewBox="0 0 ${GEO.w} ${GEO.h}" role="img" aria-label="Ubicación de ${esc(p.name)} en el departamento de Artigas"><rect class="bgfill" width="${GEO.w}" height="${GEO.h}"/><path class="dept" d="${GEO.artigas}" style="stroke-width:2"/><path class="river river-glow" d="${GEO.uruguay}" stroke-width="16"/><path class="river river-line" d="${GEO.uruguay}" stroke-width="7"/><path class="river river-line" d="${GEO.cuareim}" stroke-width="3.5"/>${["centro-artigas", "jefatura-de-policia", "museo-historico", "carnaval-de-artigas", "museo-piedra-preciosa", "paseo-7-de-setiembre"].includes(p.id) ? "" : `<g class="lbl lbl-town" transform="translate(${ax} ${ay}) scale(2)"><circle r="3.2"/><text x="-10" y="20" text-anchor="end">Artigas</text></g>`}<g class="cat-${p.cat}"><circle class="loc-ring" cx="${x}" cy="${y}" r="40"/><g transform="translate(${x} ${y}) scale(2.6)">${shapeSVG(CATS[p.cat].shape, 8, "loc-pin")}</g></g></svg>`;
 }
 function renderDetail(p) {
   const i = PLACES.indexOf(p), prev = PLACES[(i - 1 + PLACES.length) % PLACES.length], next = PLACES[(i + 1) % PLACES.length];
@@ -1517,7 +1592,7 @@ function renderDetail(p) {
           <section class="facts"><h2>Datos útiles</h2><dl>${p.facts.map(([k, v]) => `<dt>${esc(k)}</dt><dd>${esc(v)}</dd>`).join("")}</dl></section>
           <section class="howto"><h2>Cómo llegar</h2><p>${esc(p.howto)}</p></section>
           ${photoCred}
-          <section class="sources"><h2>Fuentes</h2><ul>${p.sources.map(([t, u]) => `<li><a href="${esc(u)}" target="_blank" rel="noopener">${esc(t)}</a></li>`).join("")}</ul></section>
+          <section class="sources"><h2>Fuentes</h2><ul>${p.sources.map(([t, u]) => `<li>${u ? `<a href="${esc(u)}" target="_blank" rel="noopener">${esc(t)}</a>` : esc(t)}</li>`).join("")}</ul></section>
         </aside>
       </div>
       <section class="more" aria-labelledby="more-title">
