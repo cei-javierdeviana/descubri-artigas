@@ -1,0 +1,1582 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 22 26'%3E%3Cpath d='M11 0 21 8 17 26H5L1 8Z' fill='%237B45B6'/%3E%3Cpath d='M11 0 7 9l4 17 4-17Z' fill='%23fff' fill-opacity='.3'/%3E%3C/svg%3E">
+<style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;font:14px/1.4 system-ui,-apple-system,'Segoe UI',Roboto,sans-serif}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>Descubrí Artigas</title>
+<meta name="description" content="Mapa interactivo con lugares para descubrir en el departamento de Artigas, Uruguay.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800;900&family=IBM+Plex+Mono:wght@400;500&family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,600;1,7..72,400&display=swap">
+<style>
+/* Layout: guía de viaje en afiches — portada oscura con postales en abanico, mapa del departamento como pieza central, grilla de postales; cada lugar abre una ficha con portada a sangre */
+:root{
+  --bg:#F3F1F4; --surface:#FFFFFF; --ink:#1C1A22; --muted:#5D5868; --line:#DCD8E2;
+  --map-bg:#E4E1E8; --land:#FAF8F0; --land-2:#EFE9D8; --land-edge:#8A8396; --dot:#DCD5C4; --river:#3B79B4; --river-glow:#A9CBEA; --grid:#C9C4D2;
+  --accent:#6A3D9F; --accent-ink:#FFFFFF;
+  --c-nat:#2D7A4C; --c-ame:#7B45B6; --c-his:#B24F29; --c-rio:#2C70B0;
+  --shadow:0 12px 34px rgba(28,20,44,.18); --shadow-sm:0 4px 14px rgba(28,20,44,.12);
+  /* banda de portada: una sola apariencia oscura en ambos temas */
+  --hero-bg:#1E1529; --hero-ink:#F6F1FA; --hero-muted:#BDB1CC; --hero-accent:#F3A65B; --hero-line:#3A2C4A;
+  --font-display:"Big Shoulders Display","Arial Narrow",Impact,sans-serif;
+  --font-body:"Literata",Georgia,"Times New Roman",serif;
+  --font-mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#131217; --surface:#1C1A21; --ink:#ECE9F1; --muted:#A39DAE; --line:#322E3A;
+    --map-bg:#17151B; --land:#26232C; --land-2:#211E26; --land-edge:#706A7C; --dot:#36323E; --river:#6CA6DA; --river-glow:#22374C; --grid:#2E2A35;
+    --accent:#B691E8; --accent-ink:#17121D;
+    --c-nat:#5EBC87; --c-ame:#B48BEA; --c-his:#E5865F; --c-rio:#6CA6DA;
+    --shadow:0 12px 34px rgba(0,0,0,.55); --shadow-sm:0 4px 14px rgba(0,0,0,.4);
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#131217; --surface:#1C1A21; --ink:#ECE9F1; --muted:#A39DAE; --line:#322E3A;
+  --map-bg:#17151B; --land:#26232C; --land-2:#211E26; --land-edge:#706A7C; --dot:#36323E; --river:#6CA6DA; --river-glow:#22374C; --grid:#2E2A35;
+  --accent:#B691E8; --accent-ink:#17121D;
+  --c-nat:#5EBC87; --c-ame:#B48BEA; --c-his:#E5865F; --c-rio:#6CA6DA;
+  --shadow:0 12px 34px rgba(0,0,0,.55); --shadow-sm:0 4px 14px rgba(0,0,0,.4);
+  color-scheme:dark;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:var(--font-body);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:var(--accent)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.wrap{max-width:1240px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.cat-nat{--cat:var(--c-nat)} .cat-ame{--cat:var(--c-ame)} .cat-his{--cat:var(--c-his)} .cat-rio{--cat:var(--c-rio)}
+.ico{display:inline-block;width:14px;height:14px;flex:none;vertical-align:-2px}
+.ico *{fill:var(--cat)}
+.poster,.photo{display:block;width:100%;height:100%;object-fit:cover}
+.btn{display:inline-flex;align-items:center;gap:8px;min-height:42px;padding:9px 16px;border-radius:999px;background:var(--accent);color:var(--accent-ink);font-family:var(--font-mono);font-size:13.5px;font-weight:500;text-decoration:none;border:0;cursor:pointer}
+.btn-quiet{background:transparent;color:var(--ink);border:1px solid var(--line)}
+
+/* ---------- header ---------- */
+.top{position:absolute;top:0;left:0;right:0;z-index:10}
+.top-in{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:6px 24px;padding-block:16px}
+.brand{display:inline-flex;align-items:center;gap:10px;text-decoration:none;color:var(--hero-ink)}
+.brand svg{width:22px;height:26px}
+.brand span{font-family:var(--font-display);font-weight:800;font-size:24px;letter-spacing:.05em;text-transform:uppercase;line-height:1}
+.top nav{display:flex;gap:18px;font-family:var(--font-mono);font-size:13px}
+.top nav a{color:var(--hero-muted);text-decoration:none}
+.top nav a:hover{color:var(--hero-ink)}
+body.on-detail .top{position:static;background:var(--hero-bg)}
+
+/* ---------- hero ---------- */
+.hero{position:relative;overflow:hidden;background:var(--hero-bg);color:var(--hero-ink)}
+.hero-topo{position:absolute;inset:0;width:100%;height:100%;stroke:var(--hero-line);fill:none;opacity:.9;pointer-events:none}
+.hero-in{position:relative;display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:clamp(28px,4vw,64px);align-items:center;padding-block:clamp(96px,11vw,140px) clamp(48px,7vw,96px)}
+@media (max-width:880px){.hero-in{grid-template-columns:minmax(0,1fr)}}
+.kicker{margin:0;font-family:var(--font-mono);font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--hero-accent)}
+.hero h1{margin:14px 0 0;font-family:var(--font-display);font-weight:900;font-size:clamp(58px,9.4vw,132px);line-height:.86;text-transform:uppercase;letter-spacing:.005em;text-wrap:balance}
+.hero h1 em{font-style:normal;color:transparent;-webkit-text-stroke:2px var(--hero-ink);display:block}
+@supports not (-webkit-text-stroke:2px #fff){.hero h1 em{color:var(--hero-accent)}}
+.hero .lead{margin:20px 0 0;max-width:46ch;font-size:clamp(17px,1.7vw,19px);color:var(--hero-ink);opacity:.9}
+.hero-cta{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px}
+.hero .btn{background:var(--hero-accent);color:#24160A}
+.hero .btn-quiet{color:var(--hero-ink);border-color:#4B3B5C;background:transparent}
+.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin:34px 0 0;max-width:560px;border-top:1px solid var(--hero-line);padding-top:18px}
+.stats div{min-width:0}
+.stats dt{font-family:var(--font-display);font-weight:900;font-size:clamp(34px,4vw,48px);line-height:1;color:var(--hero-ink);font-variant-numeric:tabular-nums}
+.stats dd{margin:6px 0 0;font-size:13.5px;line-height:1.35;color:var(--hero-muted)}
+.fan{position:relative;height:clamp(320px,38vw,480px);max-width:100%}
+.fan .pc{position:absolute;width:64%;aspect-ratio:4/3;background:#FBF8F1;padding:10px 10px 34px;box-shadow:0 18px 40px rgba(0,0,0,.45);text-decoration:none;color:#2A2230;transition:transform .35s ease}
+.fan .pc .pc-img{width:100%;height:100%;overflow:hidden;background:#ddd}
+.fan .pc span{position:absolute;left:12px;right:12px;bottom:8px;font-family:var(--font-display);font-weight:800;font-size:17px;text-transform:uppercase;letter-spacing:.04em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.fan .pc:nth-child(1){left:0;top:14%;transform:rotate(-8deg)}
+.fan .pc:nth-child(2){left:30%;top:0;transform:rotate(5deg);z-index:2}
+.fan .pc:nth-child(3){left:16%;top:40%;transform:rotate(-2deg);z-index:3}
+.fan .pc:hover{transform:rotate(0) translateY(-6px) scale(1.03);z-index:4}
+@media (max-width:880px){.fan{height:clamp(260px,62vw,420px)}}
+@media (prefers-reduced-motion: reduce){.fan .pc{transition:none}}
+
+/* ---------- section heads ---------- */
+.sec{padding-block:clamp(40px,6vw,72px) 8px}
+.sec-head{display:flex;flex-wrap:wrap;align-items:end;justify-content:space-between;gap:10px 28px;margin-bottom:18px}
+.sec-head h2{margin:0;font-family:var(--font-display);font-weight:900;font-size:clamp(40px,5.6vw,72px);line-height:.9;text-transform:uppercase;letter-spacing:.01em}
+.sec-head p{margin:0;max-width:52ch;color:var(--muted)}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
+.chip{display:inline-flex;align-items:center;gap:8px;min-height:38px;padding:6px 14px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--ink);font-family:var(--font-mono);font-size:13px;cursor:pointer}
+.chip .n{color:var(--muted);font-size:12px}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--surface);border-color:var(--ink)}
+.chip[aria-pressed="true"] .n{color:inherit;opacity:.7}
+.chip[aria-pressed="true"] .ico *{stroke:var(--surface);stroke-width:2}
+
+/* ---------- map ---------- */
+.atlas{display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:20px;align-items:start}
+@media (max-width:920px){.atlas{grid-template-columns:minmax(0,1fr)}}
+.map-wrap{position:relative;aspect-ratio:968/595;background:var(--map-bg);border:1px solid var(--line);border-radius:18px;overflow:hidden;touch-action:none;-webkit-user-select:none;user-select:none;box-shadow:var(--shadow-sm)}
+@media (max-width:700px){.map-wrap{aspect-ratio:auto;height:min(70vh,500px)}}
+#map{position:absolute;inset:0;width:100%;height:100%;display:block;cursor:grab}
+#map.dragging{cursor:grabbing}
+.bgfill{fill:var(--map-bg)}
+.lg1{stop-color:var(--land)} .lg2{stop-color:var(--land-2)}
+.dept{fill:url(#landgrad);stroke:var(--land-edge);stroke-width:1.3;stroke-linejoin:round}
+.dept-dots{fill:url(#dots)}
+#dots circle{fill:var(--dot)}
+.river{fill:none;stroke-linecap:round;stroke-linejoin:round}
+.river-glow{stroke:var(--river-glow)}
+.river-line{stroke:var(--river)}
+.gridline{stroke:var(--grid);stroke-width:1;stroke-dasharray:3 5;fill:none}
+.lbl text{paint-order:stroke;stroke-linejoin:round}
+.lbl-country text{font-family:var(--font-display);font-weight:800;font-size:18px;letter-spacing:.34em;fill:var(--muted);stroke:var(--map-bg);stroke-width:4px}
+.lbl-dep text{font-family:var(--font-display);font-weight:800;font-size:14px;letter-spacing:.28em;fill:var(--muted);stroke:var(--map-bg);stroke-width:4px}
+.lbl-town circle{fill:var(--ink);stroke:var(--land);stroke-width:2}
+.lbl-town text{font-family:var(--font-body);font-style:italic;font-size:14px;fill:var(--ink);stroke:var(--land);stroke-width:4px}
+.lbl-river text{font-family:var(--font-body);font-style:italic;font-size:13.5px;fill:var(--river);stroke:var(--map-bg);stroke-width:4px;letter-spacing:.04em}
+.lbl-grid text{font-family:var(--font-mono);font-size:10px;fill:var(--muted);stroke:var(--map-bg);stroke-width:3px}
+.pin{cursor:pointer;outline:none}
+.pin .hit{fill:transparent}
+.pin .halo{fill:none;stroke:transparent;stroke-width:3}
+.pin .shape{fill:var(--cat);stroke:var(--surface);stroke-width:2.6;stroke-linejoin:round}
+.pin:hover .shape{stroke-width:3.4}
+.pin:focus-visible .halo,.pin.is-sel .halo{stroke:var(--cat)}
+.pin .pulse{fill:var(--cat);opacity:0;transform-box:fill-box;transform-origin:center}
+.pin.is-sel .pulse{animation:pulse 1.8s ease-out infinite}
+@keyframes pulse{0%{opacity:.5;transform:scale(1)}100%{opacity:0;transform:scale(2.6)}}
+@media (prefers-reduced-motion: reduce){.pin.is-sel .pulse{animation:none}}
+.pin-label{font-family:var(--font-mono);font-size:11.5px;font-weight:500;fill:var(--ink);paint-order:stroke;stroke:var(--land);stroke-width:4px;stroke-linejoin:round}
+.cluster .disc{fill:var(--ink);stroke:var(--surface);stroke-width:2.8}
+.cluster text{fill:var(--surface);font-family:var(--font-mono);font-size:12.5px;font-weight:500}
+.cluster:focus-visible .halo{stroke:var(--accent)}
+.map-ctrl{position:absolute;top:12px;right:calc(12px + env(safe-area-inset-right,0px));display:flex;flex-direction:column;gap:6px;z-index:4}
+.map-ctrl button{width:40px;height:40px;border-radius:12px;border:1px solid var(--line);background:var(--surface);color:var(--ink);font-family:var(--font-mono);font-size:18px;line-height:1;cursor:pointer;display:grid;place-items:center;box-shadow:var(--shadow-sm)}
+.map-ctrl button svg{width:16px;height:16px;stroke:var(--ink);fill:none;stroke-width:2}
+.north{position:absolute;top:12px;left:14px;display:grid;justify-items:center;gap:2px;font-family:var(--font-mono);font-size:11px;color:var(--muted);pointer-events:none}
+.north svg{width:14px;height:18px}
+.north svg path{fill:var(--muted)}
+.scale{position:absolute;left:14px;bottom:12px;font-family:var(--font-mono);font-size:11px;color:var(--muted);pointer-events:none}
+.scale .bar{height:6px;border:1.5px solid var(--muted);border-top:none;margin-top:3px}
+.hint{position:absolute;right:14px;bottom:12px;margin:0;font-family:var(--font-mono);font-size:11px;color:var(--muted);pointer-events:none}
+@media (max-width:560px){.hint{display:none}}
+
+.popup{position:absolute;z-index:6;width:320px;max-width:calc(100% - 24px);background:var(--surface);color:var(--ink);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);overflow:hidden}
+.popup.docked{left:10px!important;right:10px;bottom:10px;top:auto!important;width:auto;max-width:none}
+.pop-img{position:relative;aspect-ratio:2/1;overflow:hidden;background:var(--map-bg)}
+.popup.docked .pop-img{aspect-ratio:5/2}
+.pop-tag{position:absolute;left:10px;bottom:10px;display:inline-flex;align-items:center;gap:6px;padding:4px 9px;border-radius:999px;background:rgba(20,14,26,.72);color:#fff;font-family:var(--font-mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase}
+.pop-tag .ico *{stroke:#fff;stroke-width:1.5}
+.pop-in{padding:12px 16px 16px}
+.pop-close{position:absolute;top:8px;right:8px;z-index:2;width:32px;height:32px;border:0;border-radius:999px;background:rgba(20,14,26,.6);color:#fff;font-size:19px;line-height:1;cursor:pointer}
+.pop-name{margin:0;font-family:var(--font-display);font-weight:900;font-size:28px;line-height:.95;text-transform:uppercase;letter-spacing:.01em;text-wrap:balance}
+.pop-where{margin:6px 0 0;font-size:13px;color:var(--muted);font-style:italic}
+.pop-short{margin:8px 0 12px;font-size:15px;line-height:1.5}
+.pop-list{list-style:none;margin:8px 0 12px;padding:0;display:grid;gap:6px}
+.pop-list button{width:100%;display:flex;align-items:center;gap:10px;text-align:left;padding:6px;border-radius:10px;border:1px solid var(--line);background:var(--surface);color:var(--ink);font-family:var(--font-body);font-size:15px;cursor:pointer}
+.pop-list button:hover{border-color:var(--accent)}
+.pop-list .mini{width:58px;height:40px;border-radius:6px;overflow:hidden;flex:none}
+.pop-head{margin:0 0 4px;padding:14px 16px 0;font-family:var(--font-mono);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+
+.index{background:var(--surface);border:1px solid var(--line);border-radius:18px;overflow:hidden;display:flex;flex-direction:column;max-height:640px;box-shadow:var(--shadow-sm)}
+.index-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;padding:14px 16px 10px;border-bottom:1px solid var(--line)}
+.index-head h3{margin:0;font-family:var(--font-display);font-weight:900;font-size:24px;text-transform:uppercase;letter-spacing:.03em}
+.index-head span{font-family:var(--font-mono);font-size:11px;color:var(--muted);letter-spacing:.06em;text-transform:uppercase}
+.places{list-style:none;margin:0;padding:6px;overflow:auto}
+.places li{display:flex;align-items:stretch;border-radius:12px}
+.places li.is-sel{background:var(--bg)}
+.item{flex:1;min-width:0;display:flex;align-items:center;gap:11px;padding:8px;border:0;background:transparent;color:var(--ink);text-align:left;cursor:pointer;border-radius:12px;font:inherit}
+.item:hover{background:var(--bg)}
+.item .thumb{width:54px;height:54px;border-radius:10px;overflow:hidden;flex:none;position:relative}
+.item .thumb .num{position:absolute;left:4px;top:3px;font-family:var(--font-mono);font-size:10px;color:#fff;text-shadow:0 1px 3px rgba(0,0,0,.6)}
+.item-txt{min-width:0;display:grid}
+.item-name{font-size:15px;font-weight:600;line-height:1.25}
+.item-where{display:flex;align-items:center;gap:6px;font-size:12.5px;color:var(--muted);line-height:1.35}
+.item-go{flex:none;display:grid;place-items:center;width:38px;border-radius:12px;color:var(--muted);text-decoration:none;font-family:var(--font-mono)}
+.item-go:hover{color:var(--accent);background:var(--bg)}
+
+/* ---------- postales ---------- */
+.cards{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:20px}
+.card{position:relative;display:flex;flex-direction:column;height:100%;background:var(--surface);border:1px solid var(--line);border-radius:18px;overflow:hidden;text-decoration:none;color:var(--ink);box-shadow:var(--shadow-sm);transition:transform .25s ease,box-shadow .25s ease}
+.card:hover{transform:translateY(-4px);box-shadow:var(--shadow)}
+.card-img{position:relative;aspect-ratio:4/3;overflow:hidden;margin:0}
+.card-img .poster,.card-img .photo{transition:transform .5s ease}
+.card:hover .card-img .poster,.card:hover .card-img .photo{transform:scale(1.05)}
+.card-num{position:absolute;top:10px;left:12px;font-family:var(--font-display);font-weight:900;font-size:30px;line-height:1;color:#fff;text-shadow:0 2px 10px rgba(0,0,0,.45)}
+.card-txt{display:grid;gap:4px;padding:14px 16px 18px}
+.card-cat{display:flex;align-items:center;gap:7px;font-family:var(--font-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.card-name{font-family:var(--font-display);font-weight:900;font-size:26px;line-height:.95;text-transform:uppercase;letter-spacing:.01em;text-wrap:balance}
+.card-where{font-size:14px;color:var(--muted);font-style:italic;line-height:1.4}
+.card::after{content:"";position:absolute;left:0;right:0;bottom:0;height:4px;background:var(--cat)}
+@media (prefers-reduced-motion: reduce){.card,.card-img .poster,.card-img .photo{transition:none}}
+
+/* ---------- detail ---------- */
+.d-cover{position:relative;min-height:clamp(440px,74vh,720px);display:flex;flex-direction:column;justify-content:flex-end;color:#fff;overflow:hidden;background:#221A2C}
+.d-cover-img{position:absolute;inset:0}
+.d-cover-shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(14,10,20,.35) 0%,rgba(14,10,20,0) 30%,rgba(14,10,20,.15) 55%,rgba(14,10,20,.82) 100%)}
+.d-cover-in{position:relative;width:100%;padding-block:84px clamp(14px,2.5vw,24px)}
+.d-cover-top{position:absolute;top:0;left:0;right:0;padding-top:18px;z-index:2}
+.back{display:inline-flex;align-items:center;gap:8px;min-height:40px;padding:6px 14px;border-radius:999px;background:rgba(20,14,26,.55);font-family:var(--font-mono);font-size:13px;color:#fff;text-decoration:none}
+.back:hover{background:rgba(20,14,26,.8)}
+.eyebrow{margin:0;display:flex;align-items:center;gap:8px;font-family:var(--font-mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#fff}
+.eyebrow .ico *{stroke:#fff;stroke-width:1.5}
+.d-cover h1{margin:10px 0 0;font-family:var(--font-display);font-weight:900;font-size:clamp(52px,9.6vw,128px);line-height:.86;text-transform:uppercase;letter-spacing:.005em;text-wrap:balance;max-width:16ch;text-shadow:0 4px 30px rgba(0,0,0,.35)}
+.d-lead{margin:14px 0 0;font-size:clamp(17px,2vw,21px);line-height:1.45;max-width:46ch}
+.d-meta{display:flex;flex-wrap:wrap;gap:6px 18px;margin:12px 0 0;font-family:var(--font-mono);font-size:12.5px;color:rgba(255,255,255,.85)}
+.credit{position:relative;align-self:flex-end;margin:0 max(16px,env(safe-area-inset-right,0px)) 12px max(16px,env(safe-area-inset-left,0px));font-family:var(--font-mono);font-size:10.5px;color:rgba(255,255,255,.75)}
+.d-body{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:clamp(24px,4vw,56px);padding-block:clamp(28px,4vw,48px) 0}
+@media (max-width:900px){.d-body{grid-template-columns:minmax(0,1fr)}}
+.d-main{min-width:0;display:grid;gap:32px;align-content:start}
+.d-main section{display:grid;gap:10px}
+.d-main h2{margin:0;font-family:var(--font-display);font-weight:900;font-size:clamp(30px,3.4vw,40px);line-height:.95;text-transform:uppercase;letter-spacing:.01em;text-wrap:balance}
+.d-main h2::before{content:"";display:block;width:44px;height:5px;background:var(--cat);margin-bottom:10px;border-radius:3px}
+.d-main p{margin:0;max-width:66ch;font-size:17px}
+.d-main ul{margin:0;padding:0;list-style:none;display:grid;gap:9px;max-width:66ch}
+.d-main li{position:relative;padding-left:22px;font-size:16.5px}
+.d-main li::before{content:"";position:absolute;left:2px;top:.62em;width:8px;height:8px;background:var(--cat);transform:rotate(45deg)}
+.curious{position:relative;display:grid;gap:8px;max-width:66ch;padding:22px 24px;border-radius:18px;background:var(--surface);border:1px solid var(--line);background:color-mix(in srgb,var(--cat) 10%,var(--surface))}
+.curious .lab{display:inline-flex;align-items:center;gap:8px;font-family:var(--font-mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink)}
+.curious p{font-size:clamp(19px,2.2vw,23px);font-style:italic;line-height:1.4}
+.gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px}
+.gallery button{display:block;width:100%;padding:0;border:0;border-radius:12px;overflow:hidden;aspect-ratio:4/3;cursor:zoom-in;background:var(--map-bg)}
+.d-side{min-width:0;display:grid;gap:26px;align-content:start}
+.d-side h2{margin:0 0 10px;font-family:var(--font-mono);font-size:11.5px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.locator{margin:0;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:var(--map-bg)}
+.locator svg{display:block;width:100%;height:auto}
+.locator figcaption{padding:8px 12px;font-family:var(--font-mono);font-size:11.5px;color:var(--muted);border-top:1px solid var(--line);background:var(--surface)}
+.loc-pin{fill:var(--cat);stroke:var(--surface);stroke-width:3}
+.loc-ring{fill:none;stroke:var(--cat);stroke-width:2.5;opacity:.6}
+.facts dl{margin:0;display:grid;grid-template-columns:auto minmax(0,1fr);gap:9px 16px;border-top:1px solid var(--line);padding-top:12px}
+.facts dt{font-family:var(--font-mono);font-size:11.5px;color:var(--muted);padding-top:3px}
+.facts dd{margin:0;font-size:15px;line-height:1.4}
+.howto p{margin:0;font-size:15px;line-height:1.55}
+.sources ul{margin:0;padding:0;list-style:none;display:grid;gap:7px}
+.sources a{font-size:14px;line-height:1.4;overflow-wrap:anywhere}
+.more{padding-block:clamp(40px,6vw,64px) 16px}
+.more h2{margin:0 0 16px;font-family:var(--font-display);font-weight:900;font-size:clamp(30px,3.6vw,44px);text-transform:uppercase;line-height:.95}
+.more .cards{grid-template-columns:repeat(auto-fill,minmax(260px,1fr))}
+.more .k{font-family:var(--font-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+
+.ref-tag{position:absolute;right:max(10px,env(safe-area-inset-right,0px));top:10px;z-index:1;padding:3px 9px;border-radius:999px;background:rgba(20,14,26,.74);color:#fff;font-family:var(--font-mono);font-size:10.5px;letter-spacing:.04em;pointer-events:none}
+.pop-img .ref-tag{top:auto;bottom:10px;right:10px}
+.d-cover > .ref-tag{top:22px;z-index:2}
+.credit a{color:inherit;text-decoration:underline;text-decoration-color:rgba(255,255,255,.4);text-underline-offset:2px}
+.credit{max-width:min(70ch,calc(100% - 32px));text-align:right;text-shadow:0 1px 4px rgba(0,0,0,.6)}
+.gallery figure{margin:0;display:grid;gap:6px;align-content:start}
+.gallery figcaption{font-size:13px;line-height:1.35;color:var(--muted)}
+.photo-cred ul{margin:0;padding:0;list-style:none;display:grid;gap:9px}
+.photo-cred li{font-size:13.5px;line-height:1.4;color:var(--muted)}
+.photo-cred li b{display:block;font-weight:600;color:var(--ink)}
+.photo-cred a{overflow-wrap:anywhere}
+.lightbox{position:fixed;inset:0;z-index:50;background:rgba(10,8,14,.92);display:grid;place-items:center;padding:max(16px,env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) max(16px,env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px))}
+.lightbox figure{margin:0;display:grid;gap:8px;max-width:min(1100px,100%);max-height:100%}
+.lightbox img{max-width:100%;max-height:80vh;object-fit:contain;border-radius:8px}
+.lightbox figcaption{color:#ddd;font-family:var(--font-mono);font-size:12px}
+.lightbox button{position:absolute;width:44px;height:44px;border-radius:999px;border:0;background:rgba(255,255,255,.14);color:#fff;font-size:22px;cursor:pointer}
+.lb-close{top:max(16px,env(safe-area-inset-top,0px));right:max(16px,env(safe-area-inset-right,0px))}
+.lb-prev{left:max(16px,env(safe-area-inset-left,0px));top:50%}
+.lb-next{right:max(16px,env(safe-area-inset-right,0px));top:50%}
+
+.foot{margin-top:56px;background:var(--hero-bg);color:var(--hero-muted);padding-block:34px 40px;font-size:14px}
+.foot strong{display:block;margin-bottom:10px;font-family:var(--font-display);font-weight:900;font-size:26px;letter-spacing:.05em;text-transform:uppercase;color:var(--hero-ink)}
+.foot p{margin:0 0 8px;max-width:90ch}
+.foot .foot-credit{display:flex;align-items:center;gap:10px;margin:0 0 18px;padding:12px 16px;border:1px solid var(--hero-line);border-radius:14px;max-width:none;width:fit-content;font-family:var(--font-body);font-size:clamp(16px,1.8vw,19px);line-height:1.4;color:var(--hero-ink)}
+.foot .foot-credit svg{width:18px;height:22px;flex:none}
+.foot .foot-credit b{font-weight:600;color:var(--hero-accent)}
+</style>
+
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs><filter id="grain" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/></filter></defs>
+</svg>
+
+<header class="top">
+  <div class="wrap top-in">
+    <a class="brand" href="#inicio" aria-label="Descubrí Artigas, ir al inicio">
+      <svg viewBox="0 0 22 26" aria-hidden="true"><path d="M11 0 21 8 17 26H5L1 8Z" style="fill:#B48BEA"/><path d="M11 0 7 9l4 17 4-17Z" fill="#fff" fill-opacity=".3"/><path d="M1 8h20" stroke="#fff" stroke-opacity=".45"/></svg>
+      <span>Descubrí Artigas</span>
+    </a>
+    <nav aria-label="Secciones"><a href="#explorar">Mapa</a><a href="#postales">Postales</a></nav>
+  </div>
+</header>
+
+<main id="view-map">
+  <section class="hero" id="inicio">
+    <svg class="hero-topo" id="hero-topo" viewBox="0 0 1200 700" preserveAspectRatio="xMidYMid slice" aria-hidden="true"></svg>
+    <div class="wrap hero-in">
+      <div>
+        <p class="kicker">Departamento de Artigas · Uruguay</p>
+        <h1>Del Cuareim <em>al río Uruguay</em></h1>
+        <p class="lead">Una piedra que parece pintada, minas de amatistas, viejas estaciones de tren, un carnaval con escuelas de samba y una frontera con dos países. Quince lugares para descubrir en el norte del Uruguay.</p>
+        <div class="hero-cta"><a class="btn" href="#explorar">Explorar el mapa <span aria-hidden="true">↓</span></a><a class="btn btn-quiet" href="#postales">Ver las postales</a></div>
+        <dl class="stats">
+          <div><dt>15</dt><dd>lugares para conocer</dd></div>
+          <div><dt>3</dt><dd>países en la triple frontera</dd></div>
+          <div><dt>130 M</dt><dd>de años tienen sus amatistas</dd></div>
+        </dl>
+      </div>
+      <div class="fan" id="fan"></div>
+    </div>
+  </section>
+
+  <section class="wrap sec" id="explorar" aria-labelledby="map-title">
+    <div class="sec-head"><h2 id="map-title">Explorá el mapa</h2><p>Tocá un punto para ver de qué se trata. Arrastrá para moverte y acercate para separar los lugares agrupados.</p></div>
+    <div class="chips" id="chips" role="group" aria-label="Filtrar por tipo de lugar"></div>
+    <div class="atlas">
+      <div class="map-wrap" id="map-wrap">
+        <svg id="map" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet" role="application" aria-label="Mapa del departamento de Artigas. Usá la lista de lugares para navegar con teclado.">
+          <defs>
+            <pattern id="dots" width="11" height="11" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1"/></pattern>
+            <linearGradient id="landgrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" class="lg1"/><stop offset="1" class="lg2"/></linearGradient>
+            <filter id="pinshadow" x="-50%" y="-50%" width="200%" height="200%"><feDropShadow dx="0" dy="1.5" stdDeviation="1.6" flood-color="#000" flood-opacity=".35"/></filter>
+          </defs>
+          <rect class="bgfill" x="-4000" y="-4000" width="9000" height="9000"/>
+          <g id="grid"></g>
+          <path class="dept" id="dept"/>
+          <path class="dept-dots" id="dept-dots"/>
+          <path class="river river-glow" id="river-uy-g"/>
+          <path class="river river-glow" id="river-cu-g"/>
+          <path class="river river-line" id="river-uy"/>
+          <path class="river river-line" id="river-cu"/>
+          <g id="labels"></g>
+          <g id="pins"></g>
+        </svg>
+        <div class="north" aria-hidden="true"><svg viewBox="0 0 14 18"><path d="M7 0 13 18 7 13 1 18Z"/></svg>N</div>
+        <div class="map-ctrl">
+          <button type="button" id="z-in" aria-label="Acercar">+</button>
+          <button type="button" id="z-out" aria-label="Alejar">−</button>
+          <button type="button" id="z-reset" aria-label="Ver todo el departamento"><svg viewBox="0 0 16 16"><path d="M2 6V2h4M14 6V2h-4M2 10v4h4M14 10v4h-4"/></svg></button>
+        </div>
+        <div class="scale" aria-hidden="true"><span id="scale-txt"></span><div class="bar" id="scale-bar"></div></div>
+        <p class="hint">Arrastrá para moverte · rueda o pellizco para acercar</p>
+        <div class="popup" id="popup" role="dialog" aria-live="polite" hidden>
+          <button type="button" class="pop-close" id="pop-close" aria-label="Cerrar">×</button>
+          <div id="pop-body"></div>
+        </div>
+      </div>
+      <aside class="index" aria-labelledby="idx-title">
+        <div class="index-head"><h3 id="idx-title">Lugares</h3><span>De oeste a este</span></div>
+        <ol class="places" id="places"></ol>
+      </aside>
+    </div>
+  </section>
+
+  <section class="wrap sec" id="postales" aria-labelledby="cards-title">
+    <div class="sec-head"><h2 id="cards-title">Postales</h2><p>Del puerto de Bella Unión a las minas de Los Catalanes, de oeste a este. Elegí una para ver su ficha completa.</p></div>
+    <ol class="cards" id="cards"></ol>
+  </section>
+</main>
+
+<main id="view-detail" hidden></main>
+
+<footer class="foot">
+  <div class="wrap">
+    <strong>Descubrí Artigas</strong>
+    <p class="foot-credit"><svg viewBox="0 0 22 26" aria-hidden="true"><path d="M11 0 21 8 17 26H5L1 8Z" style="fill:#B48BEA"/><path d="M11 0 7 9l4 17 4-17Z" fill="#fff" fill-opacity=".3"/></svg><span>Un proyecto realizado por los docentes del <b>CEI Javier de Viana</b>, Artigas, Uruguay.</span></p>
+    <p>Información reunida entre octubre y noviembre de 2026 a partir de fuentes públicas: Intendencia de Artigas, ministerios de Turismo y Ambiente, Presidencia, AFE, prensa local y Wikipedia. Cada ficha lista sus fuentes. Horarios, tarifas y accesos pueden cambiar: confirmá antes de viajar.</p>
+    <p>Las fotos provienen de Wikimedia Commons y tienen licencias libres; cada ficha indica autor y licencia. Las marcadas como «foto de referencia» muestran el entorno o el tema del lugar, no el lugar exacto. El mapa usa un contorno simplificado del departamento; en zonas urbanas algunas ubicaciones son aproximadas y así se indica en cada ficha.</p>
+  </div>
+</footer>
+
+<div class="lightbox" id="lightbox" hidden role="dialog" aria-modal="true" aria-label="Foto ampliada">
+  <button type="button" class="lb-close" id="lb-close" aria-label="Cerrar">×</button>
+  <button type="button" class="lb-prev" id="lb-prev" aria-label="Foto anterior">‹</button>
+  <figure><img id="lb-img" alt=""><figcaption id="lb-cap"></figcaption></figure>
+  <button type="button" class="lb-next" id="lb-next" aria-label="Foto siguiente">›</button>
+</div>
+
+<script>
+const GEO={w:968.3,h:595.0,lon0:-58.1,lat0:-29.98,k:500,c:0.860742,
+artigas:"M896.5 547.2L880.0 534.3L876.6 530.9L869.1 521.4L858.1 511.9L853.2 506.1L846.7 495.6L843.6 491.8L834.8 484.1L824.9 478.7L756.6 463.7L732.7 455.0L725.0 453.5L717.2 454.3L709.9 456.8L706.7 460.6L701.0 472.7L696.9 479.3L691.3 483.4L681.6 487.5L675.5 491.6L669.4 499.3L665.4 502.2L660.3 503.8L645.9 505.6L641.0 507.4L637.0 509.9L611.8 530.9L603.1 535.0L597.8 536.2L577.1 538.2L566.9 541.1L560.8 540.8L512.0 532.0L501.6 531.3L473.3 534.9L466.3 538.2L454.7 547.1L449.8 548.9L442.7 548.9L416.8 541.2L406.4 535.8L398.2 529.9L378.4 510.2L371.8 504.7L368.4 502.7L348.0 496.1L290.9 465.7L276.8 455.7L267.2 447.7L259.0 445.0L250.2 443.7L235.0 443.8L227.2 441.6L222.0 438.3L217.1 433.7L210.0 423.7L206.8 420.0L199.5 413.4L171.6 392.5L165.7 389.0L161.0 387.4L149.2 386.1L144.9 386.3L139.7 390.3L129.4 405.7L128.3 396.6L121.4 366.0L117.8 354.8L108.2 333.9L101.9 324.3L92.2 304.9L90.5 285.4L95.9 267.4L107.8 252.6L192.5 174.5L201.8 158.5L205.0 139.0L198.8 117.5L196.9 106.6L200.6 101.8L210.2 101.5L220.9 112.0L229.2 138.1L242.7 147.2L253.5 148.4L272.3 144.9L282.7 144.8L288.4 147.8L294.9 157.8L301.6 159.5L305.8 157.4L315.6 148.6L321.1 146.0L329.5 146.3L335.0 149.9L339.6 154.1L345.8 156.6L349.2 155.4L354.5 148.8L357.0 147.6L360.4 149.4L365.8 155.2L367.9 156.6L381.9 153.6L394.3 143.7L402.9 129.6L405.3 113.9L408.5 101.2L417.6 85.0L429.4 70.6L440.2 63.1L444.5 63.4L452.5 67.2L457.1 67.3L468.5 61.7L484.3 58.7L493.0 58.5L513.7 64.2L529.7 61.5L546.0 61.0L561.5 71.9L569.6 85.4L573.7 90.7L600.5 109.2L613.8 115.7L621.1 120.6L627.6 126.9L631.5 133.7L632.9 143.9L631.6 149.1L632.1 152.4L638.9 156.6L643.3 157.8L651.7 158.3L656.3 161.2L662.4 170.2L678.4 188.6L690.9 199.7L713.9 214.4L721.0 221.8L731.4 239.4L737.7 247.9L743.4 253.0L763.3 264.1L788.4 285.6L802.6 292.7L811.2 301.0L824.8 317.3L827.3 322.7L830.3 332.9L835.1 336.9L843.4 342.4L847.1 346.0L850.0 350.1L864.2 378.1L870.7 386.2L898.9 409.1L905.8 422.9L908.5 437.9L906.4 452.8L898.9 466.3L897.1 477.1L896.8 509.9L894.1 532.8L894.2 543.5L896.5 547.2Z",
+uruguay:"M128.3 396.6L121.4 366.0L117.8 354.8L108.2 333.9L101.9 324.3L92.2 304.9L90.5 285.4L95.9 267.4L107.8 252.6L192.5 174.5L201.8 158.5L205.0 139.0L198.8 117.5L196.9 106.6L200.6 101.8L210.2 101.5",
+cuareim:"M210.2 101.5L220.9 112.0L229.2 138.1L242.7 147.2L253.5 148.4L272.3 144.9L282.7 144.8L288.4 147.8L294.9 157.8L301.6 159.5L305.8 157.4L315.6 148.6L321.1 146.0L329.5 146.3L335.0 149.9L339.6 154.1L345.8 156.6L349.2 155.4L354.5 148.8L357.0 147.6L360.4 149.4L365.8 155.2L367.9 156.6L381.9 153.6L394.3 143.7L402.9 129.6L405.3 113.9L408.5 101.2L417.6 85.0L429.4 70.6L440.2 63.1L444.5 63.4L452.5 67.2L457.1 67.3L468.5 61.7L484.3 58.7L493.0 58.5L513.7 64.2L529.7 61.5L546.0 61.0L561.5 71.9L569.6 85.4L573.7 90.7L600.5 109.2L613.8 115.7L621.1 120.6L627.6 126.9L631.5 133.7L632.9 143.9L631.6 149.1L632.1 152.4L638.9 156.6L643.3 157.8L651.7 158.3L656.3 161.2L662.4 170.2L678.4 188.6L690.9 199.7L713.9 214.4L721.0 221.8L731.4 239.4L737.7 247.9L743.4 253.0L763.3 264.1L788.4 285.6L802.6 292.7L811.2 301.0L824.8 317.3L827.3 322.7L830.3 332.9L835.1 336.9L843.4 342.4L847.1 346.0L850.0 350.1L864.2 378.1L870.7 386.2L898.9 409.1L905.8 422.9L908.5 437.9L906.4 452.8L898.9 466.3L897.1 477.1L896.8 509.9L894.1 532.8"};
+
+/* ---------- ilustraciones tipo afiche (portada de cada lugar hasta que haya fotos) ---------- */
+function rng(seed) { let h = 2166136261 >>> 0; for (const ch of seed) { h ^= ch.charCodeAt(0); h = Math.imul(h, 16777619) >>> 0; } return () => { h ^= h << 13; h >>>= 0; h ^= h >>> 17; h ^= h << 5; h >>>= 0; return (h % 100000) / 100000; }; }
+let posterUid = 0;
+const F = n => n.toFixed(1);
+const P2 = a => a.map(q => F(q[0]) + " " + F(q[1])).join("L");
+function lg(id, a, b, horiz) { return `<linearGradient id="${id}" x1="0" y1="0" x2="${horiz ? 1 : 0}" y2="${horiz ? 0 : 1}"><stop offset="0" stop-color="${a}"/><stop offset="1" stop-color="${b}"/></linearGradient>`; }
+function ridge(r, y, amp, minW, maxW, fill, op) {
+  let x = -40, h = y - r() * amp; const P = [[-40, 520], [-40, h]];
+  while (x < 840) { x += minW + r() * (maxW - minW); P.push([x, h]); const nh = y - r() * amp; x += 14 + r() * 34; P.push([x, nh]); h = nh; }
+  P.push([x, 520]);
+  return `<path d="M${P2(P)}Z" fill="${fill}"${op ? ` opacity="${op}"` : ""}/>`;
+}
+function monte(r, x0, x1, y, n, fill, size) {
+  let s = "";
+  for (let i = 0; i < n; i++) { const x = x0 + (x1 - x0) * (i + r() * .8) / n, rr = size * (.7 + r() * .6); s += `<circle cx="${F(x)}" cy="${F(y - rr * .55)}" r="${F(rr)}" fill="${fill}"/>`; }
+  return s + `<rect x="${F(x0 - size)}" y="${F(y - size * .3)}" width="${F(x1 - x0 + size * 2)}" height="${F(size * 2)}" fill="${fill}"/>`;
+}
+function clouds(r, n, y0, y1, fill) {
+  let s = "";
+  for (let i = 0; i < n; i++) { const x = 80 + r() * 640, y = y0 + r() * (y1 - y0), w = 40 + r() * 50; s += `<g fill="${fill}"><ellipse cx="${F(x)}" cy="${F(y)}" rx="${F(w)}" ry="${F(w * .26)}"/><ellipse cx="${F(x - w * .35)}" cy="${F(y - w * .1)}" rx="${F(w * .42)}" ry="${F(w * .28)}"/><ellipse cx="${F(x + w * .22)}" cy="${F(y - w * .16)}" rx="${F(w * .48)}" ry="${F(w * .34)}"/></g>`; }
+  return s;
+}
+function birds(r, n, x0, x1, y0, y1, stroke) {
+  let s = "";
+  for (let i = 0; i < n; i++) { const x = x0 + r() * (x1 - x0), y = y0 + r() * (y1 - y0), w = 6 + r() * 8; s += `<path d="M${F(x - w)} ${F(y - w * .35)}Q${F(x - w * .4)} ${F(y - w * .6)} ${F(x)} ${F(y)}Q${F(x + w * .4)} ${F(y - w * .6)} ${F(x + w)} ${F(y - w * .35)}" fill="none" stroke="${stroke}" stroke-width="1.8" stroke-linecap="round"/>`; }
+  return s;
+}
+function streaks(r, n, y0, y1, color, op) {
+  let s = "";
+  for (let i = 0; i < n; i++) { const y = y0 + r() * (y1 - y0), x = r() * 760, w = 20 + r() * 70 * (1 + (y - y0) / (y1 - y0)); s += `<rect x="${F(x)}" y="${F(y)}" width="${F(w)}" height="1.8" rx=".9" fill="${color}" opacity="${op}"/>`; }
+  return s;
+}
+function sparkle(x, y, s, fill, op = 1) { return `<path d="M${F(x)} ${F(y - s)}L${F(x + s * .2)} ${F(y - s * .2)}L${F(x + s)} ${F(y)}L${F(x + s * .2)} ${F(y + s * .2)}L${F(x)} ${F(y + s)}L${F(x - s * .2)} ${F(y + s * .2)}L${F(x - s)} ${F(y)}L${F(x - s * .2)} ${F(y - s * .2)}Z" fill="${fill}" opacity="${op}"/>`; }
+function prism(sx, sy, a, L, w, c1, c2) {
+  const ux = Math.cos(a), uy = Math.sin(a), nx = -uy, ny = ux, tl = L * .78;
+  const B1 = [sx + nx * w, sy + ny * w], B2 = [sx - nx * w, sy - ny * w], S1 = [sx + ux * tl + nx * w, sy + uy * tl + ny * w], S2 = [sx + ux * tl - nx * w, sy + uy * tl - ny * w], T = [sx + ux * L, sy + uy * L], M = [sx, sy], MT = [sx + ux * tl, sy + uy * tl];
+  return `<path d="M${P2([B1, S1, T, MT, M])}Z" fill="${c1}"/><path d="M${P2([M, MT, T, S2, B2])}Z" fill="${c2}"/>`;
+}
+function blobR(R, j, ph, ph2, t) { return R * (1 + j * Math.sin(3 * t + ph) + j * .6 * Math.sin(7 * t + ph2)); }
+function blob(cx, cy, R, j, ph, ph2, n = 72) { let d = ""; for (let i = 0; i <= n; i++) { const t = i / n * Math.PI * 2, rr = blobR(R, j, ph, ph2, t); d += (i ? "L" : "M") + F(cx + rr * Math.cos(t)) + " " + F(cy + rr * Math.sin(t)); } return d + "Z"; }
+function track(V, bl, br, n, sleeper, railC, op = 1) {
+  let s = "";
+  for (let k = 1; k <= n; k++) { const t = Math.pow(k / n, 1.9), lx = V[0] + (bl[0] - V[0]) * t, rx = V[0] + (br[0] - V[0]) * t, y = V[1] + (bl[1] - V[1]) * t, ext = (rx - lx) * .16; s += `<line x1="${F(lx - ext)}" y1="${F(y)}" x2="${F(rx + ext)}" y2="${F(y)}" stroke="${sleeper}" stroke-width="${F(1 + t * 8)}" opacity="${op}"/>`; }
+  return s + `<path d="M${V[0]} ${V[1]}L${bl[0]} ${bl[1]}M${V[0]} ${V[1]}L${br[0]} ${br[1]}" stroke="${railC}" stroke-width="3.2" fill="none" opacity="${op}"/>`;
+}
+function grassTufts(r, n, x0, x1, y0, y1, colors) {
+  let s = "";
+  for (let i = 0; i < n; i++) { const x = x0 + r() * (x1 - x0), y = y0 + r() * (y1 - y0), h = 10 + r() * 26, c = colors[Math.floor(r() * colors.length)], lean = (r() - .5) * 14; s += `<path d="M${F(x)} ${F(y)}Q${F(x + lean * .4)} ${F(y - h * .6)} ${F(x + lean)} ${F(y - h)}" stroke="${c}" stroke-width="2.2" fill="none" stroke-linecap="round"/>`; }
+  return s;
+}
+
+const SCENES = {
+  "piedra-pintada"(r, id) {
+    const ROCK = "M244 440C230 352 258 238 326 196C378 166 456 168 508 206C562 246 576 346 568 440Z";
+    let moss = "";
+    for (let i = 0; i < 48; i++) { const x = 256 + r() * 300, y = 236 + r() * 200, rx = 7 + r() * 17; moss += `<ellipse cx="${F(x)}" cy="${F(y)}" rx="${F(rx)}" ry="${F(rx * (.35 + r() * .4))}" fill="${r() < .55 ? "#6F8A3E" : "#8E2F28"}" opacity="${(.28 + r() * .3).toFixed(2)}" transform="rotate(${F((r() - .5) * 40)} ${F(x)} ${F(y)})"/>`; }
+    let grooves = "";
+    for (let i = 0; i < 9; i++) { const x = 290 + i * 30 + r() * 12; grooves += `<path d="M${F(x)} ${F(262 + r() * 20)}Q${F(x + (r() - .5) * 18)} 350 ${F(x + (r() - .5) * 10)} 440" stroke="#4E211D" stroke-width="${F(1.5 + r() * 2)}" fill="none" opacity=".28"/>`; }
+    return {
+      defs: lg(id + "s", "#E8874C", "#FCE3BC") + lg(id + "r", "#C9714E", "#7A3A30", true) + `<clipPath id="${id}c"><path d="${ROCK}"/></clipPath>`,
+      body: `<rect width="800" height="500" fill="url(#${id}s)"/><circle cx="620" cy="150" r="58" fill="#FFF3DD" opacity=".9"/>` +
+        birds(r, 5, 120, 300, 90, 160, "#7A4A3A") +
+        ridge(r, 335, 34, 90, 220, "#D69C76") + ridge(r, 372, 26, 70, 180, "#A9725E") +
+        `<rect y="398" width="800" height="102" fill="#56703F"/>` + monte(r, 20, 780, 420, 30, "#3E5A32", 20) +
+        `<path d="${ROCK}" fill="url(#${id}r)"/><g clip-path="url(#${id}c)">${moss}${grooves}<path d="M220 120H600V236C560 226 520 244 470 234C420 224 380 246 330 234C290 226 260 238 220 232Z" fill="#3B3340"/><path d="M220 232C260 238 290 226 330 234C380 246 420 224 470 234C520 244 560 226 600 236" stroke="#2A2330" stroke-width="5" fill="none"/></g>` +
+        monte(r, 120, 260, 452, 7, "#2F4A2A", 30) + monte(r, 560, 700, 452, 7, "#2F4A2A", 30) +
+        `<rect y="446" width="800" height="54" fill="#3C5630"/>` + grassTufts(r, 70, 0, 800, 450, 500, ["#5E7D40", "#2E4626", "#8A9A55"])
+    };
+  },
+  "los-catalanes"(r, id) {
+    const cx = 400, cy = 312, ph = r() * 6.28, ph2 = r() * 6.28;
+    let stars = "";
+    for (let i = 0; i < 40; i++) stars += `<circle cx="${F(r() * 800)}" cy="${F(r() * 230)}" r="${F(.6 + r() * 1.2)}" fill="#F4ECFF" opacity="${(.3 + r() * .6).toFixed(2)}"/>`;
+    const bands = [[206, "#56505E"], [186, "#DCD3E6"], [173, "#9D89BC"], [162, "#F1ECF7"], [152, "#B7A2D6"], [143, "#E2D8F0"]];
+    let geode = bands.map(([R, c]) => `<path d="${blob(cx, cy, R, .045, ph, ph2)}" fill="${c}"/>`).join("");
+    const CR = 132;
+    geode += `<path d="${blob(cx, cy, CR, .045, ph, ph2)}" fill="url(#${id}v)"/>`;
+    const cols = [["#9A68D4", "#5B2C8F"], ["#C7A6EF", "#7B45B6"], ["#B184E6", "#6A37A3"], ["#D9C2F6", "#8E5CC9"]];
+    const N = 54; let cr = "";
+    for (let i = 0; i < N; i++) {
+      const t = i / N * Math.PI * 2 + r() * .05, rr = blobR(CR, .045, ph, ph2, t) + 2;
+      const sx = cx + rr * Math.cos(t), sy = cy + rr * Math.sin(t), a = t + Math.PI + (r() - .5) * .5, L = 34 + r() * 52, w = 7 + r() * 7, c = cols[Math.floor(r() * cols.length)];
+      cr += prism(sx, sy, a, L, w, c[0], c[1]);
+    }
+    let sp = "";
+    for (let i = 0; i < 9; i++) { const a = r() * 6.28, d = r() * 70; sp += sparkle(cx + d * Math.cos(a), cy + d * Math.sin(a), 4 + r() * 7, "#FFFFFF", .85); }
+    return {
+      defs: lg(id + "s", "#1F1433", "#6C4A82") + `<radialGradient id="${id}v" cx=".5" cy=".5" r=".55"><stop offset="0" stop-color="#2A1046"/><stop offset="1" stop-color="#6A36A6"/></radialGradient><radialGradient id="${id}g" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#C9A2FF" stop-opacity=".55"/><stop offset="1" stop-color="#C9A2FF" stop-opacity="0"/></radialGradient>`,
+      body: `<rect width="800" height="500" fill="url(#${id}s)"/>${stars}<circle cx="670" cy="86" r="24" fill="#F3E8FF" opacity=".85"/>` +
+        ridge(r, 330, 40, 90, 200, "#4A3560") + ridge(r, 372, 30, 80, 170, "#33264A") + `<rect y="404" width="800" height="96" fill="#231B30"/>` +
+        `<circle cx="${cx}" cy="${cy}" r="300" fill="url(#${id}g)"/>` + geode + cr + sp
+    };
+  },
+  "museo-piedra-preciosa"(r, id) {
+    const cl = [["#C9A6F2", "#6A37A3"], ["#B48BEA", "#59298F"], ["#E2CCFA", "#8752C2"], ["#9E70DA", "#4B2178"]];
+    const items = [];
+    for (let i = 0; i < 11; i++) items.push({a: -Math.PI / 2 + (r() - .5) * 1.25, L: 80 + r() * 150, w: 14 + r() * 16, dx: (r() - .5) * 90, c: cl[Math.floor(r() * cl.length)]});
+    items.sort((a, b) => b.L - a.L);
+    let crystals = items.map(o => prism(400 + o.dx, 352, o.a, o.L, o.w, o.c[0], o.c[1])).join("");
+    let sp = ""; for (let i = 0; i < 12; i++) sp += sparkle(260 + r() * 280, 120 + r() * 220, 3 + r() * 6, "#FFFFFF", .8);
+    return {
+      defs: `<radialGradient id="${id}b" cx=".5" cy=".42" r=".7"><stop offset="0" stop-color="#3E2360"/><stop offset="1" stop-color="#0F0918"/></radialGradient>` + lg(id + "l", "rgba(255,244,214,.42)", "rgba(255,244,214,0)") + `<radialGradient id="${id}g" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#B98CF0" stop-opacity=".6"/><stop offset="1" stop-color="#B98CF0" stop-opacity="0"/></radialGradient>`,
+      body: `<rect width="800" height="500" fill="url(#${id}b)"/><rect y="408" width="800" height="92" fill="#1A1224"/>` +
+        `<path d="M340 0H460L640 430H160Z" fill="url(#${id}l)"/><ellipse cx="400" cy="440" rx="210" ry="20" fill="#B48BEA" opacity=".14"/>` +
+        `<circle cx="400" cy="250" r="190" fill="url(#${id}g)"/>` + crystals +
+        `<path d="M300 352H500L516 340H316Z" fill="#54456A"/><rect x="300" y="352" width="200" height="148" fill="#2E2440"/><rect x="500" y="340" width="16" height="160" fill="#231B32"/><path d="M500 352L516 340V500H500Z" fill="#231B32"/>` + sp
+    };
+  },
+  "centro-artigas"(r, id) {
+    const ag = ["#D98E4E", "#B4553A", "#8E6BB8", "#E8C39E", "#6E7F9A", "#C9A86A", "#A3477A"];
+    let mosaic = "";
+    for (let i = 0; i < 9; i++) for (let j = 0; j < 7; j++) mosaic += `<rect x="${194 + i * 10}" y="${318 + j * 10}" width="9" height="9" fill="${ag[Math.floor(r() * ag.length)]}"/>`;
+    let flowers = "";
+    for (let i = 0; i < 90; i++) { const a = r() * 6.28, d = Math.sqrt(r()) * 78; flowers += `<circle cx="${F(110 + d * Math.cos(a) * 1.25)}" cy="${F(205 + d * Math.sin(a) * .8)}" r="${F(2 + r() * 2.6)}" fill="#F2C230"/>`; }
+    let canopy = "";
+    for (let i = 0; i < 18; i++) { const a = r() * 6.28, d = Math.sqrt(r()) * 62; canopy += `<circle cx="${F(110 + d * Math.cos(a) * 1.3)}" cy="${F(205 + d * Math.sin(a) * .8)}" r="${F(26 + r() * 18)}" fill="${r() < .5 ? "#5C8A3A" : "#4A7631"}"/>`; }
+    return {
+      defs: lg(id + "s", "#7FB4DC", "#E8F2F3"),
+      body: `<rect width="800" height="500" fill="url(#${id}s)"/>` + clouds(r, 3, 60, 130, "#FFFFFF") +
+        ridge(r, 362, 16, 120, 260, "#B8C8B1") + `<rect y="378" width="800" height="122" fill="#DDD1B8"/>` +
+        [0, 1, 2, 3, 4].map(k => `<rect y="${396 + k * 22}" width="800" height="1.6" fill="#B9AA8C" opacity=".6"/>`).join("") +
+        `<rect x="430" y="142" width="58" height="240" fill="#F2EADC"/><path d="M430 142Q459 96 488 142Z" fill="#E4D6C0"/><line x1="459" y1="80" x2="459" y2="106" stroke="#5A4A44" stroke-width="3"/><line x1="450" y1="88" x2="468" y2="88" stroke="#5A4A44" stroke-width="3"/><path d="M446 210V176Q459 158 472 176V210Z" fill="#5E4A44"/>` +
+        `<rect x="488" y="232" width="190" height="150" fill="#F6F0E5"/><path d="M478 234L583 168L688 234Z" fill="#EBDFCB"/><circle cx="583" cy="210" r="13" fill="#9EC0DA" stroke="#D7C8AF" stroke-width="3"/><path d="M561 382V322Q583 296 605 322V382Z" fill="#6B4A3A"/><rect x="510" y="280" width="22" height="40" rx="11" fill="#9EC0DA"/><rect x="634" y="280" width="22" height="40" rx="11" fill="#9EC0DA"/><rect x="664" y="232" width="14" height="150" fill="#000" opacity=".06"/>` +
+        `<rect x="180" y="306" width="118" height="12" fill="#CFC6B6"/>${mosaic}<rect x="184" y="388" width="110" height="8" fill="#BDB2A0"/><path d="M226 306L230 252Q238 240 246 252L250 306Z" fill="#4F5F63"/><circle cx="238" cy="236" r="10" fill="#4F5F63"/>` +
+        `<path d="M104 400L108 250L118 250L122 400Z" fill="#6B4A32"/>${canopy}${flowers}` +
+        `<path d="M742 400L746 300L754 300L758 400Z" fill="#6B4A32"/>` + monte(r, 700, 800, 300, 4, "#4E7A33", 34)
+    };
+  },
+  "paseo-7-de-setiembre"(r, id) {
+    let city = "";
+    for (let x = -10; x < 810;) { const w = 18 + r() * 40, h = 14 + r() * 46; city += `<rect x="${F(x)}" y="${F(300 - h)}" width="${F(w)}" height="${F(h)}" fill="#8E5468" opacity=".85"/>`; x += w + 2 + r() * 8; }
+    let piers = "", refl = "";
+    for (let x = 30; x < 800; x += 66) { piers += `<rect x="${x}" y="276" width="11" height="58" fill="#3A2A3C"/>`; refl += `<rect x="${x}" y="336" width="11" height="40" fill="#3A2A3C" opacity=".22"/>`; }
+    let sun = "";
+    for (let i = 0; i < 9; i++) sun += `<rect x="${F(400 - (70 - i * 6))}" y="${F(345 + i * 15)}" width="${F((70 - i * 6) * 2)}" height="3" rx="1.5" fill="#FFE7B8" opacity="${(.7 - i * .06).toFixed(2)}"/>`;
+    return {
+      defs: lg(id + "s", "#E9735A", "#FCD49A") + lg(id + "w", "#E79A6F", "#4F3B68"),
+      body: `<rect width="800" height="500" fill="url(#${id}s)"/><circle cx="400" cy="290" r="78" fill="#FFE5B0"/>` + birds(r, 6, 520, 720, 80, 170, "#5A2E3E") +
+        city + `<rect y="300" width="800" height="200" fill="url(#${id}w)"/>` + sun + streaks(r, 30, 320, 500, "#FFE0B5", .35) +
+        refl + piers + `<rect y="262" width="800" height="16" fill="#3A2A3C"/><rect y="254" width="800" height="3" fill="#3A2A3C"/>` +
+        [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20].map(k => `<rect x="${k * 40}" y="254" width="2" height="9" fill="#3A2A3C"/>`).join("") +
+        `<path d="M-10 500V418Q120 392 260 430Q300 445 330 500Z" fill="#2B2236"/>` + monte(r, 0, 220, 420, 6, "#2B2236", 34) +
+        `<rect x="250" y="370" width="4" height="70" fill="#2B2236"/><circle cx="252" cy="366" r="7" fill="#FFE7B8"/>`
+    };
+  },
+  "javier-de-viana"(r, id) {
+    const V = [452, 336];
+    let poles = "", tops = [];
+    for (let k = 0; k < 6; k++) { const t = Math.pow((k + 1) / 6, 1.6), x = V[0] + (770 - V[0]) * t, yb = V[1] + (500 - V[1]) * t, h = 18 + 150 * t; poles += `<line x1="${F(x)}" y1="${F(yb)}" x2="${F(x)}" y2="${F(yb - h)}" stroke="#5A4632" stroke-width="${F(1 + t * 4)}"/><line x1="${F(x - 4 - t * 16)}" y1="${F(yb - h + 4 + t * 6)}" x2="${F(x + 4 + t * 16)}" y2="${F(yb - h + 4 + t * 6)}" stroke="#5A4632" stroke-width="${F(1 + t * 2.5)}"/>`; tops.push([x, yb - h + 4 + t * 6, t]); }
+    let wires = "";
+    for (let k = 1; k < tops.length; k++) { const [x1, y1, t1] = tops[k - 1], [x2, y2] = tops[k]; for (const o of [-1, 1]) { const ox = o * (4 + t1 * 14); wires += `<path d="M${F(x1 + ox)} ${F(y1)}Q${F((x1 + x2) / 2 + ox)} ${F((y1 + y2) / 2 + 8)} ${F(x2 + o * 18)} ${F(y2)}" stroke="#5A4632" stroke-width="1" fill="none"/>`; } }
+    return {
+      defs: lg(id + "s", "#9FCBE6", "#F6EBD4") + lg(id + "g", "#CDBB8A", "#A68F5C"),
+      body: `<rect width="800" height="500" fill="url(#${id}s)"/>` + clouds(r, 2, 60, 120, "#FFFFFF") + birds(r, 4, 520, 700, 90, 150, "#6A6A7A") +
+        ridge(r, 330, 20, 120, 260, "#A9B697") + ridge(r, 342, 14, 90, 200, "#8FA07C") + `<rect y="336" width="800" height="164" fill="url(#${id}g)"/>` +
+        grassTufts(r, 50, 0, 800, 380, 500, ["#8E7D4E", "#B9A56E", "#6E7A44"]) +
+        track(V, [300, 500], [590, 500], 20, "#6B5440", "#3F3F48") + poles + wires +
+        `<rect x="40" y="340" width="300" height="14" fill="#B9A98A"/><rect x="40" y="354" width="300" height="6" fill="#8F8167"/>` +
+        `<rect x="70" y="250" width="230" height="92" fill="#EAD9BB"/><path d="M56 254L185 206L314 254Z" fill="#A44A35"/><rect x="56" y="252" width="258" height="7" fill="#7E3626"/>` +
+        `<rect x="174" y="290" width="28" height="52" fill="#6E4B36"/><rect x="96" y="276" width="34" height="38" fill="#7FA2B8" stroke="#F7F1E4" stroke-width="3"/><rect x="236" y="276" width="34" height="38" fill="#7FA2B8" stroke="#F7F1E4" stroke-width="3"/>` +
+        `<rect x="105" y="218" width="160" height="25" fill="#F7F1E4" stroke="#6E4B36" stroke-width="2"/><text x="185" y="236" text-anchor="middle" font-size="13" font-weight="800" letter-spacing="1.2" fill="#3A2A20" style="font-family:'Big Shoulders Display',Impact,'Arial Narrow',sans-serif">JAVIER DE VIANA</text>`
+    };
+  },
+  "baltasar-brum"(r, id) {
+    return {
+      defs: lg(id + "s", "#E8AE5E", "#FBEFD3") + lg(id + "g", "#C2A86F", "#957C4C"),
+      body: `<rect width="800" height="500" fill="url(#${id}s)"/><circle cx="660" cy="140" r="52" fill="#FFF5DE" opacity=".95"/>` + birds(r, 5, 100, 320, 80, 150, "#7A5A3A") +
+        ridge(r, 338, 22, 110, 240, "#C9A57A") + ridge(r, 350, 14, 90, 200, "#AC8C5F") + `<rect y="346" width="800" height="154" fill="url(#${id}g)"/>` +
+        grassTufts(r, 55, 0, 800, 380, 500, ["#8C7546", "#B39A63", "#6F6A3E"]) +
+        track([215, 350], [318, 500], [488, 500], 18, "#6B5440", "#3F3F48") + track([600, 350], [318, 500], [488, 500], 18, "#6B5440", "#3F3F48") +
+        `<rect x="640" y="250" width="8" height="190" fill="#4E3C2A"/>` +
+        `<path d="M532 262H636V290H532L516 276Z" fill="#F4ECDA" stroke="#4E3C2A" stroke-width="2"/><text x="578" y="281" text-anchor="middle" font-size="13" font-weight="800" letter-spacing=".8" fill="#3A2A20" style="font-family:'Big Shoulders Display',Impact,'Arial Narrow',sans-serif">BELLA UNIÓN</text>` +
+        `<path d="M652 302H744L760 316L744 330H652Z" fill="#F4ECDA" stroke="#4E3C2A" stroke-width="2"/><text x="700" y="321" text-anchor="middle" font-size="13" font-weight="800" letter-spacing=".8" fill="#3A2A20" style="font-family:'Big Shoulders Display',Impact,'Arial Narrow',sans-serif">ARTIGAS</text>` +
+        `<rect x="120" y="230" width="6" height="150" fill="#4E3C2A"/><rect x="126" y="236" width="56" height="10" fill="#B8362A"/><rect x="146" y="236" width="12" height="10" fill="#F4ECDA"/><circle cx="123" cy="262" r="6" fill="#3E2E20"/>`
+    };
+  },
+  "codo-del-cuareim"(r, id) {
+    let fields = "";
+    const fc = ["#D6DCAE", "#C7D29A", "#E3D8A6", "#BCC98C", "#D9CF9C"];
+    for (let i = 0; i < 70; i++) { const x = r() * 820 - 20, y = r() * 520 - 20, w = 50 + r() * 110, h = 30 + r() * 70; fields += `<rect x="${F(x)}" y="${F(y)}" width="${F(w)}" height="${F(h)}" fill="${fc[Math.floor(r() * fc.length)]}" opacity=".85" transform="rotate(${F((r() - .5) * 30)} ${F(x)} ${F(y)})"/>`; }
+    const RIV = "M-30 340C140 336 250 104 400 100C548 96 640 316 830 306";
+    return {
+      defs: "",
+      body: `<rect width="800" height="500" fill="#E8E1C8"/>${fields}` +
+        `<path d="${RIV}" stroke="#2F6E9E" stroke-width="34" fill="none" stroke-linecap="round"/><path d="${RIV}" stroke="#5E9ACA" stroke-width="24" fill="none"/><path d="${RIV}" stroke="#9CC6E6" stroke-width="5" fill="none" opacity=".8"/>` +
+        `<line x1="0" y1="86" x2="800" y2="86" stroke="#7A3E2E" stroke-width="2" stroke-dasharray="10 7"/>` +
+        `<rect x="430" y="56" width="104" height="24" rx="4" fill="#FFF8EA" opacity=".9"/><text x="482" y="73" text-anchor="middle" font-size="15" font-weight="500" fill="#7A3E2E" style="font-family:'IBM Plex Mono',Menlo,monospace">30°05′ S</text>` +
+        `<path d="M400 116C384 96 386 78 400 72C414 78 416 96 400 116Z" fill="#B24F29" stroke="#FFF8EA" stroke-width="3"/><circle cx="400" cy="86" r="5" fill="#FFF8EA"/>` +
+        `<text x="150" y="70" font-size="30" font-weight="800" letter-spacing="10" fill="#5F6B4E" opacity=".75" style="font-family:'Big Shoulders Display',Impact,sans-serif">BRASIL</text>` +
+        `<text x="400" y="400" text-anchor="middle" font-size="34" font-weight="800" letter-spacing="12" fill="#5F6B4E" opacity=".75" style="font-family:'Big Shoulders Display',Impact,sans-serif">URUGUAY</text>` +
+        `<g transform="translate(730 140)"><circle r="30" fill="#FFF8EA" opacity=".9"/><path d="M0 -22L9 8L0 3L-9 8Z" fill="#3A3A3A"/><text y="20" text-anchor="middle" font-size="12" fill="#3A3A3A" style="font-family:'IBM Plex Mono',Menlo,monospace">N</text></g>`
+    };
+  },
+  "rincon-de-franquia"(r, id) {
+    let reeds = "";
+    for (let i = 0; i < 110; i++) { const x = r() * 820 - 10, h = 40 + r() * 90, c = ["#4F6B36", "#8A9A55", "#C7B76A", "#3D5530"][Math.floor(r() * 4)], lean = (r() - .5) * 30; reeds += `<path d="M${F(x)} 505Q${F(x + lean * .3)} ${F(505 - h * .6)} ${F(x + lean)} ${F(505 - h)}" stroke="${c}" stroke-width="${F(2 + r() * 2)}" fill="none" stroke-linecap="round"/>`; if (r() < .25) reeds += `<ellipse cx="${F(x + lean)}" cy="${F(505 - h)}" rx="3" ry="9" fill="#7A5A3A" transform="rotate(${F(lean)} ${F(x + lean)} ${F(505 - h)})"/>`; }
+    return {
+      defs: lg(id + "s", "#9ED0CC", "#F8E8C8") + lg(id + "w", "#86B6C4", "#4F87A0"),
+      body: `<rect width="800" height="500" fill="url(#${id}s)"/><circle cx="210" cy="170" r="44" fill="#FFF6DE" opacity=".85"/>` +
+        birds(r, 14, 380, 760, 70, 200, "#2F3E46") +
+        `<rect y="286" width="800" height="20" fill="#7E9A7E" opacity=".6"/>` + monte(r, 0, 800, 304, 34, "#47664F", 16) +
+        `<rect y="304" width="800" height="196" fill="url(#${id}w)"/>` + streaks(r, 26, 312, 430, "#E7F3F2", .45) +
+        `<g transform="translate(560 404)"><path d="M-6 -6L-10 30M6 -6L10 30" stroke="#2F3A40" stroke-width="2.4"/><ellipse cx="0" cy="-22" rx="30" ry="15" fill="#F7F7F2" stroke="#55606A" stroke-width="1.6" transform="rotate(-14)"/><path d="M20 -30C30 -48 18 -60 26 -80C30 -90 40 -92 44 -86" stroke="#F7F7F2" stroke-width="8" fill="none" stroke-linecap="round"/><path d="M20 -30C30 -48 18 -60 26 -80C30 -90 40 -92 44 -86" stroke="#55606A" stroke-width="1.4" fill="none" opacity=".4"/><path d="M44 -86L72 -80" stroke="#D9A52A" stroke-width="3.4" stroke-linecap="round"/><circle cx="42" cy="-88" r="2" fill="#2F3A40"/></g>` +
+        `<ellipse cx="560" cy="436" rx="44" ry="5" fill="#2F5E78" opacity=".35"/>` +
+        `<path d="M0 500V448Q200 426 400 452Q600 476 800 440V500Z" fill="#5E7C45"/>` + reeds
+    };
+  },
+  "isla-brasilera"(r, id) {
+    return {
+      defs: lg(id + "s", "#76AEDB", "#DCEEF4") + lg(id + "w", "#5E9AC4", "#285F8B"),
+      body: `<rect width="800" height="500" fill="url(#${id}s)"/>` + clouds(r, 4, 50, 150, "#FFFFFF") + birds(r, 4, 520, 720, 80, 160, "#3B4A5A") +
+        `<path d="M-10 270H340L330 258Q160 246 -10 252Z" fill="#6F8F6A"/>` + monte(r, 0, 320, 262, 14, "#567A55", 12) +
+        `<path d="M470 268H810V244Q640 236 480 254Z" fill="#5F7E5C"/>` + monte(r, 480, 800, 256, 14, "#4E6E4C", 13) +
+        `<rect y="266" width="800" height="234" fill="url(#${id}w)"/>` + streaks(r, 40, 276, 500, "#E3F1F8", .4) +
+        `<path d="M210 330C290 296 520 292 600 330Z" fill="#7E9A5E"/>` + monte(r, 250, 560, 318, 18, "#3F6A3C", 16) +
+        `<rect x="452" y="296" width="22" height="16" fill="#F4F1EA"/><path d="M448 298L463 286L478 298Z" fill="#B24F29"/>` +
+        `<path d="M318 314L322 290L326 314Z" fill="#F4F1EA"/>` +
+        `<path d="M220 332C300 340 510 340 590 332" stroke="#285F8B" stroke-width="4" opacity=".4" fill="none"/>` +
+        `<path d="M-10 500V452Q160 432 360 462Q560 492 810 446V500Z" fill="#5E7C45"/>` + grassTufts(r, 60, 0, 800, 470, 500, ["#3F5A2E", "#7E9A4E", "#A9B56A"])
+    };
+  },
+  "estacion-fluvial"(r, id) {
+    let posts = "";
+    for (let x = 340; x <= 620; x += 40) posts += `<rect x="${x}" y="356" width="6" height="34" fill="#5E4530"/><rect x="${x}" y="392" width="6" height="22" fill="#5E4530" opacity=".25"/>`;
+    let wake = "";
+    for (let i = 0; i < 7; i++) wake += `<path d="M${150 - i * 18} ${376 + i * 4}Q${100 - i * 30} ${380 + i * 6} ${40 - i * 40} ${382 + i * 9}" stroke="#F4FAFD" stroke-width="2" fill="none" opacity="${(.7 - i * .08).toFixed(2)}"/>`;
+    return {
+      defs: lg(id + "s", "#6DA5D2", "#F6DCB0") + lg(id + "w", "#4D8DBA", "#21587F"),
+      body: `<rect width="800" height="500" fill="url(#${id}s)"/><circle cx="640" cy="150" r="46" fill="#FFF0D2"/>` + clouds(r, 2, 70, 120, "#FFFFFF") + birds(r, 5, 180, 420, 90, 170, "#3B4A5A") +
+        `<rect y="276" width="800" height="14" fill="#7D997D" opacity=".7"/>` + monte(r, 0, 800, 290, 30, "#5D7A5E", 14) +
+        `<rect y="290" width="800" height="210" fill="url(#${id}w)"/>` + streaks(r, 36, 300, 500, "#E3F1F8", .35) +
+        `<path d="M560 372L800 332V500H520Z" fill="#8C7A5A"/><rect x="600" y="262" width="176" height="10" fill="#3F4A55"/><rect x="612" y="272" width="152" height="70" fill="#F2F0EA"/><rect x="622" y="286" width="132" height="26" fill="#7FB0D0"/><rect x="676" y="312" width="22" height="30" fill="#3F4A55"/>` +
+        `<rect x="330" y="348" width="300" height="9" fill="#7A5A3C"/>` + posts +
+        wake + `<path d="M148 350H330L310 384H170Z" fill="#F7F5F0"/><rect x="166" y="362" width="152" height="6" fill="#C8462F"/><rect x="204" y="326" width="74" height="24" fill="#F7F5F0"/><rect x="200" y="322" width="82" height="6" fill="#3F4A55"/><rect x="212" y="333" width="58" height="9" fill="#3D6E93"/>` +
+        `<path d="M170 386H310" stroke="#21587F" stroke-width="3" opacity=".5"/>`
+    };
+  }
+};
+function poster(p, cls) {
+  const FALLBACK = {nat: "rincon-de-franquia", rio: "isla-brasilera", his: "centro-artigas", ame: "los-catalanes"};
+  const scene = SCENES[p.id] || SCENES[FALLBACK[p.cat]] || SCENES["isla-brasilera"];
+  const id = "pz" + (++posterUid), sc = scene(rng(p.id + "/afiche"), id);
+  return `<svg class="${cls || "poster"}" viewBox="0 0 800 500" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Ilustración de ${p.name}" xmlns="http://www.w3.org/2000/svg"><defs>${sc.defs}</defs>${sc.body}<rect class="grain" width="800" height="500" filter="url(#grain)" opacity=".14"/></svg>`;
+}
+
+
+const CATS = {
+  nat: {name: "Naturaleza", shape: "circle"},
+  ame: {name: "Amatistas y piedras", shape: "diamond"},
+  his: {name: "Historia y cultura", shape: "square"},
+  rio: {name: "Río y frontera", shape: "tri"}
+};
+
+/* Ordenados de oeste a este */
+const PLACES = [
+{
+  id: "estacion-fluvial", cat: "rio", name: "Estación Fluvial de Bella Unión",
+  lat: -30.2552, lon: -57.6088, approx: true,
+  where: "Puerto de Bella Unión, sobre el río Uruguay",
+  short: "El muelle desde donde salen los paseos náuticos por la triple frontera, las islas del río y Rincón de Franquía.",
+  body: [
+    {h: "La puerta al río", p: [
+      "Se inauguró en octubre de 2019 en el recinto portuario de Bella Unión. La obra costó unos 400.000 dólares y la financiaron el Ministerio de Turismo, con fondos del BID, y el Ministerio de Transporte, con apoyo de la Intendencia y del Municipio.",
+      "La gestionan en conjunto la Dirección Nacional de Hidrografía, el Municipio de Bella Unión, el Club Náutico y el comité del área protegida Rincón de Franquía. Tiene información turística del Corredor de los Pájaros Pintados, baños y una sala de usos múltiples."
+    ]},
+    {h: "Paseos que salen desde acá", list: [
+      "Recorridas en lancha por la triple frontera entre Uruguay, Argentina y Brasil.",
+      "Navegación entre las islas del río, con vista a la Isla Brasilera.",
+      "Paseos a la Isla Zapallo y al Arenal del Tigre, un sitio con valor arqueológico, con baqueanos de la zona y almuerzo criollo.",
+      "Salidas de pesca."
+    ]},
+    {h: "Bella Unión", p: [
+      "Fundada en 1829 por Fructuoso Rivera, es la única ciudad uruguaya que limita a la vez con Argentina y con Brasil. Su economía gira en torno a la caña de azúcar, y su carnaval dura cinco noches, con comparsas que desfilan al ritmo de samba pero cantan en español."
+    ]}
+  ],
+  curious: "Durante años, el principal motivo para visitar Bella Unión fue el turismo de compras. La estación fluvial apuesta a que el río sea la nueva razón para venir.",
+  facts: [["Inauguración", "Octubre de 2019"], ["Ubicación", "Recinto portuario de Bella Unión"], ["Paseos", "Náuticos, de pesca y a las islas"], ["Ciudad", "Bella Unión, fundada en 1829"]],
+  howto: "Está en el puerto de Bella Unión. Consultá las salidas y los horarios de los paseos en el Centro de Información Turística de la ciudad o en la propia estación.",
+  sources: [
+    ["Presidencia: Bella Unión fortalece su posicionamiento como destino en la triple frontera", "https://www.gub.uy/presidencia/comunicacion/noticias/bella-union-fortalece-posicionamiento-destino-turistico-triple-frontera"],
+    ["Presidencia: la Estación Fluvial demandó una inversión de 400.000 dólares", "https://www.gub.uy/presidencia/comunicacion/noticias/estacion-fluvial-bella-union-demando-inversion-400000-dolares-se-inaugurara"],
+    ["Ministerio de Turismo: nueva estación fluvial potencia el turismo náutico", "https://www.gub.uy/ministerio-turismo/comunicacion/noticias/nueva-estacion-fluvial-bella-union-potencia-turismo-nautico"],
+    ["Wikipedia: Bella Unión", "https://en.wikipedia.org/wiki/Bella_Uni%C3%B3n"]
+  ]
+},
+{
+  id: "parque-rivera", cat: "rio", name: "Parque Rivera",
+  lat: -30.2622, lon: -57.6119,
+  where: "Costa del río Uruguay, Bella Unión",
+  short: "Un parque con eucaliptos sobre la costa del río Uruguay, en el oeste de Bella Unión, con parrilleros y juegos para niños.",
+  body: [
+    {h: "A orillas del río Uruguay", p: [
+      "El Parque Rivera está en el oeste de Bella Unión, sobre la costa del río Uruguay. Tiene eucaliptos, bancos de colores, parrilleros y juegos para niños.",
+      "En la otra orilla del río está Monte Caseros, ya en Argentina. Es un buen lugar para caminar junto al agua y mirar la costa argentina."
+    ]},
+    {h: "Para completar el paseo", list: [
+      "El Balneario Los Pinos, otro de los espacios de recreación de Bella Unión, con quinchos a la sombra.",
+      "La Plaza 25 de Agosto, la plaza principal de la ciudad, con su estatua de Artigas.",
+      "La Estación Fluvial, de donde salen los paseos en lancha por el río y la triple frontera.",
+      "El Museo Santa Rosa del Cuareim, con su colección arqueológica de la zona."
+    ]}
+  ],
+  curious: "Bella Unión se fundó en 1829 con el nombre de Santa Rosa. Su nombre actual alude a la unión de dos ríos: el Cuareim y el Uruguay.",
+  facts: [["Tipo", "Parque costero"], ["Río", "Uruguay"], ["Servicios", "Parrilleros y juegos para niños"], ["Ciudad", "Bella Unión"]],
+  howto: "Está en el oeste de Bella Unión, sobre la costa. Desde la Plaza 25 de Agosto son unos 600 metros hacia el río.",
+  sources: [
+    ["Wikivoyage: Bella Unión", "https://en.wikivoyage.org/wiki/Bella_Uni%C3%B3n"],
+    ["Wikipedia: Departamento de Artigas", "https://es.wikipedia.org/wiki/Departamento_de_Artigas"],
+    ["Wikipedia: Bella Unión", "https://en.wikipedia.org/wiki/Bella_Uni%C3%B3n"],
+    ["Flags of the World: Bella Unión", "https://cdn.fotw.info/flags/uy-ar-bu.html"]
+  ]
+},
+{
+  id: "museo-santa-rosa", cat: "his", name: "Museo Santa Rosa del Cuareim",
+  lat: -30.2580, lon: -57.6040,
+  where: "Enrique Ferreira 1164, Bella Unión",
+  short: "Un museo privado con una colección arqueológica de la prehistoria de la zona, reunida durante más de treinta años.",
+  body: [
+    {h: "Arqueología de la triple frontera", p: [
+      "Es un museo particular, creado y dirigido por el coleccionista Julio César «Tucho» Cardoso. Su colección arqueológica, ligada a la prehistoria temprana del territorio, se formó durante más de treinta años con hallazgos de la zona.",
+      "Sus temas son la paleontología, la arqueología prehistórica y los pueblos indígenas que habitaron la región."
+    ]},
+    {h: "Estudiado por la Universidad", p: [
+      "En noviembre de 2019, un equipo de arqueología de la Universidad de la República relevó la colección. Se concentró en los materiales de Rincón de Franquía y sus alrededores, como parte de un proyecto sobre la presencia indígena misionera en territorio uruguayo."
+    ]}
+  ],
+  curious: "El museo lleva el nombre que tuvo Bella Unión en sus comienzos: Santa Rosa del Cuareim.",
+  facts: [["Tipo", "Museo privado"], ["Temas", "Paleontología, arqueología e indígenas"], ["Entrada", "Gratuita"], ["Grupos", "Con agenda previa, al 477 92589"]],
+  howto: "Está en la calle Enrique Ferreira 1164, en Bella Unión. La entrada es gratuita. Para visitas de grupos, coordiná antes por teléfono al (598) 477 92589.",
+  sources: [
+    ["Museos del Uruguay: Museo Santa Rosa del Cuareim", "https://www.museos.gub.uy/index.php/museos/museos-por-localidad/artigas/item/3-museo-santa-rosa-del-cuareim"],
+    ["Anuario de Arqueología (FHCE, Udelar): relevamiento de la colección del museo", "https://ojs.fhce.edu.uy/index.php/aarq/article/view/2042"],
+    ["Wikivoyage: Bella Unión", "https://en.wikivoyage.org/wiki/Bella_Uni%C3%B3n"]
+  ]
+},
+{
+  id: "isla-brasilera", cat: "rio", name: "Isla Brasilera y la triple frontera",
+  lat: -30.1850, lon: -57.6300,
+  where: "Confluencia del río Cuareim con el río Uruguay",
+  short: "Una isla deshabitada justo donde se juntan Uruguay, Argentina y Brasil. La administra Brasil y la reclama Uruguay.",
+  body: [
+    {h: "Tres países a la vista", p: [
+      "Donde el Cuareim desemboca en el río Uruguay se encuentran tres ciudades de tres países: Bella Unión, en Uruguay; Barra do Quaraí, en Brasil, y Monte Caseros, en Argentina. Es la triple frontera más austral de América.",
+      "En 2019 las tres ciudades formaron el primer Comité de Integración Trinacional del Mercosur, para trabajar juntas en temas como cultura, ambiente, turismo y deportes. Bella Unión y Barra do Quaraí están unidas por un puente; entre Bella Unión y Monte Caseros el cruce se hace en embarcación."
+    ]},
+    {h: "Una isla en disputa", p: [
+      "La Isla Brasilera mide unos 3,7 km de largo y menos de un kilómetro de ancho. Brasil la considera parte de Barra do Quaraí y apoya su postura en el tratado de límites de 1851. Uruguay la incluyó históricamente en Bella Unión.",
+      "El desacuerdo no afecta la buena relación entre los dos países y ninguno mantiene fuerzas en la isla. En la zona hay un marco de mármol de 1862, el Marco Imperial, que señala el límite."
+    ]}
+  ],
+  curious: "Entre 1964 y 2011 la isla tuvo un único habitante: un productor brasileño que vivía en una sola casa. Cuando hubo un incendio en 2009, los bomberos de Bella Unión ayudaron a apagarlo.",
+  facts: [["Superficie", "Unos 2,5 km²"], ["Habitantes", "Ninguno desde 2011"], ["Administra", "Brasil (Barra do Quaraí)"], ["Reclama", "Uruguay (Bella Unión)"]],
+  howto: "Se ve desde la costa norte de Bella Unión. Para recorrer la zona de cerca, hay paseos en lancha que salen de la Estación Fluvial.",
+  sources: [
+    ["Wikipedia: Brazilian Island", "https://en.wikipedia.org/wiki/Brazilian_Island"],
+    ["Barry's Border Points: trifinio Argentina-Brasil-Uruguay", "https://barrysborderpoints.com/tripoints/americas-tripoints/arbruy/"],
+    ["Aduana News: se crea el primer comité de integración trinacional", "https://aduananews.com/brasil-argentina-y-uruguay-crean-primer-comite-de-integracion-trinacional-2/"]
+  ]
+},
+{
+  id: "rincon-de-franquia", cat: "nat", name: "Rincón de Franquía",
+  lat: -30.2120, lon: -57.6000,
+  where: "Al norte de Bella Unión, en la desembocadura del Cuareim",
+  short: "Área protegida en la triple frontera, con monte, humedales y más de 220 especies de aves registradas.",
+  body: [
+    {h: "Donde se juntan dos ríos", p: [
+      "Rincón de Franquía ocupa el rincón que forman el río Cuareim y el río Uruguay, al norte de Bella Unión. Por su ubicación recibe especies tropicales y subtropicales que llegan siguiendo los ríos, algo poco común en el resto del país.",
+      "En abril de 2013 ingresó al Sistema Nacional de Áreas Protegidas (Decreto 121/013) como «área de manejo de hábitats y/o especies»."
+    ]},
+    {h: "Lo que vive acá", list: [
+      "223 especies de aves, cerca de la mitad de las registradas en Uruguay. Es un Área de Importancia para la Conservación de las Aves (IBA).",
+      "21 especies de anfibios y 14 de reptiles. Tres figuran en la lista roja de la UICN, entre ellas la rana boyadora chica.",
+      "Murciélagos con muy pocos registros en el país, como el murciélago de orejas anchas patagónico."
+    ]},
+    {h: "Una conquista de los vecinos", p: [
+      "Todo empezó en 2004, cuando un grupo de vecinos de Bella Unión propuso proteger la zona. En 2011 el Municipio la declaró reserva y dos años después entró al SNAP. La ONG local GruPAmA fue la primera organización de la sociedad civil en co-gestionar un área del sistema."
+    ]}
+  ],
+  curious: "Del otro lado de los ríos hay áreas protegidas en Brasil (el Parque Estadual do Espinilho) y en Argentina. Existe la idea de unirlas en un parque trinacional.",
+  facts: [["Protección", "SNAP, desde 2013"], ["Categoría", "Manejo de hábitats y/o especies"], ["Aves", "223 especies registradas"], ["Gestión", "Ministerio de Ambiente, con Intendencia, Municipio y organizaciones locales"]],
+  howto: "Se llega desde Bella Unión hacia el norte de la ciudad. También se puede recorrer en un paseo náutico desde la Estación Fluvial, que funciona como puerta de entrada al área.",
+  sources: [
+    ["Ministerio de Ambiente: propuesta de ingreso de Rincón de Franquía al SNAP (PDF)", "https://www.gub.uy/ministerio-ambiente/sites/ministerio-ambiente/files/documentos/publicaciones/franquiasnapcorreg_1%281%29.pdf"],
+    ["IMPO: Decreto 121/013", "https://impo.com.uy/bases/decretos/121-2013"],
+    ["Ministerio de Ambiente: términos de referencia para la dirección del área (PDF)", "https://www.gub.uy/ministerio-ambiente/sites/ministerio-ambiente/files/2023-03/TdR_Director_Franquia_mar2023.pdf"],
+    ["Presidencia: la Estación Fluvial como portal del área protegida", "https://www.gub.uy/presidencia/comunicacion/noticias/bella-union-fortalece-posicionamiento-destino-turistico-triple-frontera"]
+  ]
+},
+{
+  id: "baltasar-brum", cat: "his", name: "Estación de Baltasar Brum",
+  lat: -30.7167, lon: -57.3333, approx: true,
+  where: "Baltasar Brum, suroeste del departamento",
+  short: "El cruce ferroviario donde la vía se abre en dos: un ramal a Bella Unión y otro a Artigas. En la vieja estación funciona un museo.",
+  body: [
+    {h: "El pueblo de la bifurcación", p: [
+      "Hacia 1883 llegaron las cuadrillas de obreros que construyeron la vía entre Salto y Bella Unión, con un ramal hacia la ciudad de Artigas. Aquí está el punto donde la vía se divide. La estación se llamó Isla Cabellos y el pueblo conservó ese nombre hasta que una ley de 1956 lo rebautizó Baltasar Brum, en homenaje al presidente nacido en el departamento.",
+      "Según el censo de 2011 viven unas 2.500 personas. La ganadería y el arroz son las actividades principales, y la esquila es una zafra muy importante para los trabajadores de la zona."
+    ]},
+    {h: "Museo Municipal", p: [
+      "Funciona en la estación de AFE, entre las calles 25 de Agosto y Dr. Errandonea. Exhibe antigüedades de la zona, vehículos, recados y otros objetos de la vida de campo."
+    ]}
+  ],
+  curious: "Por su origen ferroviario, el pueblo también es conocido como Isla Cabellos, el nombre que tuvo su estación hasta mediados del siglo XX.",
+  facts: [["Primer nombre", "Isla Cabellos"], ["Nombre actual", "Desde 1956 (Ley 12.266)"], ["Población", "2.531 habitantes (censo 2011)"], ["Museo", "En la estación de AFE"]],
+  howto: "Está a 105 km de la ciudad de Artigas y a 63 km de Bella Unión. Se llega por un camino que sale hacia el sur desde la Ruta 30, o desde la Ruta 3 pasando por las Termas del Arapey, en Salto. Confirmá los horarios del museo con el Municipio de Baltasar Brum.",
+  sources: [
+    ["Wikipedia: Baltasar Brum, Artigas", "https://en.wikipedia.org/wiki/Baltasar_Brum,_Artigas"],
+    ["El Observador: los municipios de Artigas", "https://www.elobservador.com.uy/nota/artigas-20114111940"],
+    ["Museos del Uruguay: programa de la Noche de los Museos (PDF)", "https://www.museos.gub.uy/index.php/noticias/item/download/59_c549d13454586fd569e1203511ad6b1c"],
+    ["Uruguay Wiki: Baltasar Brum (Artigas)", "https://uruguay.fandom.com/es/wiki/Baltasar_Brum_(Artigas)"]
+  ]
+},
+{
+  id: "codo-del-cuareim", cat: "rio", name: "Codo del Cuareim",
+  lat: -30.0856, lon: -56.9517,
+  where: "Extremo norte del departamento, sobre el río Cuareim",
+  short: "El punto más al norte del Uruguay, en una curva del río que nos separa de Brasil.",
+  body: [
+    {h: "El norte del norte", p: [
+      "El río Cuareim marca el límite con Brasil a lo largo de todo el norte del departamento. En su recorrido dibuja una curva que sube hacia el norte, y el extremo de ese codo es el punto más septentrional del país.",
+      "Más al oeste, el mismo río desemboca en el río Uruguay junto a Bella Unión, donde se encuentran Uruguay, Argentina y Brasil."
+    ]},
+    {h: "Antes de ir", p: [
+      "No es un parque ni un sitio con servicios: es un punto geográfico en zona rural, junto al río y entre establecimientos de campo. Si querés acercarte, averiguá antes por los caminos y pedí permiso en los predios."
+    ]}
+  ],
+  curious: "Ningún otro país tiene su extremo norte tan al sur como Uruguay.",
+  facts: [["Coordenadas", "30°05′08″ S · 56°57′06″ O"], ["Río", "Cuareim, límite con Brasil"], ["Tipo", "Punto geográfico"], ["Acceso", "Rural, sin servicios"]],
+  howto: "Está en el norte del departamento, en zona de campo. No hay un acceso señalizado: consultá caminos y permisos con vecinos de la zona o en el Municipio.",
+  sources: [
+    ["Wikipedia: Extreme points of Uruguay", "https://en.wikipedia.org/wiki/Extreme_points_of_Uruguay"],
+    ["Wikipedia: Departamento de Artigas", "https://es.wikipedia.org/wiki/Departamento_de_Artigas"]
+  ]
+},
+{
+  id: "javier-de-viana", cat: "his", name: "Estación ferroviaria de Javier de Viana",
+  lat: -30.4328, lon: -56.7872,
+  where: "Javier de Viana, kilómetro 100 de la Ruta 30",
+  short: "Un pueblo que nació junto a las vías en 1893. Su memoria ferroviaria dio origen al proyecto de un museo del tren.",
+  body: [
+    {h: "Un pueblo hecho por el tren", p: [
+      "En 1893 se instaló aquí, en tierras de Froilán Rodríguez, la estación de trenes «Tres Cruces». A su alrededor creció el pueblo que hoy lleva el nombre de Javier de Viana.",
+      "Está sobre la margen norte del arroyo Tres Cruces Grande, en el kilómetro 100 de la Ruta 30, junto a la estación del kilómetro 780 del ramal que une Baltasar Brum con la ciudad de Artigas."
+    ]},
+    {h: "El museo ferroviario", p: [
+      "En enero de 2025, AFE entregó a la Intendencia de Artigas objetos históricos para crear un Museo del Ferrocarril: telégrafos, teléfonos y otros equipos que guardó el último encargado de la estación de Javier de Viana.",
+      "La iniciativa la impulsó un ex ferroviario. La idea original era abrir el museo en el propio pueblo, por sus raíces ferroviarias. Después pasó a la Dirección de Cultura de la Intendencia, para darle más alcance."
+    ]}
+  ],
+  curious: "El museo nace de una colección personal: los equipos con los que trabajó el último encargado de la estación, que él mismo conservó.",
+  facts: [["Estación", "Desde 1893, km 780 del ramal"], ["Ruta", "Kilómetro 100 de la Ruta 30"], ["Arroyo", "Tres Cruces Grande"], ["Museo", "Colección entregada por AFE en 2025"]],
+  howto: "Desde la ciudad de Artigas, por Ruta 30 hacia el oeste hasta el kilómetro 100. Antes de ir, preguntá en la Dirección de Cultura de la Intendencia dónde se exhibe hoy la colección ferroviaria y en qué horario.",
+  sources: [
+    ["Wikipedia: Javier de Viana (Uruguay)", "https://es.wikipedia.org/wiki/Javier_de_Viana_(Uruguay)"],
+    ["Semanario Noticias: AFE entrega material para museo del ferrocarril en Artigas", "https://semanarionoticias.net/afe-entrega-material-para-museo-del-ferrocarril-en-artigas/"]
+  ]
+},
+{
+  id: "centro-artigas", cat: "his", name: "Plaza Artigas e Iglesia San Eugenio",
+  lat: -30.3984, lon: -56.4638,
+  where: "Centro de la ciudad de Artigas",
+  short: "El corazón de la ciudad fundada en 1852 como San Eugenio del Cuareim, con su iglesia más antigua y un monumento revestido de ágatas.",
+  body: [
+    {h: "Una ciudad que nació en la frontera", p: [
+      "Carlos Catalá fundó la ciudad el 12 de setiembre de 1852 con el nombre de San Eugenio del Cuareim, al terminar la Guerra Grande, para afirmar la frontera con Brasil. En 1915 pasó a ser ciudad y tomó el nombre de Artigas, en homenaje a José Gervasio Artigas. El departamento se había creado por ley el 1° de octubre de 1884."
+    ]},
+    {h: "Para recorrer a pie", list: [
+      "Plaza Artigas: el monumento al prócer, obra de Armando González, tiene una base cubierta con más de 6.000 plaquetas de ágata.",
+      "Iglesia San Eugenio: la más antigua de la ciudad, bendecida en 1854, frente a la plaza. Alberga el Museo Eclesiástico «Padre Anselmo Espada».",
+      "Plaza Batlle: una de las plazas más grandes del país, con el obelisco en homenaje a los héroes de 1825.",
+      "Árbol Ibirapitá, frente a la Terminal de Ómnibus. Según la tradición local, lo trajo de Paraguay Baltasar Brum en 1913, y desciende del árbol del solar de Artigas en ese país.",
+      "Ex Mercado Municipal: edificio neoclásico que hoy funciona como Centro Figari."
+    ]}
+  ],
+  curious: "La Terminal de Ómnibus «General Artigas», inaugurada en 2001, ocupa el predio de la antigua estación de tren y conserva parte de su aspecto original.",
+  facts: [["Fundación", "12 de setiembre de 1852"], ["Primer nombre", "San Eugenio del Cuareim"], ["Ciudad desde", "1915"], ["Iglesia San Eugenio", "Bendecida en 1854"]],
+  howto: "Es el centro de la ciudad. La Iglesia San Eugenio está sobre la calle Garzón, frente a la Plaza Artigas. Todo se recorre caminando.",
+  sources: [
+    ["Intendencia de Artigas: el departamento", "https://www.artigas.gub.uy/?p=9046"],
+    ["Turismo en Artigas: lugares", "https://turismoenartigas.wixsite.com/artigas/about_us"],
+    ["Ministerio de Educación y Cultura: atractivos de Artigas", "https://www.gub.uy/ministerio-educacion-cultura/politicas-y-gestion/tabare-ferrua"],
+    ["Wikipedia: Artigas Department", "https://en.wikipedia.org/wiki/Artigas_Department"]
+  ]
+},
+{
+  id: "jefatura-de-policia", cat: "his", name: "Jefatura de Policía de Artigas",
+  lat: -30.3980, lon: -56.4630,
+  where: "Av. Carlos Lecueder y Amaro Ferreira Ramos, ciudad de Artigas",
+  short: "Un edificio de 1896 que parece un castillo medieval, con torres almenadas y un reloj traído de París.",
+  body: [
+    {h: "Un castillo en el centro", p: [
+      "Se inauguró el 21 de marzo de 1896, después de cuatro años de obra, cuando era jefe político el coronel Carlos Lecueder, el primero que tuvo el departamento. Está en la esquina de la avenida que hoy lleva su nombre y la calle Amaro Ferreira Ramos.",
+      "Se inspira en la arquitectura militar europea y recrea un castillo medieval, con cuatro torres almenadas y saeteras. El patio tenía un pórtico con columnas de hierro, que después se reemplazó por arcos de medio punto."
+    ]},
+    {h: "El reloj de la torre", list: [
+      "Llegó desde París en diez cajones.",
+      "El relojero Studler lo armó y lo instaló en el frente el 22 de junio de 1901. Se inauguró el 8 de julio de ese año.",
+      "Sus tres campanas pesan 300 kilos en total y se pensaron para que se oyeran a 5 kilómetros de distancia."
+    ]},
+    {h: "Más de un siglo de historia", p: [
+      "La Jefatura nació con el departamento, en octubre de 1884, cuando San Eugenio pasó a ser su capital. Primero funcionó en una casona colonial, en la esquina de las calles que hoy son la avenida Carlos Lecueder y Eduardo M. Castro.",
+      "En junio de 2002, el edificio y su reloj fueron declarados Patrimonio Histórico."
+    ]}
+  ],
+  curious: "Cuando se creó, la policía del departamento tenía 8 seccionales y 104 efectivos. Hoy tiene 13 seccionales.",
+  facts: [["Inauguración", "21 de marzo de 1896"], ["Estilo", "Inspirado en castillos medievales"], ["Reloj", "Desde 1901, traído de París"], ["Protección", "Patrimonio Histórico desde 2002"]],
+  howto: "Está en pleno centro de Artigas, a pocos metros de la Plaza Artigas. Sigue funcionando como sede policial: el edificio se aprecia desde la calle, y para conocer el interior hay que consultar en la propia Jefatura.",
+  sources: [
+    ["Ministerio del Interior: historia de la Policía del departamento de Artigas", "https://www.gub.uy/ministerio-interior/politicas-y-gestion/historia-policia-del-departamento-artigas"],
+    ["Ministerio del Interior: Jefatura Departamental de Artigas", "https://www.gub.uy/ministerio-interior/institucional/estructura-del-organismo/jefatura-departamental-artigas"]
+  ]
+},
+{
+  id: "carnaval-de-artigas", cat: "his", name: "Carnaval de Artigas",
+  lat: -30.4040, lon: -56.4692, approx: true,
+  where: "Avenida Carlos Lecueder, ciudad de Artigas",
+  short: "Escuelas de samba, carros alegóricos y baterías desfilan por la avenida principal, en una fiesta inspirada en el carnaval de Río de Janeiro.",
+  body: [
+    {h: "Una fiesta de frontera", p: [
+      "Desde hace más de 40 años, Artigas celebra un carnaval inspirado en el de Río de Janeiro, pero con identidad propia, nacida de la cultura de frontera. Sus organizadores lo llaman un «mini Río de Janeiro».",
+      "El centro de la fiesta es el desfile de escuelas de samba por la avenida Carlos Lecueder, la principal de la ciudad. Cada escuela sale con alas de bailarines, carros alegóricos y su batería, y canta su samba enredo. El Ministerio de Turismo lo declaró de interés turístico."
+    ]},
+    {h: "La edición 2026", list: [
+      "Se desfiló del 14 al 16 de febrero.",
+      "Participaron nueve escuelas de samba, con unas 6.500 personas: cinco en el Grupo Especial y cuatro en el Grupo Oro.",
+      "Un jurado evalúa nueve aspectos durante dos noches. La campeona del Grupo Oro sube al Especial y la última del Especial baja.",
+      "Dos cuadras del recorrido son de acceso gratuito.",
+      "Se esperaba a más de 30.000 personas."
+    ]},
+    {h: "Más que tres noches", p: [
+      "El carnaval mueve la gastronomía, la hotelería, la confección de fantasías y la producción artística de la ciudad. En los días previos también se pueden visitar los ensayos de las escuelas.",
+      "Bella Unión tiene su propio carnaval: durante cinco noches desfilan comparsas al ritmo de samba, con letras cantadas en español."
+    ]}
+  ],
+  curious: "Cada escuela de samba puede reunir alrededor de mil integrantes entre bailarines, músicos y quienes acompañan los carros.",
+  facts: [["Cuándo", "Febrero o marzo, según el año"], ["Dónde", "Avenida Carlos Lecueder"], ["Escuelas (2026)", "Nueve, en dos grupos"], ["Público", "Más de 30.000 personas"]],
+  howto: "El desfile ocupa la avenida Carlos Lecueder, en el centro de la ciudad de Artigas. Las fechas, las entradas y los horarios se anuncian cada año: consultá a la Intendencia de Artigas o a la Federación de Escuelas de Samba.",
+  sources: [
+    ["Ministerio de Turismo: Artigas se prepara para vivir el Carnaval 2026", "https://www.gub.uy/ministerio-turismo/comunicacion/noticias/artigas-se-prepara-para-vivir-carnaval-2026"],
+    ["Presidencia: la edición 2025 del Carnaval de Artigas", "https://www.gub.uy/presidencia/comunicacion/noticias/edicion-2025-del-carnaval-artigas-se-apresta-recibir-60000-personas"],
+    ["Ministerio de Turismo: Desfile de escuelas de samba de Artigas", "https://www.gub.uy/ministerio-turismo/comunicacion/calendario-actividades/desfile-escuelas-samba-artigas"],
+    ["Ministerio de Turismo: el Carnaval de Bella Unión", "https://www.gub.uy/ministerio-turismo/comunicacion/noticias/nueva-estacion-fluvial-bella-union-potencia-turismo-nautico"]
+  ]
+},
+{
+  id: "museo-piedra-preciosa", cat: "ame", name: "Museo de la Piedra Preciosa",
+  lat: -30.4012, lon: -56.4658, approx: true,
+  where: "Ciudad de Artigas, en el edificio de La Casona",
+  short: "Un centro cultural interactivo que cuenta la historia de las ágatas y amatistas, desde los volcanes hasta la exportación.",
+  body: [
+    {h: "Las piedras, contadas de otra manera", p: [
+      "El Centro Cultural Museo de la Piedra Preciosa abrió en noviembre de 2025 en La Casona, un edificio declarado Monumento Histórico Nacional. El recorrido va desde el origen volcánico de las piedras hasta el trabajo de hoy: extracción, clasificación, tallado y exportación.",
+      "Se hizo con apoyo del Ministerio de Turismo y del BID, a través del Programa de Desarrollo de Destinos Turísticos Emergentes, sumado a fondos de la Intendencia."
+    ]},
+    {h: "Qué vas a encontrar", list: [
+      "Simulaciones holográficas de ágatas y amatistas.",
+      "Mesas para identificar piedras y conocer su origen.",
+      "Videos 3D y experiencias inmersivas dentro de túneles y canteras.",
+      "Testimonios de mineros, artesanos y operarios.",
+      "Mapas interactivos de los yacimientos y recorridas en 360° con lentes de realidad virtual.",
+      "Herramientas, uniformes y piezas originales, y la historia del propio edificio."
+    ]}
+  ],
+  curious: "Todo el contenido está en español, portugués e inglés, pensando en quienes cruzan desde Quaraí y en el turismo de la región.",
+  facts: [["Tipo", "Museo interactivo"], ["Apertura", "Noviembre de 2025"], ["Edificio", "La Casona, Monumento Histórico Nacional"], ["Idiomas", "Español, portugués e inglés"]],
+  howto: "Está en la ciudad de Artigas. El punto del mapa es aproximado: confirmá la dirección y los horarios con la Dirección de Cultura de la Intendencia. Es un buen primer paso antes de visitar las minas de Los Catalanes.",
+  sources: [
+    ["Ministerio de Turismo: Artigas inaugura el Centro Cultural Museo de la Piedra Preciosa", "https://www.gub.uy/ministerio-turismo/comunicacion/noticias/artigas-inaugura-centro-cultural-museo-piedra-preciosa-apoyo-del-programa"]
+  ]
+},
+{
+  id: "paseo-7-de-setiembre", cat: "rio", name: "Paseo 7 de Setiembre y Puente de la Concordia",
+  lat: -30.3942, lon: -56.459, approx: true,
+  where: "Costanera del río Cuareim, ciudad de Artigas",
+  short: "El gran parque sobre el río Cuareim y el puente que une Artigas con Quaraí, del lado brasileño.",
+  body: [
+    {h: "Un parque a orillas del Cuareim", p: [
+      "Es el gran espacio verde de la ciudad, sobre el río que marca la frontera con Brasil. Su nombre homenajea el 7 de setiembre, fecha de la independencia brasileña. Del otro lado del río está Quaraí."
+    ], list: [
+      "Parque Rodó, con lago artificial, pista de mountain bike y pista de patinaje.",
+      "Carpas, quinchos y pista de salud.",
+      "El Balneario Municipal, junto al paseo.",
+      "Una fuente luminosa en la cabecera del puente."
+    ]},
+    {h: "Puente Internacional de la Concordia", p: [
+      "Une Artigas con Quaraí y mide unos 750 metros. Se inauguró el 3 de abril de 1968 y está habilitado para importación y exportación.",
+      "En 2026 se terminó su rehabilitación: nuevo pavimento, juntas de dilatación, barandas y veredas, con una inversión cercana a 900.000 dólares."
+    ]}
+  ],
+  curious: "Cruzar el puente es cambiar de país caminando: del otro lado está Quaraí, en Rio Grande do Sul, y en pocos minutos cambian el idioma y la moneda.",
+  facts: [["Río", "Cuareim"], ["Puente", "750 m, inaugurado en 1968"], ["Une", "Artigas (UY) y Quaraí (BR)"], ["Rehabilitación", "2026"]],
+  howto: "Se llega por las calles Ansina y Héctor Vasconcellos, o por Presidente Berreta y 18 de Julio.",
+  sources: [
+    ["EcuRed: Paseo 7 de Septiembre (Artigas)", "https://www.ecured.cu/Paseo_7_de_Septiembre_(Artigas)"],
+    ["Turismo en Artigas: lugares", "https://turismoenartigas.wixsite.com/artigas/about_us"],
+    ["Presidencia: reinauguración del Puente Internacional de la Concordia", "https://www.gub.uy/presidencia/comunicacion/noticias/orsi-reinauguro-puente-internacional-concordia-mejora-conectividad-seguridad"]
+  ]
+},
+{
+  id: "piedra-pintada", cat: "nat", name: "Piedra Pintada",
+  lat: -30.5113, lon: -56.3785,
+  where: "A unos 17 km de la ciudad de Artigas",
+  short: "Una mole de arenisca de 19 metros, rodeada de monte nativo, dentro del Parque Congreso de Abril.",
+  body: [
+    {h: "Una roca distinta a todo lo que la rodea", p: [
+      "La Piedra Pintada es una formación de arenisca de 19 metros de alto y unos 76 metros de circunferencia. Es única en la zona y se la considera una curiosidad geológica. Su color verde rojizo no es pintura: lo dan distintas especies de musgos que crecen sobre la roca.",
+      "Su forma es obra de la erosión. El agua fue desgastando la arenisca, mientras que las partes altas están cubiertas de basalto, una roca más resistente. En un solo lugar se ven las dos piedras que forman el suelo del departamento: el basalto, que cubre casi todo Artigas, y la arenisca que asoma alrededor de la capital."
+    ]},
+    {h: "Qué vas a encontrar", list: [
+      "El Parque Congreso de Abril, inaugurado en 1982, con camping, baños, piscinas, churrasqueras, cantina y venta de leña.",
+      "Una reserva de fauna autóctona en la entrada, con especies que ya no se ven en el resto del país.",
+      "El Museo de las Carretas.",
+      "Monte nativo y el paisaje de la Guayubira, una zona de cultivo de tabaco."
+    ]},
+    {h: "Firmas de más de un siglo", p: [
+      "Muchos visitantes grabaron su nombre en la roca. La inscripción más antigua es de 1883 y lleva el nombre de L. Villar; especialistas confirmaron su antigüedad. Mirá las firmas, pero no sumes la tuya: la piedra se cuida entre todos."
+    ]}
+  ],
+  curious: "Una leyenda local cuenta que un aventurero que huía de sus perseguidores enterró un tesoro cerca de la piedra, y la usó como señal para volver a encontrarlo.",
+  facts: [["Tipo", "Formación de arenisca y parque"], ["Altura", "19 metros"], ["Parque", "Congreso de Abril, desde 1982"], ["Entrada", "Con costo; consultá tarifas en la Intendencia (1884)"]],
+  howto: "Desde la ciudad de Artigas se toma la Ruta 30. Entre los kilómetros 139 y 144 salen dos caminos vecinales que llevan al parque, unos 8 km hacia adentro.",
+  sources: [
+    ["Wikipedia: Piedra Pintada (Uruguay)", "https://es.wikipedia.org/wiki/Piedra_Pintada_(Uruguay)"],
+    ["Intendencia de Artigas: Parque Piedra Pintada", "https://www.artigas.gub.uy/parque-piedra-pintada/"],
+    ["Turismo en Artigas: lugares", "https://turismoenartigas.wixsite.com/artigas/about_us"]
+  ]
+},
+{
+  id: "los-catalanes", cat: "ame", name: "Minas de amatistas de Los Catalanes",
+  lat: -30.7928, lon: -56.2703,
+  where: "Zona de Catalán, a unos 50 km de Artigas por Ruta 30",
+  short: "El distrito donde se extraen las amatistas que hicieron famoso a Artigas, en minas a cielo abierto y en galería.",
+  body: [
+    {h: "Cristales nacidos de volcanes", p: [
+      "Hace unos 130 millones de años, mientras América del Sur se separaba de África, enormes coladas de lava cubrieron esta región. Dentro de esos basaltos quedaron huecos que, con el tiempo, se llenaron de cristales: así se formaron las geodas de ágata y amatista.",
+      "En la cuenca de los arroyos Catalán hay entre 20 y 25 yacimientos en explotación. Algunas geodas miden varios metros y pesan toneladas. La Unión Internacional de Ciencias Geológicas (IUGS) incluyó a los yacimientos de Los Catalanes en su lista de sitios de patrimonio geológico."
+    ]},
+    {h: "Una historia larga", list: [
+      "Las amatistas del arroyo Catalán se conocen desde 1750, durante el dominio español.",
+      "En 2007, el servicio geológico de Uruguay publicó el primer estudio detallado de la zona y definió el Distrito Gemológico Los Catalanes.",
+      "La Ley 19.238, de 2014, declaró a Artigas Capital Nacional de las Piedras Preciosas y Semipreciosas, Amatistas y Ágatas.",
+      "A orillas del arroyo Catalán Chico, el arqueólogo Antonio Taddei identificó en los años cincuenta el Catalanense: rastros de los primeros pobladores registrados en Uruguay, de hace entre 8.000 y 10.000 años."
+    ]},
+    {h: "Turismo minero", p: [
+      "Hace años que se organizan recorridas guiadas por la zona, conocidas como Safari Minero o Ruta de las Ágatas y Amatistas. Incluyen canteras a cielo abierto, minas de galería, un salón con amatistas gigantes y visitas a talleres de artesanos en la ciudad."
+    ]}
+  ],
+  curious: "En 2007 se encontró en Artigas la «Emperatriz del Uruguay», una geoda de amatista de 3,27 metros de alto y unas 2,5 toneladas, considerada la más grande del mundo. Hoy se exhibe en Australia.",
+  facts: [["Tipo", "Yacimientos de ágatas y amatistas"], ["Edad", "Unos 130 millones de años"], ["Reconocimiento", "Patrimonio geológico de la IUGS"], ["Visitas", "Con operador turístico o guía"]],
+  howto: "Desde la ciudad de Artigas, unos 50 km por Ruta 30 hasta la zona de Catalán. Las minas están en predios privados y en actividad: la visita se hace siempre con un operador turístico o con permiso del establecimiento.",
+  sources: [
+    ["IUGS: Deposits of amethysts of Los Catalanes gemological district", "https://iugs-geoheritage.org/geoheritage_sites/deposits-of-amethysts-of-los-catalanes-gemological-district/"],
+    ["La Mañana: la ruta de las ágatas y amatistas en Artigas", "https://www.xn--lamaana-7za.uy/agro/la-ruta-de-las-agatas-y-amatistas-en-artigas"],
+    ["Presidencia: Ley 19.238, Artigas capital de las piedras preciosas", "https://www.gub.uy/presidencia/comunicacion/noticias/artigas-se-posiciona-centro-origen-mejor-piedra-amatista-del-mundo"],
+    ["Wikipedia: Departamento de Artigas", "https://es.wikipedia.org/wiki/Departamento_de_Artigas"],
+    ["Wikipedia: Artigas Department", "https://en.wikipedia.org/wiki/Artigas_Department"]
+  ]
+}
+];
+
+
+/* Nombres cortos para las etiquetas del mapa */
+const LABELS = {
+  "estacion-fluvial": "Estación Fluvial", "isla-brasilera": "Isla Brasilera", "rincon-de-franquia": "Rincón de Franquía",
+  "baltasar-brum": "Estación Baltasar Brum", "codo-del-cuareim": "Codo del Cuareim", "javier-de-viana": "Estación Javier de Viana",
+  "centro-artigas": "Plaza Artigas", "museo-piedra-preciosa": "Museo de la Piedra Preciosa", "paseo-7-de-setiembre": "Paseo 7 de Setiembre",
+  "piedra-pintada": "Piedra Pintada", "los-catalanes": "Minas de Los Catalanes",
+  "parque-rivera": "Parque Rivera", "museo-santa-rosa": "Museo Santa Rosa", "jefatura-de-policia": "Jefatura de Policía", "carnaval-de-artigas": "Carnaval"
+};
+/* FOTOS — la primera de cada lugar es la portada (mapa, postal y ficha); todas forman la galería.
+   Para sumar una foto propia: copiala a img/ y agregá una línea al lugar, por ejemplo:
+   {"src": "img/piedra-pintada-3.jpg", "alt": "Qué muestra la foto", "by": "Nombre de quien la sacó", "lic": "Todos los derechos reservados", "page": ""}
+   Para que sea la portada, ponela primera en la lista. */
+const PHOTOS = {
+  "estacion-fluvial": [
+    {"src": "img/estacion-fluvial-1.jpg", "alt": "El río Uruguay frente a Bella Unión, con Monte Caseros (Argentina) en la otra orilla", "by": "Mx. Granger", "lic": "CC0", "page": "https://commons.wikimedia.org/wiki/File:Monte_Caseros_seen_from_Uruguay.jpg", "ref": true},
+    {"src": "img/estacion-fluvial-2.jpg", "alt": "Plaza 25 de Agosto, en el centro de Bella Unión", "by": "Mx. Granger", "lic": "CC0", "page": "https://commons.wikimedia.org/wiki/File:Plaza_25_de_Agosto%2C_Bella_Uni%C3%B3n_1.jpg"},
+    {"src": "img/estacion-fluvial-3.jpg", "alt": "Edificio del Municipio de Bella Unión", "by": "Ulises Icardi", "lic": "CC BY-SA 4.0", "page": "https://commons.wikimedia.org/wiki/File:Edificio_de_la_Municipalidad_de_Bella_Uni%C3%B3n.jpg", "licUrl": "https://creativecommons.org/licenses/by-sa/4.0/"}
+  ],
+  "isla-brasilera": [
+    {"src": "img/isla-brasilera-1.jpg", "alt": "La Isla Brasilera y la costa argentina, vistas desde el mirador de Rincón de Franquía", "by": "Gmmv1980", "lic": "CC BY-SA 3.0", "page": "https://commons.wikimedia.org/wiki/File:Vista_desde_el_mangrullo_de_la_triple_frontera%2C_en_Rinc%C3%B3n_de_Franqu%C3%ADa%2C_Bella_Uni%C3%B3n%2C_departamento_de_Artigas%2C_Uruguay.jpg", "licUrl": "https://creativecommons.org/licenses/by-sa/3.0/"},
+    {"src": "img/isla-brasilera-2.jpg", "alt": "El río Uruguay desde Rincón de Franquía; al fondo, la Isla Brasilera", "by": "Gmmv1980", "lic": "CC BY-SA 4.0", "page": "https://commons.wikimedia.org/wiki/File:R%C3%ADo_Uruguay%2C_desde_Rinc%C3%B3n_de_Franqu%C3%ADa.jpg", "licUrl": "https://creativecommons.org/licenses/by-sa/4.0/"},
+    {"src": "img/isla-brasilera-3.jpg", "alt": "La isla vista desde un satélite, en la unión de los ríos Cuareim y Uruguay", "by": "NASA", "lic": "Public domain", "page": "https://commons.wikimedia.org/wiki/File:Isla_Brasilera_57.62646W_30.18248S.jpg"},
+    {"src": "img/isla-brasilera-4.jpg", "alt": "Monolito que recuerda el punto donde se unen los tres países, en la isla", "by": "Pedroborches", "lic": "CC BY-SA 4.0", "page": "https://commons.wikimedia.org/wiki/File:Monolito_en_referencia_al_punto_tripartito.jpg", "licUrl": "https://creativecommons.org/licenses/by-sa/4.0/", "pos": "center 40%"},
+    {"src": "img/isla-brasilera-5.jpg", "alt": "La triple frontera desde la costa uruguaya", "by": "MEL LAPAZ", "lic": "CC BY-SA 3.0", "page": "https://commons.wikimedia.org/wiki/File:Triple_frontera.jpg", "licUrl": "https://creativecommons.org/licenses/by-sa/3.0/"}
+  ],
+  "rincon-de-franquia": [
+    {"src": "img/rincon-de-franquia-1.jpg", "alt": "Atardecer en Rincón de Franquía", "by": "Giannina Pradella", "lic": "CC BY-SA 3.0", "page": "https://commons.wikimedia.org/wiki/File:ATARDECER_EN_RINCON_DE_FRANQUIA.JPG", "licUrl": "https://creativecommons.org/licenses/by-sa/3.0/"},
+    {"src": "img/rincon-de-franquia-2.jpg", "alt": "Paisaje del área protegida", "by": "Siliaia3", "lic": "CC BY-SA 3.0", "page": "https://commons.wikimedia.org/wiki/File:Paisaje_de_Rinc%C3%B3n_de_franqu%C3%ADa.JPG", "licUrl": "https://creativecommons.org/licenses/by-sa/3.0/"},
+    {"src": "img/rincon-de-franquia-3.jpg", "alt": "Chajás en los humedales del área protegida", "by": "SebasFN", "lic": "CC BY-SA 4.0", "page": "https://commons.wikimedia.org/wiki/File:Chaj%C3%A1_1.png", "licUrl": "https://creativecommons.org/licenses/by-sa/4.0/"},
+    {"src": "img/rincon-de-franquia-4.jpg", "alt": "Espátula rosada en Rincón de Franquía", "by": "SebasFN", "lic": "CC BY-SA 4.0", "page": "https://commons.wikimedia.org/wiki/File:Esp%C3%A1tula_Rosada_1.png", "licUrl": "https://creativecommons.org/licenses/by-sa/4.0/"},
+    {"src": "img/rincon-de-franquia-5.jpg", "alt": "Jacana entre la vegetación del humedal", "by": "SebasFN", "lic": "CC BY-SA 4.0", "page": "https://commons.wikimedia.org/wiki/File:Jacana_1.png", "licUrl": "https://creativecommons.org/licenses/by-sa/4.0/"},
+    {"src": "img/rincon-de-franquia-6.jpg", "alt": "Lechucita posada en Rincón de Franquía", "by": "Giannina Pradella", "lic": "CC BY-SA 3.0", "page": "https://commons.wikimedia.org/wiki/File:RINCON_DE_FRANQUIA.JPG", "licUrl": "https://creativecommons.org/licenses/by-sa/3.0/"},
+    {"src": "img/rincon-de-franquia-7.jpg", "alt": "El mangrullo, mirador sobre la triple frontera", "by": "Gmmv1980", "lic": "CC BY-SA 3.0", "page": "https://commons.wikimedia.org/wiki/File:Mangrullo_de_la_triple_frontera_en_Rinc%C3%B3n_de_Franqu%C3%ADa%2C_Bella_Uni%C3%B3n%2C_Artigas%2C_Uruguay.jpg", "licUrl": "https://creativecommons.org/licenses/by-sa/3.0/", "pos": "center 60%"},
+    {"src": "img/rincon-de-franquia-8.jpg", "alt": "El monte de Rincón de Franquía", "by": "Siliaia3", "lic": "CC BY-SA 3.0", "page": "https://commons.wikimedia.org/wiki/File:Entrando_en_el_Bosque_-_Rinc%C3%B3n_de_Franqu%C3%ADa.JPG", "licUrl": "https://creativecommons.org/licenses/by-sa/3.0/"}
+  ],
+  "baltasar-brum": [
+    {"src": "img/baltasar-brum-1.jpg", "alt": "La antigua estación de trenes de Baltasar Brum", "by": "Raul Zapata", "lic": "CC BY-SA 4.0", "page": "https://commons.wikimedia.org/wiki/File:BALTASAR_BRUM_01.JPG", "licUrl": "https://creativecommons.org/licenses/by-sa/4.0/"},
+    {"src": "img/baltasar-brum-2.jpg", "alt": "Monumento a la esquila de ovinos, en Baltasar Brum", "by": "Raul Zapata", "lic": "CC BY-SA 4.0", "page": "https://commons.wikimedia.org/wiki/File:BALTASAR_BRUM_02.JPG", "licUrl": "https://creativecommons.org/licenses/by-sa/4.0/"}
+  ],
+  "codo-del-cuareim": [
+    {"src": "img/codo-del-cuareim-1.jpg", "alt": "El río Cuareim en el departamento de Artigas", "by": "Wilson S. Serra, Alejandro Duarte, Edward D. Burress y Marcelo Loureiro", "lic": "CC BY 4.0", "page": "https://commons.wikimedia.org/wiki/File:Cuareim_River_%2818221%29.png", "licUrl": "https://creativecommons.org/licenses/by/4.0/", "ref": true},
+    {"src": "img/codo-del-cuareim-2.jpg", "alt": "El río Cuareim con vista hacia Brasil, en Bella Unión", "by": "Montecruz Foto", "lic": "CC BY-SA 2.0", "page": "https://commons.wikimedia.org/wiki/File:Cuareim.jpg", "licUrl": "https://creativecommons.org/licenses/by-sa/2.0/", "ref": true, "pos": "center 70%"},
+    {"src": "img/codo-del-cuareim-3.jpg", "alt": "El río Cuareim en una fotografía de 1888", "by": "Lorenzo Spátola (Biblioteca Nacional de Uruguay)", "lic": "Public domain", "page": "https://commons.wikimedia.org/wiki/File:ABN_10881.jpg", "ref": true}
+  ],
+  "javier-de-viana": [
+    {"src": "img/javier-de-viana-1.jpg", "alt": "Antigua estación de Cuareim, otra estación del ferrocarril en el departamento", "by": "Ulises Icardi", "lic": "CC BY-SA 4.0", "page": "https://commons.wikimedia.org/wiki/File:Antigua_estaci%C3%B3n_ferroviaria_de_Cuareim.jpg", "licUrl": "https://creativecommons.org/licenses/by-sa/4.0/", "ref": true},
+    {"src": "img/javier-de-viana-2.jpg", "alt": "Locomotora a vapor exhibida en la ciudad de Artigas", "by": "Gerardo c", "lic": "Public domain", "page": "https://commons.wikimedia.org/wiki/File:Locomotrora_artigas.jpg", "ref": true},
+    {"src": "img/javier-de-viana-3.jpg", "alt": "La estación de San Eugenio (hoy ciudad de Artigas) hacia 1890", "by": "John Fitz Patrick", "lic": "CC0", "page": "https://commons.wikimedia.org/wiki/File:Uruguay_Northern_Railway_San_Eugenio_station.jpg", "ref": true}
+  ],
+  "centro-artigas": [
+    {"src": "img/centro-artigas-1.jpg", "alt": "Fachada de la Iglesia San Eugenio del Cuareim", "by": "Amurru", "lic": "CC BY-SA 4.0", "page": "https://commons.wikimedia.org/wiki/File:Parroquia_San_Eugenio_del_Cuareim.jpg", "licUrl": "https://creativecommons.org/licenses/by-sa/4.0/", "pos": "center 30%"},
+    {"src": "img/centro-artigas-2.jpg", "alt": "La Iglesia San Eugenio, Monumento Histórico Nacional", "by": "Raul Zapata", "lic": "CC BY-SA 4.0", "page": "https://commons.wikimedia.org/wiki/File:ARTIGAS_03_PATRIMONIO_NACIONAL.jpg", "licUrl": "https://creativecommons.org/licenses/by-sa/4.0/"},
+    {"src": "img/centro-artigas-3.jpg", "alt": "El Ibirapitá frente a la Terminal de Ómnibus", "by": "Maywiki", "lic": "CC BY-SA 3.0", "page": "https://commons.wikimedia.org/wiki/File:Ibirapit%C3%A1_de_Artigas.JPG", "licUrl": "https://creativecommons.org/licenses/by-sa/3.0/"},
+    {"src": "img/centro-artigas-4.jpg", "alt": "Obelisco a la Gloria de los Héroes de 1825, en la Plaza Batlle", "by": "Derys Benitez", "lic": "CC BY-SA 3.0", "page": "https://commons.wikimedia.org/wiki/File:Obelisco_a_la_Gloria_de_los_H%C3%A9roes.jpg", "licUrl": "https://creativecommons.org/licenses/by-sa/3.0/", "pos": "center 40%"},
+    {"src": "img/centro-artigas-5.jpg", "alt": "Fachada del ex Mercado Municipal", "by": "Amurru", "lic": "CC BY-SA 4.0", "page": "https://commons.wikimedia.org/wiki/File:Mercado_Municipal_de_Artigas.jpg", "licUrl": "https://creativecommons.org/licenses/by-sa/4.0/", "pos": "center 40%"},
+    {"src": "img/javier-de-viana-3.jpg", "alt": "La antigua estación de tren hacia 1890, donde hoy está la Terminal", "by": "John Fitz Patrick", "lic": "CC0", "page": "https://commons.wikimedia.org/wiki/File:Uruguay_Northern_Railway_San_Eugenio_station.jpg"}
+  ],
+  "museo-piedra-preciosa": [
+    {"src": "img/museo-piedra-preciosa-1.jpg", "alt": "Amatista de Artigas cortada y pulida (ejemplar de colección, no pertenece al museo)", "by": "Robert M. Lavinsky", "lic": "CC BY-SA 3.0", "page": "https://commons.wikimedia.org/wiki/File:Quartz-288985.jpg", "licUrl": "https://creativecommons.org/licenses/by-sa/3.0/", "ref": true, "pos": "center"},
+    {"src": "img/museo-piedra-preciosa-2.jpg", "alt": "Placa de cristales de amatista de Artigas (ejemplar de colección)", "by": "Robert M. Lavinsky", "lic": "CC BY-SA 3.0", "page": "https://commons.wikimedia.org/wiki/File:Quartz-242682.jpg", "licUrl": "https://creativecommons.org/licenses/by-sa/3.0/", "ref": true, "pos": "center"},
+    {"src": "img/museo-piedra-preciosa-3.jpg", "alt": "Cristales de amatista de Artigas (ejemplar de colección)", "by": "Robert M. Lavinsky", "lic": "CC BY-SA 3.0", "page": "https://commons.wikimedia.org/wiki/File:Quartz-136010.jpg", "licUrl": "https://creativecommons.org/licenses/by-sa/3.0/", "ref": true, "pos": "center 40%"}
+  ],
+  "paseo-7-de-setiembre": [
+    {"src": "img/paseo-7-de-setiembre-1.jpg", "alt": "Vista aérea del Puente de la Concordia entre Artigas y Quaraí", "by": "Marcelo Campi", "lic": "CC BY-SA 2.0", "page": "https://commons.wikimedia.org/wiki/File:Quara%C3%AD_-_Artigas_Bridge.jpg", "licUrl": "https://creativecommons.org/licenses/by-sa/2.0/"},
+    {"src": "img/paseo-7-de-setiembre-2.jpg", "alt": "El Paseo 7 de Setiembre visto desde el puente", "by": "Asiria Pacheco", "lic": "CC BY-SA 3.0", "page": "https://commons.wikimedia.org/wiki/File:Parque_7_de_Setiembre_visto_desde_arriba.JPG", "licUrl": "https://creativecommons.org/licenses/by-sa/3.0/"},
+    {"src": "img/paseo-7-de-setiembre-3.jpg", "alt": "El lago del Parque Rodó", "by": "Gerardo Conti P", "lic": "CC BY-SA 3.0", "page": "https://commons.wikimedia.org/wiki/File:Parque_Rodo_Artigas.JPG", "licUrl": "https://creativecommons.org/licenses/by-sa/3.0/"},
+    {"src": "img/paseo-7-de-setiembre-4.jpg", "alt": "El río Cuareim en el Balneario Municipal", "by": "Gerardo Conti P", "lic": "CC BY-SA 3.0", "page": "https://commons.wikimedia.org/wiki/File:Balneario_Municipal_Artigas.JPG", "licUrl": "https://creativecommons.org/licenses/by-sa/3.0/"},
+    {"src": "img/paseo-7-de-setiembre-5.jpg", "alt": "El Puente Internacional de la Concordia desde la costa", "by": "Da dinges", "lic": "Public domain", "page": "https://commons.wikimedia.org/wiki/File:Puente_Internacional_de_la_Concordia.JPG"},
+    {"src": "img/paseo-7-de-setiembre-6.jpg", "alt": "Arboleda del Paseo 7 de Setiembre", "by": "Asiria Pacheco", "lic": "CC BY-SA 3.0", "page": "https://commons.wikimedia.org/wiki/File:Parque_7_de_Setiembre.JPG", "licUrl": "https://creativecommons.org/licenses/by-sa/3.0/"}
+  ],
+  "piedra-pintada": [
+    {"src": "img/piedra-pintada-1.jpg", "alt": "La Piedra Pintada, con su color verde rojizo", "by": "Gerardo Conti P", "lic": "CC0", "page": "https://commons.wikimedia.org/wiki/File:Piedra_Pintada_3.jpg"},
+    {"src": "img/piedra-pintada-2.jpg", "alt": "Vista aérea de la zona de Piedra Pintada en enero de 1988", "by": "Starbock1948", "lic": "CC BY-SA 3.0", "page": "https://commons.wikimedia.org/wiki/File:Vista_aerea_Piedra_Pintada.JPG", "licUrl": "https://creativecommons.org/licenses/by-sa/3.0/"}
+  ],
+  "los-catalanes": [
+    {"src": "img/los-catalanes-1.jpg", "alt": "Amatista extraída en Catalán", "by": "Gonzalo Devia", "lic": "CC BY-SA 4.0", "page": "https://commons.wikimedia.org/wiki/File:Amatista_Laye.jpg", "licUrl": "https://creativecommons.org/licenses/by-sa/4.0/"},
+    {"src": "img/los-catalanes-2.jpg", "alt": "Una mina de amatistas en la zona", "by": "Javier Techera", "lic": "Public domain", "page": "https://commons.wikimedia.org/wiki/File:Mina_amatista.JPG"},
+    {"src": "img/los-catalanes-3.jpg", "alt": "Otra cara de la misma amatista de Catalán", "by": "Gonzalo Devia", "lic": "CC BY-SA 4.0", "page": "https://commons.wikimedia.org/wiki/File:Amatista_Laye_2.jpg", "licUrl": "https://creativecommons.org/licenses/by-sa/4.0/"}
+  ],
+  "parque-rivera": [
+    {"src": "img/parque-rivera-1.jpg", "alt": "Un quiosco del Parque Rivera frente al río Uruguay", "by": "Mx. Granger", "lic": "CC0", "page": "https://commons.wikimedia.org/wiki/File:Parque_Rivera%2C_Bella_Uni%C3%B3n_2.jpg"},
+    {"src": "img/parque-rivera-2.jpg", "alt": "La calle costera del Parque Rivera", "by": "Mx. Granger", "lic": "CC0", "page": "https://commons.wikimedia.org/wiki/File:Parque_Rivera%2C_Bella_Uni%C3%B3n_1.jpg"},
+    {"src": "img/parque-rivera-3.jpg", "alt": "Atardecer en el Parque Rivera", "by": "Artigas12", "lic": "CC0", "page": "https://commons.wikimedia.org/wiki/File:Parque_rivera301.jpg"},
+    {"src": "img/parque-rivera-4.jpg", "alt": "Quinchos del Balneario Los Pinos", "by": "Artigas12", "lic": "CC0", "page": "https://commons.wikimedia.org/wiki/File:Los_pinos_bu201.jpg"},
+    {"src": "img/parque-rivera-5.jpg", "alt": "Embarcaciones en el río Uruguay, en Bella Unión", "by": "Vince Alongi", "lic": "CC BY 2.0", "page": "https://commons.wikimedia.org/wiki/File:Riouruguay.jpg", "licUrl": "https://creativecommons.org/licenses/by/2.0/"}
+  ],
+  "museo-santa-rosa": [
+    {"src": "img/museo-santa-rosa-1.jpg", "alt": "Entrada del Museo Santa Rosa del Cuareim", "by": "Mx. Granger", "lic": "CC0", "page": "https://commons.wikimedia.org/wiki/File:Museo_Privado_Santa_Rosa_del_Cuareim.jpg"}
+  ],
+  "jefatura-de-policia": [
+    {"src": "img/jefatura-de-policia-1.jpg", "alt": "Fachada sobre la avenida Carlos Lecueder", "by": "Alejandro Gil Álvarez", "lic": "CC BY-SA 3.0", "page": "https://commons.wikimedia.org/wiki/File:Jefatura_de_Polic%C3%ADa_%28Lecueder%29.jpg", "licUrl": "https://creativecommons.org/licenses/by-sa/3.0/"},
+    {"src": "img/jefatura-de-policia-2.jpg", "alt": "El edificio y sus torres almenadas", "by": "Nicolas Barriola", "lic": "CC BY-SA 3.0", "page": "https://commons.wikimedia.org/wiki/File:Jefatura_de_Polic%C3%ADa_1.jpg", "licUrl": "https://creativecommons.org/licenses/by-sa/3.0/"},
+    {"src": "img/jefatura-de-policia-3.jpg", "alt": "El reloj y una de las torres almenadas", "by": "Alejandro Gil Álvarez", "lic": "CC BY-SA 3.0", "page": "https://commons.wikimedia.org/wiki/File:Jefatura_de_Polic%C3%ADa_%28torre_y_reloj%29.jpg", "licUrl": "https://creativecommons.org/licenses/by-sa/3.0/"},
+    {"src": "img/jefatura-de-policia-4.jpg", "alt": "El patio, rodeado de arcos de medio punto", "by": "Alejandro Gil Álvarez", "lic": "CC BY-SA 3.0", "page": "https://commons.wikimedia.org/wiki/File:Jefatura_de_Polic%C3%ADa_%28patio_y_torre%29.jpg", "licUrl": "https://creativecommons.org/licenses/by-sa/3.0/"},
+    {"src": "img/jefatura-de-policia-5.jpg", "alt": "El patio visto a través de un arco", "by": "Alejandro Gil Álvarez", "lic": "CC BY-SA 3.0", "page": "https://commons.wikimedia.org/wiki/File:Jefatura_de_Polic%C3%ADa_%28Patio%29.jpg", "licUrl": "https://creativecommons.org/licenses/by-sa/3.0/"},
+    {"src": "img/jefatura-de-policia-6.jpg", "alt": "Una de las torres almenadas", "by": "Alejandro Gil Álvarez", "lic": "CC BY-SA 3.0", "page": "https://commons.wikimedia.org/wiki/File:Torre_Jefatura_de_Polic%C3%ADa.jpg", "licUrl": "https://creativecommons.org/licenses/by-sa/3.0/", "pos": "center 30%"},
+    {"src": "img/jefatura-de-policia-7.jpg", "alt": "La Jefatura Política de San Eugenio en 1907", "by": "Dornaleche y Reyes Impresores", "lic": "Public domain", "page": "https://commons.wikimedia.org/wiki/File:Jefatura_Pol%C3%ADtica_de_San_Eugenio_-_Artigas.tif", "pos": "center 45%"}
+  ],
+  "carnaval-de-artigas": [
+    {"src": "img/carnaval-de-artigas-1.jpg", "alt": "Carros alegóricos y bailarines en el desfile de 2007", "by": "Da dinges", "lic": "Public domain", "page": "https://commons.wikimedia.org/wiki/File:Carnaval_de_Artigas.jpg"},
+    {"src": "img/carnaval-de-artigas-2.jpg", "alt": "Una bailarina con su fantasía de plumas", "by": "Gerardo c", "lic": "CC0", "page": "https://commons.wikimedia.org/wiki/File:W_014.jpg"},
+    {"src": "img/carnaval-de-artigas-3.jpg", "alt": "La batería de una escuela de samba", "by": "Gerardo c", "lic": "CC0", "page": "https://commons.wikimedia.org/wiki/File:W_017.jpg"},
+    {"src": "img/carnaval-de-artigas-4.jpg", "alt": "Bailarina de una escuela de samba", "by": "Gerardo c", "lic": "CC0", "page": "https://commons.wikimedia.org/wiki/File:W_008.jpg"},
+    {"src": "img/carnaval-de-artigas-5.jpg", "alt": "Un carro alegórico iluminado en la noche del desfile", "by": "Gerardo c", "lic": "CC0", "page": "https://commons.wikimedia.org/wiki/File:W_002.jpg"},
+    {"src": "img/carnaval-de-artigas-6.jpg", "alt": "Un ala de bailarines con fantasías blancas", "by": "Gerardo c", "lic": "CC0", "page": "https://commons.wikimedia.org/wiki/File:W_004.jpg"},
+    {"src": "img/carnaval-de-artigas-7.jpg", "alt": "Una fantasía con alas negras sobre la avenida", "by": "Gerardo c", "lic": "CC0", "page": "https://commons.wikimedia.org/wiki/File:W_011.jpg"},
+    {"src": "img/carnaval-de-artigas-8.jpg", "alt": "Hinchas de la escuela Académicos en 2007", "by": "Da dinges", "lic": "Public domain", "page": "https://commons.wikimedia.org/wiki/File:Los_Academicos_1.JPG"}
+  ]
+};
+
+const TOWNS = [
+  {name: "Artigas", lat: -30.3995, lon: -56.4650, dx: -12, dy: 22, anchor: "end"},
+  {name: "Bella Unión", lat: -30.2560, lon: -57.5960, dx: 12, dy: 20, anchor: "start"}
+];
+const COUNTRY_LABELS = [
+  {t: "BRASIL", lat: -30.12, lon: -56.35, cls: "lbl-country"},
+  {t: "ARGENTINA", lat: -30.62, lon: -58.035, cls: "lbl-country", rot: -90},
+  {t: "SALTO", lat: -31.08, lon: -57.05, cls: "lbl-dep"}
+];
+const RIVER_LABELS = [
+  {t: "Río Cuareim", lat: -30.235, lon: -56.72, rot: 32},
+  {t: "Río Uruguay", lat: -30.45, lon: -57.88, rot: -43}
+];
+
+/* ---------- helpers ---------- */
+const $ = (s, el = document) => el.querySelector(s);
+const svg = $("#map"), wrap = $("#map-wrap"), pinsG = $("#pins"), labelsG = $("#labels"), gridG = $("#grid");
+const popup = $("#popup"), popBody = $("#pop-body");
+const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+const KM = GEO.k / 111.0;
+const MINW = GEO.w / 12;
+
+function proj(lat, lon) { return [(lon - GEO.lon0) * GEO.c * GEO.k, (GEO.lat0 - lat) * GEO.k]; }
+PLACES.forEach(p => { p.xy = proj(p.lat, p.lon); p.label = LABELS[p.id] || p.name; p.photos = PHOTOS[p.id] || []; });
+const byId = Object.fromEntries(PLACES.map(p => [p.id, p]));
+
+function esc(s) { return String(s).replace(/[&<>"]/g, c => ({"&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;"}[c])); }
+function shapeSVG(shape, r, cls) {
+  const c = cls ? ` class="${cls}"` : "";
+  if (shape === "circle") return `<circle${c} r="${r}"/>`;
+  if (shape === "diamond") return `<path${c} d="M0 ${-r * 1.3}L${r * 1.05} 0L0 ${r * 1.3}L${-r * 1.05} 0Z"/>`;
+  if (shape === "square") return `<rect${c} x="${-r * .88}" y="${-r * .88}" width="${r * 1.76}" height="${r * 1.76}" rx="2"/>`;
+  return `<path${c} d="M${-r * 1.08} ${-r * .78}L${r * 1.08} ${-r * .78}L0 ${r * 1.12}Z"/>`;
+}
+function icon(cat) { return `<svg class="ico cat-${cat}" viewBox="-10 -10 20 20" aria-hidden="true">${shapeSVG(CATS[cat].shape, 7)}</svg>`; }
+function dms(v, pos, neg) {
+  const h = v < 0 ? neg : pos; v = Math.abs(v);
+  let d = Math.floor(v), mf = (v - d) * 60, m = Math.floor(mf), s = Math.round((mf - m) * 60);
+  if (s === 60) { s = 0; m++; } if (m === 60) { m = 0; d++; }
+  return `${d}°${String(m).padStart(2, "0")}′${String(s).padStart(2, "0")}″ ${h}`;
+}
+function coordText(p) { return `${dms(p.lat, "N", "S")} · ${dms(p.lon, "E", "O")}`; }
+function num(p) { return String(PLACES.indexOf(p) + 1).padStart(2, "0"); }
+/* Portada: la primera foto si existe; si no, la ilustración del lugar */
+function cover(p, idx = 0, size = "full") {
+  const ph = p.photos[idx];
+  if (ph) return `<img class="photo" src="${esc(size === "mini" ? (ph.mini || ph.src) : ph.src)}" alt="${esc(ph.alt || p.name)}" loading="lazy" decoding="async"${ph.pos ? ` style="object-position:${esc(ph.pos)}"` : ""}>`;
+  return poster(p);
+}
+function refTag(p) { return p.photos[0] && p.photos[0].ref ? `<span class="ref-tag">Foto de referencia</span>` : ""; }
+function licHTML(ph) { return ph.licUrl ? `<a href="${esc(ph.licUrl)}" target="_blank" rel="noopener">${esc(ph.lic)}</a>` : esc(ph.lic === "Public domain" ? "Dominio público" : ph.lic); }
+function creditLine(ph) { const who = ph.page ? `<a href="${esc(ph.page)}" target="_blank" rel="noopener">${esc(ph.by)}</a>` : esc(ph.by || ""); return `Foto: ${who}${ph.lic ? " · " + licHTML(ph) : ""}`; }
+
+/* ---------- hero ---------- */
+(function heroArt() {
+  const r = rng("artigas-topo"); let s = "";
+  for (let c = 0; c < 3; c++) {
+    const cx = [950, 180, 640][c], cy = [180, 600, 420][c];
+    for (let i = 0; i < 9; i++) {
+      const R = 30 + i * 34, a = r() * 6.28, b = r() * 6.28; let d = "";
+      for (let j = 0; j <= 72; j++) { const t = j / 72 * Math.PI * 2, rr = R * (1 + .15 * Math.sin(3 * t + a) + .07 * Math.sin(5 * t + b)); d += (j ? "L" : "M") + F(cx + rr * Math.cos(t) * 1.35) + " " + F(cy + rr * Math.sin(t)); }
+      s += `<path d="${d}Z" stroke-width="${i % 3 === 0 ? 1.6 : .9}"/>`;
+    }
+  }
+  $("#hero-topo").innerHTML = s;
+  $("#fan").innerHTML = ["piedra-pintada", "los-catalanes", "carnaval-de-artigas"].map(id => { const p = byId[id]; return `<a class="pc" href="#${p.id}" aria-label="${esc(p.name)}"><div class="pc-img">${cover(p, 0, "mini")}</div><span>${esc(p.label)}</span></a>`; }).join("");
+})();
+
+/* ---------- static map layers ---------- */
+$("#dept").setAttribute("d", GEO.artigas);
+$("#dept-dots").setAttribute("d", GEO.artigas);
+[["#river-uy", GEO.uruguay, 6], ["#river-cu", GEO.cuareim, 3], ["#river-uy-g", GEO.uruguay, 14], ["#river-cu-g", GEO.cuareim, 9]].forEach(([s, d, w]) => { const el = $(s); el.setAttribute("d", d); el.setAttribute("stroke-width", w); el.setAttribute("vector-effect", "non-scaling-stroke"); });
+$("#dept").setAttribute("vector-effect", "non-scaling-stroke");
+const GRID_LAT = [-30, -30.5, -31], GRID_LON = [-58, -57.5, -57, -56.5, -56];
+gridG.innerHTML =
+  GRID_LAT.map(la => { const y = proj(la, 0)[1]; return `<line class="gridline" vector-effect="non-scaling-stroke" x1="-2000" x2="3000" y1="${y}" y2="${y}"/>`; }).join("") +
+  GRID_LON.map(lo => { const x = proj(0, lo)[0]; return `<line class="gridline" vector-effect="non-scaling-stroke" y1="-2000" y2="3000" x1="${x}" x2="${x}"/>`; }).join("");
+function degLabel(v, pos, neg) { const a = Math.abs(v), d = Math.floor(a), m = Math.round((a - d) * 60); return `${d}°${m ? String(m).padStart(2, "0") + "′" : ""} ${v < 0 ? neg : pos}`; }
+
+/* ---------- view state ---------- */
+const state = {filter: "all", selected: null, popupFor: null, vb: {x: 0, y: 0, w: GEO.w, h: GEO.h}};
+const ASPECT = GEO.h / GEO.w;
+function boxSize() { const r = wrap.getBoundingClientRect(); return {r, w: r.width, h: r.height}; }
+function upx() { const {w, h} = boxSize(); if (!w || !h) return null; return Math.max(state.vb.w / w, state.vb.h / h); }
+function offsets(u) { const {w, h} = boxSize(); return {ox: (w - state.vb.w / u) / 2, oy: (h - state.vb.h / u) / 2}; }
+function screenToMap(cx, cy) { const u = upx(); const {r} = boxSize(); const {ox, oy} = offsets(u); return [state.vb.x + (cx - r.left - ox) * u, state.vb.y + (cy - r.top - oy) * u]; }
+function mapToLocal(x, y) { const u = upx(); const {ox, oy} = offsets(u); return [ox + (x - state.vb.x) / u, oy + (y - state.vb.y) / u]; }
+function visibleRect(u) { const {w, h} = boxSize(); const cx = state.vb.x + state.vb.w / 2, cy = state.vb.y + state.vb.h / 2; return {x: cx - w * u / 2, y: cy - h * u / 2, w: w * u, h: h * u}; }
+function clampView(vb) {
+  vb.w = Math.min(Math.max(vb.w, MINW), GEO.w * 1.02); vb.h = vb.w * ASPECT;
+  const cx = Math.min(Math.max(vb.x + vb.w / 2, 0), GEO.w), cy = Math.min(Math.max(vb.y + vb.h / 2, 0), GEO.h);
+  vb.x = cx - vb.w / 2; vb.y = cy - vb.h / 2; return vb;
+}
+let lastU = null;
+function applyView(force) {
+  const vb = state.vb;
+  svg.setAttribute("viewBox", `${vb.x.toFixed(2)} ${vb.y.toFixed(2)} ${vb.w.toFixed(2)} ${vb.h.toFixed(2)}`);
+  const u = upx(); if (!u) return;
+  if (force || !lastU || Math.abs(u - lastU) / lastU > 0.002) { lastU = u; renderLabels(u); renderPins(u); }
+  renderGridLabels(u); renderScale(u); positionPopup();
+}
+let anim = null;
+function animateTo(target, ms = 380) {
+  target = clampView({...target});
+  if (anim) cancelAnimationFrame(anim);
+  if (reduceMotion || ms === 0) { state.vb = target; applyView(true); return; }
+  const from = {...state.vb}, t0 = performance.now();
+  const step = now => {
+    const t = Math.min(1, (now - t0) / ms), e = 1 - Math.pow(1 - t, 3);
+    state.vb = {x: from.x + (target.x - from.x) * e, y: from.y + (target.y - from.y) * e, w: from.w + (target.w - from.w) * e, h: from.h + (target.h - from.h) * e};
+    applyView(t === 1);
+    anim = t < 1 ? requestAnimationFrame(step) : null;
+  };
+  anim = requestAnimationFrame(step);
+}
+function zoomAround(f, mx, my, animated) {
+  const vb = state.vb, w = Math.min(Math.max(vb.w / f, MINW), GEO.w * 1.02), rf = vb.w / w;
+  const t = {x: mx - (mx - vb.x) / rf, y: my - (my - vb.y) / rf, w, h: w * ASPECT};
+  if (animated) animateTo(t, 260); else { state.vb = clampView(t); applyView(); }
+}
+function fitAll(animated) { const t = {x: 0, y: 0, w: GEO.w, h: GEO.h}; if (animated) animateTo(t); else { state.vb = t; applyView(true); } }
+
+/* ---------- labels ---------- */
+function renderLabels(u) {
+  let s = "";
+  COUNTRY_LABELS.forEach(l => { const [x, y] = proj(l.lat, l.lon); s += `<g class="lbl ${l.cls}" transform="translate(${x} ${y}) scale(${u})${l.rot ? ` rotate(${l.rot})` : ""}"><text text-anchor="middle" dominant-baseline="middle">${l.t}</text></g>`; });
+  RIVER_LABELS.forEach(l => { const [x, y] = proj(l.lat, l.lon); s += `<g class="lbl lbl-river" transform="translate(${x} ${y}) scale(${u}) rotate(${l.rot})"><text text-anchor="middle">${l.t}</text></g>`; });
+  TOWNS.forEach(t => { const [x, y] = proj(t.lat, t.lon); s += `<g class="lbl lbl-town" transform="translate(${x} ${y}) scale(${u})"><circle r="3.2"/><text x="${t.dx}" y="${t.dy}" text-anchor="${t.anchor}">${t.name}</text></g>`; });
+  labelsG.innerHTML = s;
+}
+const gridLabelsG = document.createElementNS("http://www.w3.org/2000/svg", "g");
+labelsG.after(gridLabelsG);
+function renderGridLabels(u) {
+  const v = visibleRect(u); let s = "";
+  GRID_LAT.forEach(la => { const y = proj(la, 0)[1]; if (y > v.y + 30 * u && y < v.y + v.h - 20 * u) s += `<g class="lbl lbl-grid" transform="translate(${v.x + 10 * u} ${y - 5 * u}) scale(${u})"><text>${degLabel(la, "N", "S")}</text></g>`; });
+  GRID_LON.forEach(lo => { const x = proj(0, lo)[0]; if (x > v.x + 120 * u && x < v.x + v.w - 40 * u) s += `<g class="lbl lbl-grid" transform="translate(${x + 5 * u} ${v.y + v.h - 34 * u}) scale(${u})"><text>${degLabel(lo, "E", "O")}</text></g>`; });
+  gridLabelsG.innerHTML = s;
+}
+function renderScale(u) {
+  const pxPerKm = KM / u, opts = [1, 2, 5, 10, 20, 50, 100];
+  let km = opts[0]; for (const o of opts) { if (o * pxPerKm <= 130) km = o; }
+  $("#scale-bar").style.width = (km * pxPerKm).toFixed(1) + "px";
+  $("#scale-txt").textContent = `${km} km`;
+}
+
+/* ---------- pins ---------- */
+function visiblePlaces() { return PLACES.filter(p => state.filter === "all" || p.cat === state.filter); }
+let currentClusters = [];
+function computeClusters(u) {
+  const thr = 28 * u, out = [];
+  for (const p of visiblePlaces()) {
+    const [x, y] = p.xy, c = out.find(c => Math.hypot(c.x - x, c.y - y) < thr);
+    if (c) { c.items.push(p); c.x = c.items.reduce((a, q) => a + q.xy[0], 0) / c.items.length; c.y = c.items.reduce((a, q) => a + q.xy[1], 0) / c.items.length; }
+    else out.push({x, y, items: [p]});
+  }
+  return out;
+}
+function renderPins(u) {
+  currentClusters = computeClusters(u);
+  const showLabels = u < 0.55; let s = "";
+  currentClusters.forEach((c, i) => {
+    if (c.items.length === 1) {
+      const p = c.items[0], sel = state.selected === p.id ? " is-sel" : "";
+      s += `<g class="pin cat-${p.cat}${sel}" data-id="${p.id}" tabindex="0" role="button" aria-label="${esc(p.name)}" transform="translate(${F(c.x)} ${F(c.y)}) scale(${u})"><circle class="hit" r="20"/><circle class="pulse" r="11"/><circle class="halo" r="17"/><g filter="url(#pinshadow)">${shapeSVG(CATS[p.cat].shape, 9.5, "shape")}</g>${showLabels ? `<text class="pin-label" x="17" y="4">${esc(p.label)}</text>` : ""}</g>`;
+    } else {
+      const has = c.items.some(p => p.id === state.selected);
+      s += `<g class="pin cluster${has ? " is-sel" : ""}" data-cluster="${i}" tabindex="0" role="button" aria-label="${c.items.length} lugares: ${esc(c.items.map(p => p.name).join(", "))}" transform="translate(${F(c.x)} ${F(c.y)}) scale(${u})"><circle class="hit" r="22"/><circle class="halo" r="19"/><circle class="disc" r="14.5" filter="url(#pinshadow)"/><text text-anchor="middle" dominant-baseline="central">${c.items.length}</text></g>`;
+    }
+  });
+  pinsG.innerHTML = s;
+}
+function activatePinEl(el) {
+  if (el.dataset.id) { selectPlace(el.dataset.id, {fromMap: true}); return; }
+  const c = currentClusters[+el.dataset.cluster]; if (c) openClusterPopup(c);
+}
+pinsG.addEventListener("click", e => { if (suppressClick) return; const el = e.target.closest(".pin"); if (el) { e.stopPropagation(); activatePinEl(el); } });
+pinsG.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { const el = e.target.closest(".pin"); if (el) { e.preventDefault(); activatePinEl(el); } } });
+
+/* ---------- popup ---------- */
+function openPlacePopup(p) {
+  state.popupFor = {type: "place", id: p.id, x: p.xy[0], y: p.xy[1]};
+  popBody.innerHTML = `<div class="pop-img">${cover(p, 0, "mini")}${refTag(p)}<span class="pop-tag">${icon(p.cat)}${CATS[p.cat].name}</span></div><div class="pop-in"><h3 class="pop-name">${esc(p.name)}</h3><p class="pop-where">${esc(p.where)}</p><p class="pop-short">${esc(p.short)}</p><a class="btn" href="#${p.id}">Ver ficha completa <span aria-hidden="true">→</span></a></div>`;
+  popup.setAttribute("aria-label", p.name);
+  popup.hidden = false; positionPopup();
+}
+function openClusterPopup(c) {
+  state.popupFor = {type: "cluster", x: c.x, y: c.y};
+  popBody.innerHTML = `<p class="pop-head">${c.items.length} lugares en esta zona</p><div class="pop-in"><ul class="pop-list">${c.items.map(p => `<li><button type="button" data-pick="${p.id}"><span class="mini">${cover(p, 0, "mini")}</span><span>${esc(p.name)}</span></button></li>`).join("")}</ul><button type="button" class="btn btn-quiet" id="pop-zoom">Acercar la zona</button></div>`;
+  popup.setAttribute("aria-label", "Lugares agrupados");
+  popup.hidden = false; positionPopup();
+  $("#pop-zoom").onclick = () => zoomToItems(c.items);
+}
+popBody.addEventListener("click", e => { const b = e.target.closest("[data-pick]"); if (b) selectPlace(b.dataset.pick, {fromMap: true}); });
+function closePopup() { popup.hidden = true; state.popupFor = null; }
+$("#pop-close").addEventListener("click", () => { closePopup(); setSelected(null); });
+function positionPopup() {
+  if (popup.hidden || !state.popupFor) return;
+  const {w, h} = boxSize(); if (!w) return;
+  if (w < 560) { popup.classList.add("docked"); popup.style.left = ""; popup.style.top = ""; return; }
+  popup.classList.remove("docked");
+  const [lx, ly] = mapToLocal(state.popupFor.x, state.popupFor.y);
+  const pw = popup.offsetWidth, ph = popup.offsetHeight, g = 24, m = 10;
+  const clampX = x => Math.min(Math.max(x, m), w - pw - m), clampY = y => Math.min(Math.max(y, m), h - ph - m);
+  const tries = [
+    [ly - ph - g >= m, clampX(lx - pw / 2), ly - ph - g],
+    [ly + g + ph <= h - m, clampX(lx - pw / 2), ly + g],
+    [lx + g + pw <= w - m, lx + g, clampY(ly - ph / 2)],
+    [lx - g - pw >= m, lx - g - pw, clampY(ly - ph / 2)]
+  ];
+  const t = tries.find(t => t[0]);
+  if (!t) { popup.classList.add("docked"); popup.style.left = ""; popup.style.top = ""; return; }
+  popup.style.left = t[1] + "px"; popup.style.top = t[2] + "px";
+}
+function zoomToItems(items) {
+  const xs = items.map(p => p.xy[0]), ys = items.map(p => p.xy[1]);
+  const cx = (Math.min(...xs) + Math.max(...xs)) / 2, cy = (Math.min(...ys) + Math.max(...ys)) / 2;
+  const span = Math.max(Math.max(...xs) - Math.min(...xs), (Math.max(...ys) - Math.min(...ys)) / ASPECT, 1);
+  const w = Math.max(span * 6, MINW);
+  closePopup();
+  animateTo({x: cx - w / 2, y: cy - w * ASPECT / 2, w, h: w * ASPECT});
+}
+
+/* ---------- selection ---------- */
+function setSelected(id) {
+  state.selected = id;
+  document.querySelectorAll("#places li").forEach(li => li.classList.toggle("is-sel", li.dataset.id === id));
+  const u = upx(); if (u) renderPins(u);
+}
+function selectPlace(id, opts = {}) {
+  const p = byId[id]; if (!p) return;
+  setSelected(id);
+  const u = upx();
+  const others = visiblePlaces().filter(q => q.id !== id);
+  const near = others.length ? Math.min(...others.map(q => Math.hypot(q.xy[0] - p.xy[0], q.xy[1] - p.xy[1]))) : Infinity;
+  const clustered = u && near < 28 * u;
+  const v = u ? visibleRect(u) : null;
+  const outside = v && (p.xy[0] < v.x + 40 * u || p.xy[0] > v.x + v.w - 40 * u || p.xy[1] < v.y + 40 * u || p.xy[1] > v.y + v.h - 40 * u);
+  if (clustered || (!opts.fromMap && outside)) {
+    const {w: bw, h: bh} = boxSize();
+    let w = state.vb.w;
+    if (clustered) { w = Math.max(MINW, near / 32 * Math.min(bw, bh / ASPECT)); w = Math.min(w, state.vb.w); }
+    animateTo({x: p.xy[0] - w / 2, y: p.xy[1] - w * ASPECT / 2, w, h: w * ASPECT});
+    setTimeout(() => openPlacePopup(p), reduceMotion ? 0 : 400);
+  } else openPlacePopup(p);
+}
+
+/* ---------- interaction: pan, pinch, wheel ---------- */
+const pointers = new Map(); let drag = null, pinch = null, moved = 0, suppressClick = false;
+svg.addEventListener("pointerdown", e => {
+  if (e.pointerType === "mouse" && e.button !== 0) return;
+  pointers.set(e.pointerId, {x: e.clientX, y: e.clientY});
+  suppressClick = false;
+  if (pointers.size === 1) { drag = {x: e.clientX, y: e.clientY, vb: {...state.vb}, id: e.pointerId}; moved = 0; }
+  else if (pointers.size === 2) {
+    const [a, b] = [...pointers.values()];
+    pinch = {d0: Math.hypot(a.x - b.x, a.y - b.y) || 1, vb0: {...state.vb}, m0: screenToMap((a.x + b.x) / 2, (a.y + b.y) / 2)};
+    drag = null; moved = 99;
+  }
+});
+svg.addEventListener("pointermove", e => {
+  if (!pointers.has(e.pointerId)) return;
+  pointers.set(e.pointerId, {x: e.clientX, y: e.clientY});
+  if (pinch && pointers.size >= 2) {
+    const [a, b] = [...pointers.values()], d = Math.hypot(a.x - b.x, a.y - b.y) || 1;
+    const w = Math.min(Math.max(pinch.vb0.w * pinch.d0 / d, MINW), GEO.w * 1.02), h = w * ASPECT;
+    const {r, w: bw, h: bh} = boxSize(), u = Math.max(w / bw, h / bh), ox = (bw - w / u) / 2, oy = (bh - h / u) / 2;
+    const mx = (a.x + b.x) / 2 - r.left, my = (a.y + b.y) / 2 - r.top;
+    state.vb = clampView({x: pinch.m0[0] - (mx - ox) * u, y: pinch.m0[1] - (my - oy) * u, w, h});
+    applyView(); return;
+  }
+  if (drag && e.pointerId === drag.id) {
+    const dx = e.clientX - drag.x, dy = e.clientY - drag.y;
+    moved = Math.max(moved, Math.hypot(dx, dy));
+    if (moved > 5) {
+      if (!svg.hasPointerCapture(e.pointerId)) { try { svg.setPointerCapture(e.pointerId); } catch (_) {} svg.classList.add("dragging"); }
+      const u = upx();
+      state.vb = clampView({...drag.vb, x: drag.vb.x - dx * u, y: drag.vb.y - dy * u});
+      applyView();
+    }
+  }
+});
+function endPointer(e) {
+  pointers.delete(e.pointerId);
+  if (moved > 5) suppressClick = true;
+  if (pointers.size < 2) pinch = null;
+  if (pointers.size === 1) { const [id, pt] = [...pointers.entries()][0]; drag = {x: pt.x, y: pt.y, vb: {...state.vb}, id}; }
+  if (pointers.size === 0) { drag = null; svg.classList.remove("dragging"); }
+}
+svg.addEventListener("pointerup", endPointer);
+svg.addEventListener("pointercancel", endPointer);
+svg.addEventListener("click", e => { if (suppressClick) { suppressClick = false; return; } if (!e.target.closest(".pin")) { closePopup(); setSelected(null); } });
+svg.addEventListener("wheel", e => {
+  e.preventDefault();
+  const f = Math.exp(-e.deltaY * (e.deltaMode === 1 ? 16 : 1) * 0.0016);
+  const [mx, my] = screenToMap(e.clientX, e.clientY);
+  zoomAround(f, mx, my, false);
+}, {passive: false});
+svg.addEventListener("dblclick", e => { if (e.target.closest(".pin")) return; const [mx, my] = screenToMap(e.clientX, e.clientY); zoomAround(2, mx, my, true); });
+function centerMap() { return [state.vb.x + state.vb.w / 2, state.vb.y + state.vb.h / 2]; }
+$("#z-in").addEventListener("click", () => zoomAround(1.8, ...centerMap(), true));
+$("#z-out").addEventListener("click", () => zoomAround(1 / 1.8, ...centerMap(), true));
+$("#z-reset").addEventListener("click", () => fitAll(true));
+
+/* ---------- chips, list, cards ---------- */
+function renderChips() {
+  const counts = {all: PLACES.length}; PLACES.forEach(p => counts[p.cat] = (counts[p.cat] || 0) + 1);
+  const chip = (key, label, ico) => `<button type="button" class="chip${key !== "all" ? " cat-" + key : ""}" data-filter="${key}" aria-pressed="${state.filter === key}">${ico || ""}<span>${label}</span><span class="n">${counts[key]}</span></button>`;
+  $("#chips").innerHTML = chip("all", "Todos") + Object.keys(CATS).map(k => chip(k, CATS[k].name, icon(k))).join("");
+}
+$("#chips").addEventListener("click", e => {
+  const b = e.target.closest("[data-filter]"); if (!b) return;
+  state.filter = b.dataset.filter;
+  if (state.selected && state.filter !== "all" && byId[state.selected].cat !== state.filter) { setSelected(null); closePopup(); }
+  if (state.popupFor && state.popupFor.type === "cluster") closePopup();
+  renderChips(); renderList(); renderCards(); const u = upx(); if (u) renderPins(u);
+});
+function renderList() {
+  $("#places").innerHTML = visiblePlaces().map(p => `<li data-id="${p.id}" class="${state.selected === p.id ? "is-sel" : ""}"><button type="button" class="item" data-select="${p.id}"><span class="thumb">${cover(p, 0, "mini")}<span class="num">${num(p)}</span></span><span class="item-txt"><span class="item-name">${esc(p.name)}</span><span class="item-where">${icon(p.cat)}${esc(CATS[p.cat].name)}</span></span></button><a class="item-go" href="#${p.id}" aria-label="Ver ficha de ${esc(p.name)}" title="Ver ficha completa">→</a></li>`).join("");
+}
+$("#places").addEventListener("click", e => {
+  const b = e.target.closest("[data-select]"); if (!b) return;
+  selectPlace(b.dataset.select);
+  if (window.innerWidth <= 920) wrap.scrollIntoView({behavior: reduceMotion ? "auto" : "smooth", block: "center"});
+});
+function cardHTML(p, kicker) {
+  return `<li><a class="card cat-${p.cat}" href="#${p.id}"><figure class="card-img">${cover(p, 0, "mini")}${refTag(p)}<span class="card-num">${num(p)}</span></figure><span class="card-txt">${kicker ? `<span class="k">${kicker}</span>` : `<span class="card-cat">${icon(p.cat)}${esc(CATS[p.cat].name)}</span>`}<span class="card-name">${esc(p.name)}</span><span class="card-where">${esc(p.where)}</span></span></a></li>`;
+}
+function renderCards() { $("#cards").innerHTML = visiblePlaces().map(p => cardHTML(p)).join(""); }
+
+/* ---------- detail page ---------- */
+function locatorSVG(p) {
+  const [x, y] = p.xy, [ax, ay] = proj(-30.3995, -56.4650);
+  return `<svg viewBox="0 0 ${GEO.w} ${GEO.h}" role="img" aria-label="Ubicación de ${esc(p.name)} en el departamento de Artigas"><rect class="bgfill" width="${GEO.w}" height="${GEO.h}"/><path class="dept" d="${GEO.artigas}" style="stroke-width:2"/><path class="river river-glow" d="${GEO.uruguay}" stroke-width="16"/><path class="river river-line" d="${GEO.uruguay}" stroke-width="7"/><path class="river river-line" d="${GEO.cuareim}" stroke-width="3.5"/>${["centro-artigas", "jefatura-de-policia", "carnaval-de-artigas", "museo-piedra-preciosa", "paseo-7-de-setiembre"].includes(p.id) ? "" : `<g class="lbl lbl-town" transform="translate(${ax} ${ay}) scale(2)"><circle r="3.2"/><text x="-10" y="20" text-anchor="end">Artigas</text></g>`}<g class="cat-${p.cat}"><circle class="loc-ring" cx="${x}" cy="${y}" r="40"/><g transform="translate(${x} ${y}) scale(2.6)">${shapeSVG(CATS[p.cat].shape, 8, "loc-pin")}</g></g></svg>`;
+}
+function renderDetail(p) {
+  const i = PLACES.indexOf(p), prev = PLACES[(i - 1 + PLACES.length) % PLACES.length], next = PLACES[(i + 1) % PLACES.length];
+  const sections = p.body.map(b => `<section><h2>${esc(b.h)}</h2>${(b.p || []).map(t => `<p>${esc(t)}</p>`).join("")}${b.list ? `<ul>${b.list.map(t => `<li>${esc(t)}</li>`).join("")}</ul>` : ""}</section>`).join("");
+  const main = p.photos[0];
+  const gallery = p.photos.length > 1 ? `<section><h2>Galería</h2><div class="gallery">${p.photos.map((ph, k) => `<figure><button type="button" data-photo="${k}" aria-label="Ampliar: ${esc(ph.alt)}">${cover(p, k, "mini")}</button><figcaption>${esc(ph.alt)}</figcaption></figure>`).join("")}</div></section>` : "";
+  const photoCred = p.photos.length ? `<section class="photo-cred"><h2>Créditos de las fotos</h2><ul>${p.photos.map(ph => `<li><b>${esc(ph.alt)}</b>${creditLine(ph)}${/commons\.wikimedia/.test(ph.page || "") ? " · Wikimedia Commons" : ""}</li>`).join("")}</ul></section>` : "";
+  return `<header class="d-cover cat-${p.cat}">
+      <div class="d-cover-img">${cover(p)}</div><div class="d-cover-shade"></div>
+      <div class="wrap d-cover-top"><a class="back" href="#mapa"><span aria-hidden="true">←</span> Volver al mapa</a></div>
+      <div class="wrap d-cover-in">
+        <p class="eyebrow">${icon(p.cat)}${CATS[p.cat].name} · ${num(p)} de ${PLACES.length}</p>
+        <h1>${esc(p.name)}</h1>
+        <p class="d-lead">${esc(p.short)}</p>
+        <p class="d-meta"><span>${esc(p.where)}</span><span>${coordText(p)}${p.approx ? " (ubicación aproximada)" : ""}</span></p>
+      </div>
+      ${refTag(p)}${main ? `<p class="credit">${main.ref ? `Foto de referencia: ${esc(main.alt)} · ` : ""}${creditLine(main)}</p>` : `<p class="credit">Ilustración</p>`}
+    </header>
+    <div class="wrap cat-${p.cat}">
+      <div class="d-body">
+        <div class="d-main">${sections}${gallery}
+          <aside class="curious"><span class="lab">${icon(p.cat)}Dato curioso</span><p>${esc(p.curious)}</p></aside>
+        </div>
+        <aside class="d-side">
+          <figure class="locator">${locatorSVG(p)}<figcaption>Ubicación en el departamento</figcaption></figure>
+          <section class="facts"><h2>Datos útiles</h2><dl>${p.facts.map(([k, v]) => `<dt>${esc(k)}</dt><dd>${esc(v)}</dd>`).join("")}</dl></section>
+          <section class="howto"><h2>Cómo llegar</h2><p>${esc(p.howto)}</p></section>
+          ${photoCred}
+          <section class="sources"><h2>Fuentes</h2><ul>${p.sources.map(([t, u]) => `<li><a href="${esc(u)}" target="_blank" rel="noopener">${esc(t)}</a></li>`).join("")}</ul></section>
+        </aside>
+      </div>
+      <section class="more" aria-labelledby="more-title">
+        <h2 id="more-title">Seguí recorriendo</h2>
+        <ol class="cards">${cardHTML(prev, "← Anterior")}${cardHTML(next, "Siguiente →")}</ol>
+      </section>
+    </div>`;
+}
+/* lightbox de fotos */
+const lb = {el: $("#lightbox"), p: null, k: 0};
+function openLightbox(p, k) { lb.p = p; lb.k = k; showLb(); lb.el.hidden = false; $("#lb-close").focus(); }
+function showLb() { const ph = lb.p.photos[lb.k]; $("#lb-img").src = ph.src; $("#lb-img").alt = ph.alt || lb.p.name; $("#lb-cap").textContent = [ph.alt, ph.by ? "Foto: " + ph.by : "", ph.lic === "Public domain" ? "Dominio público" : ph.lic].filter(Boolean).join(" · "); const many = lb.p.photos.length > 1; $("#lb-prev").hidden = !many; $("#lb-next").hidden = !many; }
+function closeLb() { lb.el.hidden = true; }
+$("#lb-close").addEventListener("click", closeLb);
+$("#lb-prev").addEventListener("click", () => { lb.k = (lb.k - 1 + lb.p.photos.length) % lb.p.photos.length; showLb(); });
+$("#lb-next").addEventListener("click", () => { lb.k = (lb.k + 1) % lb.p.photos.length; showLb(); });
+lb.el.addEventListener("click", e => { if (e.target === lb.el) closeLb(); });
+$("#view-detail").addEventListener("click", e => { const b = e.target.closest("[data-photo]"); if (b) { const p = byId[decodeURIComponent(location.hash.slice(1))]; if (p) openLightbox(p, +b.dataset.photo); } });
+document.addEventListener("keydown", e => {
+  if (!lb.el.hidden) { if (e.key === "Escape") closeLb(); if (e.key === "ArrowLeft") $("#lb-prev").click(); if (e.key === "ArrowRight") $("#lb-next").click(); return; }
+  if (e.key === "Escape" && !popup.hidden) { closePopup(); setSelected(null); }
+});
+
+/* ---------- routing ---------- */
+const viewMap = $("#view-map"), viewDetail = $("#view-detail");
+const MAP_ANCHORS = ["", "mapa", "inicio", "explorar", "postales"];
+let mapScroll = 0, onMap = true;
+function route() {
+  const id = decodeURIComponent(location.hash.replace(/^#/, ""));
+  const p = byId[id];
+  if (p) {
+    if (onMap) mapScroll = window.scrollY;
+    onMap = false;
+    viewDetail.innerHTML = renderDetail(p);
+    viewMap.hidden = true; viewDetail.hidden = false; document.body.classList.add("on-detail");
+    document.title = `${p.name} · Descubrí Artigas`;
+    window.scrollTo({top: 0, behavior: "auto"});
+    setSelected(p.id);
+  } else {
+    const wasDetail = !onMap;
+    onMap = true;
+    viewDetail.hidden = true; viewMap.hidden = false; viewDetail.innerHTML = ""; document.body.classList.remove("on-detail");
+    document.title = "Descubrí Artigas";
+    applyView(true);
+    const target = MAP_ANCHORS.includes(id) && id && id !== "mapa" ? document.getElementById(id) : null;
+    if (wasDetail && !target) {
+      window.scrollTo({top: mapScroll, behavior: "auto"});
+      if (state.selected) { const q = byId[state.selected]; if (q) openPlacePopup(q); }
+    } else if (target) target.scrollIntoView({behavior: "auto", block: "start"});
+  }
+}
+window.addEventListener("hashchange", route);
+
+/* ---------- init ---------- */
+renderChips(); renderList(); renderCards();
+new ResizeObserver(() => { if (!viewMap.hidden) applyView(true); }).observe(wrap);
+route();
+if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => { if (!viewMap.hidden) applyView(true); });
+</script>
+
+</body>
+</html>

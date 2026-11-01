@@ -1,0 +1,186 @@
+# Descubrí Artigas
+
+Un proyecto realizado por los docentes del **CEI Javier de Viana** (Artigas, Uruguay).
+
+Dirección de la web: **https://cei-javierdeviana.github.io/descubri-artigas/**
+
+Guía web con quince lugares para conocer en el departamento de Artigas (Uruguay): un mapa interactivo, una postal por lugar y una ficha completa con fotos, datos útiles y fuentes.
+
+Es un sitio estático: no necesita servidor ni instalación. Todo está en `index.html` y las fotos en la carpeta `img/`.
+
+## Contenido de la carpeta
+
+| Archivo | Qué es |
+|---|---|
+| `index.html` | La página completa (textos, mapa, estilos y código) |
+| `img/` | Las fotos de cada lugar (portadas, tarjetas y galerías) |
+| `.nojekyll` | Le indica a GitHub Pages que publique los archivos tal cual |
+
+## Publicarla en GitHub Pages (organización del CEI)
+
+La web se publica en una **organización** de GitHub llamada `cei-javierdeviana`. La organización se crea desde una cuenta personal de GitHub: no hace falta otro usuario ni otra contraseña.
+
+### 1. Crear la organización
+
+1. En GitHub, tocá tu foto de perfil (arriba a la derecha) → **Settings**.
+2. En la barra lateral, sección *Access*, entrá a **Organizations** → **New organization**.
+3. Elegí el plan **Free**.
+4. Nombre: `cei-javierdeviana`. Como correo de contacto conviene usar uno del CEI.
+
+### 2. Crear el repositorio y subir los archivos
+
+1. En la organización, tocá **New repository**. Revisá que el dueño (*Owner*) sea `cei-javierdeviana`.
+2. Nombre: `descubri-artigas`. Visibilidad: **Public**. No agregues README.
+3. En el repositorio vacío, entrá al enlace **uploading an existing file**.
+4. Arrastrá **el contenido** de esta carpeta (el `index.html`, la carpeta `img` y el `README.md`), no la carpeta entera. GitHub acepta hasta 100 archivos por vez y esta carpeta tiene 66.
+5. Tocá **Commit changes**.
+
+### 3. Activar la página
+
+1. En el repositorio: **Settings** → **Pages**.
+2. En *Build and deployment*, elegí **Deploy from a branch**, rama **main** y carpeta **/ (root)**. Tocá **Save**.
+3. En uno o dos minutos la web queda en `https://cei-javierdeviana.github.io/descubri-artigas/`.
+
+> El archivo `.nojekyll` empieza con punto y en macOS queda oculto. Si no se sube, la página funciona igual.
+
+## Agregar fotos propias
+
+1. Copiá la foto a `img/` con un nombre sin espacios ni tildes, por ejemplo `piedra-pintada-3.jpg`. Conviene que sea horizontal y de unos 1280 px de ancho.
+2. Abrí `index.html`, buscá `const PHOTOS` y agregá una línea en el lugar que corresponda:
+
+```js
+{"src": "img/piedra-pintada-3.jpg", "alt": "Qué muestra la foto", "by": "Nombre de quien la sacó", "lic": "Todos los derechos reservados", "page": ""},
+```
+
+3. La **primera** foto de cada lugar es la portada del mapa, la postal y la ficha. Para cambiar la portada, mové la línea al primer lugar.
+4. Si una foto muestra el entorno o el tema y no el lugar exacto, agregá `"ref": true` y la página la marca como «Foto de referencia».
+
+## Sumar a otras personas del CEI
+
+Para que la web no dependa de una sola persona, sumá al menos a otra persona del CEI como dueña de la organización:
+
+1. En la organización: **People** → **Invite member**.
+2. Escribí su usuario o correo de GitHub y elegí el rol **Owner**.
+3. La persona acepta la invitación desde su correo.
+
+Quien vaya a editar la web necesita su propia cuenta de GitHub. Para verla no hace falta ninguna cuenta. Aunque cambien los dueños, la dirección de la web se mantiene.
+
+Si más adelante el CEI quiere una web propia en la dirección principal `https://cei-javierdeviana.github.io/`, se crea otro repositorio en la organización llamado `cei-javierdeviana.github.io`. Esta guía sigue funcionando en `/descubri-artigas/`.
+
+## Créditos de las fotos
+
+Todas las fotos vienen de [Wikimedia Commons](https://commons.wikimedia.org) y tienen licencias libres. Las licencias CC BY y CC BY-SA piden citar al autor y la licencia: por eso cada ficha muestra estos datos y no hay que borrarlos. Las fotos se redujeron de tamaño para la web.
+
+**Estación Fluvial de Bella Unión**
+
+- `img/estacion-fluvial-1.jpg` — El río Uruguay frente a Bella Unión, con Monte Caseros (Argentina) en la otra orilla. Foto: [Mx. Granger](https://commons.wikimedia.org/wiki/File:Monte_Caseros_seen_from_Uruguay.jpg), CC0. *(foto de referencia)*
+- `img/estacion-fluvial-2.jpg` — Plaza 25 de Agosto, en el centro de Bella Unión. Foto: [Mx. Granger](https://commons.wikimedia.org/wiki/File:Plaza_25_de_Agosto%2C_Bella_Uni%C3%B3n_1.jpg), CC0.
+- `img/estacion-fluvial-3.jpg` — Edificio del Municipio de Bella Unión. Foto: [Ulises Icardi](https://commons.wikimedia.org/wiki/File:Edificio_de_la_Municipalidad_de_Bella_Uni%C3%B3n.jpg), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/).
+
+**Parque Rivera**
+
+- `img/parque-rivera-1.jpg` — Un quiosco del Parque Rivera frente al río Uruguay. Foto: [Mx. Granger](https://commons.wikimedia.org/wiki/File:Parque_Rivera%2C_Bella_Uni%C3%B3n_2.jpg), CC0.
+- `img/parque-rivera-2.jpg` — La calle costera del Parque Rivera. Foto: [Mx. Granger](https://commons.wikimedia.org/wiki/File:Parque_Rivera%2C_Bella_Uni%C3%B3n_1.jpg), CC0.
+- `img/parque-rivera-3.jpg` — Atardecer en el Parque Rivera. Foto: [Artigas12](https://commons.wikimedia.org/wiki/File:Parque_rivera301.jpg), CC0.
+- `img/parque-rivera-4.jpg` — Quinchos del Balneario Los Pinos. Foto: [Artigas12](https://commons.wikimedia.org/wiki/File:Los_pinos_bu201.jpg), CC0.
+- `img/parque-rivera-5.jpg` — Embarcaciones en el río Uruguay, en Bella Unión. Foto: [Vince Alongi](https://commons.wikimedia.org/wiki/File:Riouruguay.jpg), [CC BY 2.0](https://creativecommons.org/licenses/by/2.0/).
+
+**Museo Santa Rosa del Cuareim**
+
+- `img/museo-santa-rosa-1.jpg` — Entrada del Museo Santa Rosa del Cuareim. Foto: [Mx. Granger](https://commons.wikimedia.org/wiki/File:Museo_Privado_Santa_Rosa_del_Cuareim.jpg), CC0.
+
+**Isla Brasilera y la triple frontera**
+
+- `img/isla-brasilera-1.jpg` — La Isla Brasilera y la costa argentina, vistas desde el mirador de Rincón de Franquía. Foto: [Gmmv1980](https://commons.wikimedia.org/wiki/File:Vista_desde_el_mangrullo_de_la_triple_frontera%2C_en_Rinc%C3%B3n_de_Franqu%C3%ADa%2C_Bella_Uni%C3%B3n%2C_departamento_de_Artigas%2C_Uruguay.jpg), [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/).
+- `img/isla-brasilera-2.jpg` — El río Uruguay desde Rincón de Franquía; al fondo, la Isla Brasilera. Foto: [Gmmv1980](https://commons.wikimedia.org/wiki/File:R%C3%ADo_Uruguay%2C_desde_Rinc%C3%B3n_de_Franqu%C3%ADa.jpg), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/).
+- `img/isla-brasilera-3.jpg` — La isla vista desde un satélite, en la unión de los ríos Cuareim y Uruguay. Foto: [NASA](https://commons.wikimedia.org/wiki/File:Isla_Brasilera_57.62646W_30.18248S.jpg), Dominio público.
+- `img/isla-brasilera-4.jpg` — Monolito que recuerda el punto donde se unen los tres países, en la isla. Foto: [Pedroborches](https://commons.wikimedia.org/wiki/File:Monolito_en_referencia_al_punto_tripartito.jpg), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/).
+- `img/isla-brasilera-5.jpg` — La triple frontera desde la costa uruguaya. Foto: [MEL LAPAZ](https://commons.wikimedia.org/wiki/File:Triple_frontera.jpg), [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/).
+
+**Rincón de Franquía**
+
+- `img/rincon-de-franquia-1.jpg` — Atardecer en Rincón de Franquía. Foto: [Giannina Pradella](https://commons.wikimedia.org/wiki/File:ATARDECER_EN_RINCON_DE_FRANQUIA.JPG), [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/).
+- `img/rincon-de-franquia-2.jpg` — Paisaje del área protegida. Foto: [Siliaia3](https://commons.wikimedia.org/wiki/File:Paisaje_de_Rinc%C3%B3n_de_franqu%C3%ADa.JPG), [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/).
+- `img/rincon-de-franquia-3.jpg` — Chajás en los humedales del área protegida. Foto: [SebasFN](https://commons.wikimedia.org/wiki/File:Chaj%C3%A1_1.png), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/).
+- `img/rincon-de-franquia-4.jpg` — Espátula rosada en Rincón de Franquía. Foto: [SebasFN](https://commons.wikimedia.org/wiki/File:Esp%C3%A1tula_Rosada_1.png), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/).
+- `img/rincon-de-franquia-5.jpg` — Jacana entre la vegetación del humedal. Foto: [SebasFN](https://commons.wikimedia.org/wiki/File:Jacana_1.png), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/).
+- `img/rincon-de-franquia-6.jpg` — Lechucita posada en Rincón de Franquía. Foto: [Giannina Pradella](https://commons.wikimedia.org/wiki/File:RINCON_DE_FRANQUIA.JPG), [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/).
+- `img/rincon-de-franquia-7.jpg` — El mangrullo, mirador sobre la triple frontera. Foto: [Gmmv1980](https://commons.wikimedia.org/wiki/File:Mangrullo_de_la_triple_frontera_en_Rinc%C3%B3n_de_Franqu%C3%ADa%2C_Bella_Uni%C3%B3n%2C_Artigas%2C_Uruguay.jpg), [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/).
+- `img/rincon-de-franquia-8.jpg` — El monte de Rincón de Franquía. Foto: [Siliaia3](https://commons.wikimedia.org/wiki/File:Entrando_en_el_Bosque_-_Rinc%C3%B3n_de_Franqu%C3%ADa.JPG), [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/).
+
+**Estación de Baltasar Brum**
+
+- `img/baltasar-brum-1.jpg` — La antigua estación de trenes de Baltasar Brum. Foto: [Raul Zapata](https://commons.wikimedia.org/wiki/File:BALTASAR_BRUM_01.JPG), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/).
+- `img/baltasar-brum-2.jpg` — Monumento a la esquila de ovinos, en Baltasar Brum. Foto: [Raul Zapata](https://commons.wikimedia.org/wiki/File:BALTASAR_BRUM_02.JPG), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/).
+
+**Codo del Cuareim**
+
+- `img/codo-del-cuareim-1.jpg` — El río Cuareim en el departamento de Artigas. Foto: [Wilson S. Serra, Alejandro Duarte, Edward D. Burress y Marcelo Loureiro](https://commons.wikimedia.org/wiki/File:Cuareim_River_%2818221%29.png), [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). *(foto de referencia)*
+- `img/codo-del-cuareim-2.jpg` — El río Cuareim con vista hacia Brasil, en Bella Unión. Foto: [Montecruz Foto](https://commons.wikimedia.org/wiki/File:Cuareim.jpg), [CC BY-SA 2.0](https://creativecommons.org/licenses/by-sa/2.0/). *(foto de referencia)*
+- `img/codo-del-cuareim-3.jpg` — El río Cuareim en una fotografía de 1888. Foto: [Lorenzo Spátola (Biblioteca Nacional de Uruguay)](https://commons.wikimedia.org/wiki/File:ABN_10881.jpg), Dominio público. *(foto de referencia)*
+
+**Estación ferroviaria de Javier de Viana**
+
+- `img/javier-de-viana-1.jpg` — Antigua estación de Cuareim, otra estación del ferrocarril en el departamento. Foto: [Ulises Icardi](https://commons.wikimedia.org/wiki/File:Antigua_estaci%C3%B3n_ferroviaria_de_Cuareim.jpg), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/). *(foto de referencia)*
+- `img/javier-de-viana-2.jpg` — Locomotora a vapor exhibida en la ciudad de Artigas. Foto: [Gerardo c](https://commons.wikimedia.org/wiki/File:Locomotrora_artigas.jpg), Dominio público. *(foto de referencia)*
+- `img/javier-de-viana-3.jpg` — La estación de San Eugenio (hoy ciudad de Artigas) hacia 1890. Foto: [John Fitz Patrick](https://commons.wikimedia.org/wiki/File:Uruguay_Northern_Railway_San_Eugenio_station.jpg), CC0. *(foto de referencia)*
+
+**Plaza Artigas e Iglesia San Eugenio**
+
+- `img/centro-artigas-1.jpg` — Fachada de la Iglesia San Eugenio del Cuareim. Foto: [Amurru](https://commons.wikimedia.org/wiki/File:Parroquia_San_Eugenio_del_Cuareim.jpg), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/).
+- `img/centro-artigas-2.jpg` — La Iglesia San Eugenio, Monumento Histórico Nacional. Foto: [Raul Zapata](https://commons.wikimedia.org/wiki/File:ARTIGAS_03_PATRIMONIO_NACIONAL.jpg), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/).
+- `img/centro-artigas-3.jpg` — El Ibirapitá frente a la Terminal de Ómnibus. Foto: [Maywiki](https://commons.wikimedia.org/wiki/File:Ibirapit%C3%A1_de_Artigas.JPG), [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/).
+- `img/centro-artigas-4.jpg` — Obelisco a la Gloria de los Héroes de 1825, en la Plaza Batlle. Foto: [Derys Benitez](https://commons.wikimedia.org/wiki/File:Obelisco_a_la_Gloria_de_los_H%C3%A9roes.jpg), [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/).
+- `img/centro-artigas-5.jpg` — Fachada del ex Mercado Municipal. Foto: [Amurru](https://commons.wikimedia.org/wiki/File:Mercado_Municipal_de_Artigas.jpg), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/).
+- `img/javier-de-viana-3.jpg` — La antigua estación de tren hacia 1890, donde hoy está la Terminal. Foto: [John Fitz Patrick](https://commons.wikimedia.org/wiki/File:Uruguay_Northern_Railway_San_Eugenio_station.jpg), CC0.
+
+**Jefatura de Policía de Artigas**
+
+- `img/jefatura-de-policia-1.jpg` — Fachada sobre la avenida Carlos Lecueder. Foto: [Alejandro Gil Álvarez](https://commons.wikimedia.org/wiki/File:Jefatura_de_Polic%C3%ADa_%28Lecueder%29.jpg), [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/).
+- `img/jefatura-de-policia-2.jpg` — El edificio y sus torres almenadas. Foto: [Nicolas Barriola](https://commons.wikimedia.org/wiki/File:Jefatura_de_Polic%C3%ADa_1.jpg), [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/).
+- `img/jefatura-de-policia-3.jpg` — El reloj y una de las torres almenadas. Foto: [Alejandro Gil Álvarez](https://commons.wikimedia.org/wiki/File:Jefatura_de_Polic%C3%ADa_%28torre_y_reloj%29.jpg), [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/).
+- `img/jefatura-de-policia-4.jpg` — El patio, rodeado de arcos de medio punto. Foto: [Alejandro Gil Álvarez](https://commons.wikimedia.org/wiki/File:Jefatura_de_Polic%C3%ADa_%28patio_y_torre%29.jpg), [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/).
+- `img/jefatura-de-policia-5.jpg` — El patio visto a través de un arco. Foto: [Alejandro Gil Álvarez](https://commons.wikimedia.org/wiki/File:Jefatura_de_Polic%C3%ADa_%28Patio%29.jpg), [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/).
+- `img/jefatura-de-policia-6.jpg` — Una de las torres almenadas. Foto: [Alejandro Gil Álvarez](https://commons.wikimedia.org/wiki/File:Torre_Jefatura_de_Polic%C3%ADa.jpg), [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/).
+- `img/jefatura-de-policia-7.jpg` — La Jefatura Política de San Eugenio en 1907. Foto: [Dornaleche y Reyes Impresores](https://commons.wikimedia.org/wiki/File:Jefatura_Pol%C3%ADtica_de_San_Eugenio_-_Artigas.tif), Dominio público.
+
+**Carnaval de Artigas**
+
+- `img/carnaval-de-artigas-1.jpg` — Carros alegóricos y bailarines en el desfile de 2007. Foto: [Da dinges](https://commons.wikimedia.org/wiki/File:Carnaval_de_Artigas.jpg), Dominio público.
+- `img/carnaval-de-artigas-2.jpg` — Una bailarina con su fantasía de plumas. Foto: [Gerardo c](https://commons.wikimedia.org/wiki/File:W_014.jpg), CC0.
+- `img/carnaval-de-artigas-3.jpg` — La batería de una escuela de samba. Foto: [Gerardo c](https://commons.wikimedia.org/wiki/File:W_017.jpg), CC0.
+- `img/carnaval-de-artigas-4.jpg` — Bailarina de una escuela de samba. Foto: [Gerardo c](https://commons.wikimedia.org/wiki/File:W_008.jpg), CC0.
+- `img/carnaval-de-artigas-5.jpg` — Un carro alegórico iluminado en la noche del desfile. Foto: [Gerardo c](https://commons.wikimedia.org/wiki/File:W_002.jpg), CC0.
+- `img/carnaval-de-artigas-6.jpg` — Un ala de bailarines con fantasías blancas. Foto: [Gerardo c](https://commons.wikimedia.org/wiki/File:W_004.jpg), CC0.
+- `img/carnaval-de-artigas-7.jpg` — Una fantasía con alas negras sobre la avenida. Foto: [Gerardo c](https://commons.wikimedia.org/wiki/File:W_011.jpg), CC0.
+- `img/carnaval-de-artigas-8.jpg` — Hinchas de la escuela Académicos en 2007. Foto: [Da dinges](https://commons.wikimedia.org/wiki/File:Los_Academicos_1.JPG), Dominio público.
+
+**Museo de la Piedra Preciosa**
+
+- `img/museo-piedra-preciosa-1.jpg` — Amatista de Artigas cortada y pulida (ejemplar de colección, no pertenece al museo). Foto: [Robert M. Lavinsky](https://commons.wikimedia.org/wiki/File:Quartz-288985.jpg), [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/). *(foto de referencia)*
+- `img/museo-piedra-preciosa-2.jpg` — Placa de cristales de amatista de Artigas (ejemplar de colección). Foto: [Robert M. Lavinsky](https://commons.wikimedia.org/wiki/File:Quartz-242682.jpg), [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/). *(foto de referencia)*
+- `img/museo-piedra-preciosa-3.jpg` — Cristales de amatista de Artigas (ejemplar de colección). Foto: [Robert M. Lavinsky](https://commons.wikimedia.org/wiki/File:Quartz-136010.jpg), [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/). *(foto de referencia)*
+
+**Paseo 7 de Setiembre y Puente de la Concordia**
+
+- `img/paseo-7-de-setiembre-1.jpg` — Vista aérea del Puente de la Concordia entre Artigas y Quaraí. Foto: [Marcelo Campi](https://commons.wikimedia.org/wiki/File:Quara%C3%AD_-_Artigas_Bridge.jpg), [CC BY-SA 2.0](https://creativecommons.org/licenses/by-sa/2.0/).
+- `img/paseo-7-de-setiembre-2.jpg` — El Paseo 7 de Setiembre visto desde el puente. Foto: [Asiria Pacheco](https://commons.wikimedia.org/wiki/File:Parque_7_de_Setiembre_visto_desde_arriba.JPG), [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/).
+- `img/paseo-7-de-setiembre-3.jpg` — El lago del Parque Rodó. Foto: [Gerardo Conti P](https://commons.wikimedia.org/wiki/File:Parque_Rodo_Artigas.JPG), [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/).
+- `img/paseo-7-de-setiembre-4.jpg` — El río Cuareim en el Balneario Municipal. Foto: [Gerardo Conti P](https://commons.wikimedia.org/wiki/File:Balneario_Municipal_Artigas.JPG), [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/).
+- `img/paseo-7-de-setiembre-5.jpg` — El Puente Internacional de la Concordia desde la costa. Foto: [Da dinges](https://commons.wikimedia.org/wiki/File:Puente_Internacional_de_la_Concordia.JPG), Dominio público.
+- `img/paseo-7-de-setiembre-6.jpg` — Arboleda del Paseo 7 de Setiembre. Foto: [Asiria Pacheco](https://commons.wikimedia.org/wiki/File:Parque_7_de_Setiembre.JPG), [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/).
+
+**Piedra Pintada**
+
+- `img/piedra-pintada-1.jpg` — La Piedra Pintada, con su color verde rojizo. Foto: [Gerardo Conti P](https://commons.wikimedia.org/wiki/File:Piedra_Pintada_3.jpg), CC0.
+- `img/piedra-pintada-2.jpg` — Vista aérea de la zona de Piedra Pintada en enero de 1988. Foto: [Starbock1948](https://commons.wikimedia.org/wiki/File:Vista_aerea_Piedra_Pintada.JPG), [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/).
+
+**Minas de amatistas de Los Catalanes**
+
+- `img/los-catalanes-1.jpg` — Amatista extraída en Catalán. Foto: [Gonzalo Devia](https://commons.wikimedia.org/wiki/File:Amatista_Laye.jpg), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/).
+- `img/los-catalanes-2.jpg` — Una mina de amatistas en la zona. Foto: [Javier Techera](https://commons.wikimedia.org/wiki/File:Mina_amatista.JPG), Dominio público.
+- `img/los-catalanes-3.jpg` — Otra cara de la misma amatista de Catalán. Foto: [Gonzalo Devia](https://commons.wikimedia.org/wiki/File:Amatista_Laye_2.jpg), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/).
+
+## Fuentes de la información
+
+Cada ficha lista sus fuentes: Intendencia de Artigas, Ministerio de Turismo, Ministerio de Ambiente, Ministerio del Interior, Presidencia, IMPO, AFE, Museos del Uruguay, Udelar, prensa local y Wikipedia. Información reunida entre octubre y noviembre de 2026; horarios, tarifas y accesos pueden cambiar.
