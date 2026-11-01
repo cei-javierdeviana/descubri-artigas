@@ -125,6 +125,7 @@ body.on-detail .top{position:static;background:var(--hero-bg)}
 .lbl text{paint-order:stroke;stroke-linejoin:round}
 .lbl-country text{font-family:var(--font-display);font-weight:800;font-size:18px;letter-spacing:.34em;fill:var(--muted);stroke:var(--map-bg);stroke-width:4px}
 .lbl-dep text{font-family:var(--font-display);font-weight:800;font-size:14px;letter-spacing:.28em;fill:var(--muted);stroke:var(--map-bg);stroke-width:4px}
+#towns{pointer-events:none}
 .lbl-town circle{fill:var(--ink);stroke:var(--land);stroke-width:2}
 .lbl-town text{font-family:var(--font-body);font-style:italic;font-size:14px;fill:var(--ink);stroke:var(--land);stroke-width:4px}
 .lbl-river text{font-family:var(--font-body);font-style:italic;font-size:13.5px;fill:var(--river);stroke:var(--map-bg);stroke-width:4px;letter-spacing:.04em}
@@ -372,6 +373,7 @@ body.on-detail .top{position:static;background:var(--hero-bg)}
           <path class="river river-line" id="river-cu"/>
           <g id="labels"></g>
           <g id="pins"></g>
+          <g id="towns"></g>
         </svg>
         <div class="north" aria-hidden="true"><svg viewBox="0 0 14 18"><path d="M7 0 13 18 7 13 1 18Z"/></svg>N</div>
         <div class="map-ctrl">
@@ -1314,7 +1316,7 @@ const PHOTOS = {
 const TOWNS = [
   {name: "Artigas", lat: -30.3995, lon: -56.4650, dx: 0, dy: 32, anchor: "middle"},
   {name: "Bella Unión", lat: -30.2560, lon: -57.5960, dx: 12, dy: 20, anchor: "start"},
-  {name: "Javier de Viana", lat: -30.4328, lon: -56.7872, dx: -14, dy: 26, anchor: "end"},
+  {name: "Javier de Viana", lat: -30.4328, lon: -56.7872, dx: -16, dy: 32, anchor: "end"},
   {name: "Baltasar Brum", lat: -30.7167, lon: -57.3333, dx: 14, dy: 26, anchor: "start"}
 ];
 const COUNTRY_LABELS = [
@@ -1329,7 +1331,7 @@ const RIVER_LABELS = [
 
 /* ---------- helpers ---------- */
 const $ = (s, el = document) => el.querySelector(s);
-const svg = $("#map"), wrap = $("#map-wrap"), pinsG = $("#pins"), labelsG = $("#labels"), gridG = $("#grid");
+const svg = $("#map"), wrap = $("#map-wrap"), pinsG = $("#pins"), labelsG = $("#labels"), townsG = $("#towns"), gridG = $("#grid");
 const popup = $("#popup"), popBody = $("#pop-body");
 const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 const KM = GEO.k / 111.0;
@@ -1440,7 +1442,8 @@ function renderLabels(u) {
   let s = "";
   COUNTRY_LABELS.forEach(l => { const [x, y] = proj(l.lat, l.lon); s += `<g class="lbl ${l.cls}" transform="translate(${x} ${y}) scale(${u})${l.rot ? ` rotate(${l.rot})` : ""}"><text text-anchor="middle" dominant-baseline="middle">${l.t}</text></g>`; });
   RIVER_LABELS.forEach(l => { const [x, y] = proj(l.lat, l.lon); s += `<g class="lbl lbl-river" transform="translate(${x} ${y}) scale(${u}) rotate(${l.rot})"><text text-anchor="middle">${l.t}</text></g>`; });
-  TOWNS.forEach(t => { const [x, y] = proj(t.lat, t.lon); s += `<g class="lbl lbl-town" data-town="${t.name}" transform="translate(${x} ${y}) scale(${u})"><circle r="3.2"/><text x="${t.dx}" y="${t.dy}" text-anchor="${t.anchor}">${t.name}</text></g>`; });
+  TOWNS.forEach(t => { const [x, y] = proj(t.lat, t.lon); s += `<g class="lbl lbl-town" transform="translate(${x} ${y}) scale(${u})"><circle r="3.2"/></g>`; });
+  townsG.innerHTML = TOWNS.map(t => { const [x, y] = proj(t.lat, t.lon); return `<g class="lbl lbl-town" data-town="${t.name}" transform="translate(${x} ${y}) scale(${u})"><text x="${t.dx}" y="${t.dy}" text-anchor="${t.anchor}">${t.name}</text></g>`; }).join("");
   labelsG.innerHTML = s;
 }
 const gridLabelsG = document.createElementNS("http://www.w3.org/2000/svg", "g");
@@ -1474,21 +1477,24 @@ function renderPins(u) {
   currentClusters = computeClusters(u);
   const showLabels = u < 0.55; let s = "";
   /* etiquetas de los puntos: a la derecha; si chocan con otro punto, etiqueta o pueblo, a la izquierda; si tampoco, se ocultan */
-  const taken = currentClusters.map(c => ({x1: c.x - 13 * u, x2: c.x + 13 * u, y1: c.y - 13 * u, y2: c.y + 13 * u}));
+  const taken = currentClusters.map(c => ({x1: c.x - 16 * u, x2: c.x + 16 * u, y1: c.y - 16 * u, y2: c.y + 16 * u}));
   const clash = b => taken.some(q => b.x1 < q.x2 && b.x2 > q.x1 && b.y1 < q.y2 && b.y2 > q.y1);
-  /* nombres de pueblos: si un punto los tapa (al acercarse a una ciudad), se ocultan */
+  /* nombres de pueblos: siempre visibles; si un punto los tapa, prueban otra posición alrededor del punto del pueblo */
   TOWNS.forEach(t => {
-    const [x, y] = proj(t.lat, t.lon), w = t.name.length * 7 * u, ax = x + t.dx * u, x1 = t.anchor === "end" ? ax - w : t.anchor === "middle" ? ax - w / 2 : ax;
-    const box = {x1, x2: x1 + w, y1: y + (t.dy - 10) * u, y2: y + (t.dy + 4) * u}, hide = clash(box);
-    const g = labelsG.querySelector(`[data-town="${t.name}"]`); if (g) g.style.display = hide ? "none" : "";
-    if (!hide) taken.push(box);
+    const [x, y] = proj(t.lat, t.lon), w = t.name.length * 7 * u;
+    const opts = [t, {dx: 0, dy: 32, anchor: "middle"}, {dx: -14, dy: 5, anchor: "end"}, {dx: 14, dy: 5, anchor: "start"}, {dx: 0, dy: -20, anchor: "middle"}, {dx: -14, dy: 26, anchor: "end"}, {dx: 14, dy: 26, anchor: "start"}, {dx: 0, dy: 50, anchor: "middle"}, {dx: 0, dy: -38, anchor: "middle"}, {dx: -32, dy: 5, anchor: "end"}, {dx: 32, dy: 5, anchor: "start"}];
+    const boxOf = o => { const ax = x + o.dx * u, x1 = o.anchor === "end" ? ax - w : o.anchor === "middle" ? ax - w / 2 : ax; return {x1, x2: x1 + w, y1: y + (o.dy - 13) * u, y2: y + (o.dy + 4) * u}; };
+    const pick = opts.find(o => !clash(boxOf(o))) || t;
+    const txt = townsG.querySelector(`[data-town="${t.name}"] text`);
+    if (txt) { txt.setAttribute("x", pick.dx); txt.setAttribute("y", pick.dy); txt.setAttribute("text-anchor", pick.anchor); }
+    taken.push(boxOf(pick));
   });
   currentClusters.forEach((c, i) => {
     if (c.items.length === 1) {
       const p = c.items[0], sel = state.selected === p.id ? " is-sel" : "";
       let lab = "";
       if (showLabels) {
-        const w = (p.label.length * 7 + 4) * u, R = {x1: c.x + 15 * u, x2: c.x + 15 * u + w, y1: c.y - 9 * u, y2: c.y + 9 * u}, L = {x1: c.x - 15 * u - w, x2: c.x - 15 * u, y1: R.y1, y2: R.y2};
+        const w = (p.label.length * 7 + 4) * u, R = {x1: c.x + 17 * u, x2: c.x + 17 * u + w, y1: c.y - 9 * u, y2: c.y + 9 * u}, L = {x1: c.x - 17 * u - w, x2: c.x - 17 * u, y1: R.y1, y2: R.y2};
         if (!clash(R)) { taken.push(R); lab = `<text class="pin-label" x="17" y="4">${esc(p.label)}</text>`; }
         else if (!clash(L)) { taken.push(L); lab = `<text class="pin-label" x="-17" y="4" text-anchor="end">${esc(p.label)}</text>`; }
       }
