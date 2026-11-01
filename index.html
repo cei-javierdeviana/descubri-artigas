@@ -1312,8 +1312,10 @@ const PHOTOS = {
 };
 
 const TOWNS = [
-  {name: "Artigas", lat: -30.3995, lon: -56.4650, dx: -12, dy: 22, anchor: "end"},
-  {name: "Bella Unión", lat: -30.2560, lon: -57.5960, dx: 12, dy: 20, anchor: "start"}
+  {name: "Artigas", lat: -30.3995, lon: -56.4650, dx: 0, dy: 32, anchor: "middle"},
+  {name: "Bella Unión", lat: -30.2560, lon: -57.5960, dx: 12, dy: 20, anchor: "start"},
+  {name: "Javier de Viana", lat: -30.4328, lon: -56.7872, dx: -14, dy: 26, anchor: "end"},
+  {name: "Baltasar Brum", lat: -30.7167, lon: -57.3333, dx: 14, dy: 26, anchor: "start"}
 ];
 const COUNTRY_LABELS = [
   {t: "BRASIL", lat: -30.12, lon: -56.35, cls: "lbl-country"},
@@ -1438,7 +1440,7 @@ function renderLabels(u) {
   let s = "";
   COUNTRY_LABELS.forEach(l => { const [x, y] = proj(l.lat, l.lon); s += `<g class="lbl ${l.cls}" transform="translate(${x} ${y}) scale(${u})${l.rot ? ` rotate(${l.rot})` : ""}"><text text-anchor="middle" dominant-baseline="middle">${l.t}</text></g>`; });
   RIVER_LABELS.forEach(l => { const [x, y] = proj(l.lat, l.lon); s += `<g class="lbl lbl-river" transform="translate(${x} ${y}) scale(${u}) rotate(${l.rot})"><text text-anchor="middle">${l.t}</text></g>`; });
-  TOWNS.forEach(t => { const [x, y] = proj(t.lat, t.lon); s += `<g class="lbl lbl-town" transform="translate(${x} ${y}) scale(${u})"><circle r="3.2"/><text x="${t.dx}" y="${t.dy}" text-anchor="${t.anchor}">${t.name}</text></g>`; });
+  TOWNS.forEach(t => { const [x, y] = proj(t.lat, t.lon); s += `<g class="lbl lbl-town" data-town="${t.name}" transform="translate(${x} ${y}) scale(${u})"><circle r="3.2"/><text x="${t.dx}" y="${t.dy}" text-anchor="${t.anchor}">${t.name}</text></g>`; });
   labelsG.innerHTML = s;
 }
 const gridLabelsG = document.createElementNS("http://www.w3.org/2000/svg", "g");
@@ -1471,10 +1473,26 @@ function computeClusters(u) {
 function renderPins(u) {
   currentClusters = computeClusters(u);
   const showLabels = u < 0.55; let s = "";
+  /* etiquetas de los puntos: a la derecha; si chocan con otro punto, etiqueta o pueblo, a la izquierda; si tampoco, se ocultan */
+  const taken = currentClusters.map(c => ({x1: c.x - 13 * u, x2: c.x + 13 * u, y1: c.y - 13 * u, y2: c.y + 13 * u}));
+  const clash = b => taken.some(q => b.x1 < q.x2 && b.x2 > q.x1 && b.y1 < q.y2 && b.y2 > q.y1);
+  /* nombres de pueblos: si un punto los tapa (al acercarse a una ciudad), se ocultan */
+  TOWNS.forEach(t => {
+    const [x, y] = proj(t.lat, t.lon), w = t.name.length * 7 * u, ax = x + t.dx * u, x1 = t.anchor === "end" ? ax - w : t.anchor === "middle" ? ax - w / 2 : ax;
+    const box = {x1, x2: x1 + w, y1: y + (t.dy - 10) * u, y2: y + (t.dy + 4) * u}, hide = clash(box);
+    const g = labelsG.querySelector(`[data-town="${t.name}"]`); if (g) g.style.display = hide ? "none" : "";
+    if (!hide) taken.push(box);
+  });
   currentClusters.forEach((c, i) => {
     if (c.items.length === 1) {
       const p = c.items[0], sel = state.selected === p.id ? " is-sel" : "";
-      s += `<g class="pin cat-${p.cat}${sel}" data-id="${p.id}" tabindex="0" role="button" aria-label="${esc(p.name)}" transform="translate(${F(c.x)} ${F(c.y)}) scale(${u})"><circle class="hit" r="20"/><circle class="pulse" r="11"/><circle class="halo" r="17"/><g filter="url(#pinshadow)">${shapeSVG(CATS[p.cat].shape, 9.5, "shape")}</g>${showLabels ? `<text class="pin-label" x="17" y="4">${esc(p.label)}</text>` : ""}</g>`;
+      let lab = "";
+      if (showLabels) {
+        const w = (p.label.length * 7 + 4) * u, R = {x1: c.x + 15 * u, x2: c.x + 15 * u + w, y1: c.y - 9 * u, y2: c.y + 9 * u}, L = {x1: c.x - 15 * u - w, x2: c.x - 15 * u, y1: R.y1, y2: R.y2};
+        if (!clash(R)) { taken.push(R); lab = `<text class="pin-label" x="17" y="4">${esc(p.label)}</text>`; }
+        else if (!clash(L)) { taken.push(L); lab = `<text class="pin-label" x="-17" y="4" text-anchor="end">${esc(p.label)}</text>`; }
+      }
+      s += `<g class="pin cat-${p.cat}${sel}" data-id="${p.id}" tabindex="0" role="button" aria-label="${esc(p.name)}" transform="translate(${F(c.x)} ${F(c.y)}) scale(${u})"><circle class="hit" r="20"/><circle class="pulse" r="11"/><circle class="halo" r="17"/><g filter="url(#pinshadow)">${shapeSVG(CATS[p.cat].shape, 9.5, "shape")}</g>${lab}</g>`;
     } else {
       const has = c.items.some(p => p.id === state.selected);
       s += `<g class="pin cluster${has ? " is-sel" : ""}" data-cluster="${i}" tabindex="0" role="button" aria-label="${c.items.length} lugares: ${esc(c.items.map(p => p.name).join(", "))}" transform="translate(${F(c.x)} ${F(c.y)}) scale(${u})"><circle class="hit" r="22"/><circle class="halo" r="19"/><circle class="disc" r="14.5" filter="url(#pinshadow)"/><text text-anchor="middle" dominant-baseline="central">${c.items.length}</text></g>`;
