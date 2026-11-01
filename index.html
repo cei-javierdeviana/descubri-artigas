@@ -339,10 +339,10 @@ body.on-detail .top{position:static;background:var(--hero-bg)}
       <div>
         <p class="kicker">Departamento de Artigas · Uruguay</p>
         <h1>Del Cuareim <em>al río Uruguay</em></h1>
-        <p class="lead">Una piedra que parece pintada, minas de amatistas, viejas estaciones de tren, un carnaval con escuelas de samba y una frontera con dos países. Diecisiete lugares para descubrir en el norte del Uruguay.</p>
+        <p class="lead">Una piedra que parece pintada, minas de amatistas, viejas estaciones de tren, un carnaval con escuelas de samba y una frontera con dos países. Dieciocho lugares para descubrir en el norte del Uruguay.</p>
         <div class="hero-cta"><a class="btn" href="#explorar">Explorar el mapa <span aria-hidden="true">↓</span></a><a class="btn btn-quiet" href="#postales">Ver las postales</a></div>
         <dl class="stats">
-          <div><dt>17</dt><dd>lugares para conocer</dd></div>
+          <div><dt>18</dt><dd>lugares para conocer</dd></div>
           <div><dt>3</dt><dd>países en la triple frontera</dd></div>
           <div><dt>130 M</dt><dd>de años tienen sus amatistas</dd></div>
         </dl>
@@ -898,6 +898,38 @@ const PLACES = [
   ]
 },
 {
+  id: "cei-javier-de-viana", cat: "his", name: "CEI Javier de Viana",
+  lat: -30.4335, lon: -56.8130, approx: true,
+  where: "Ruta 30, kilómetro 97,5, cerca del pueblo Javier de Viana",
+  short: "Una escuela y un liceo rurales que funcionan juntos sobre la Ruta 30, con una huerta como proyecto productivo.",
+  body: [
+    {h: "Escuela y liceo en un mismo lugar", p: [
+      "El CEI Javier de Viana es un Centro Educativo Integrado. Reúne en un mismo centro a la Escuela N.º 33 «Mtro. Luis Artigas Gómez Núñez» y al Liceo Javier de Viana, para dar educación y hacer comunidad en el medio rural.",
+      "Está sobre la Ruta 30, en el kilómetro 97,5, cerca del pueblo Javier de Viana. El pueblo, a unos 33 kilómetros al oeste de la ciudad de Artigas, creció junto a la estación de tren «Tres Cruces», instalada en 1893. Su primera escuela abrió en 1901."
+    ]},
+    {h: "Una escuela con nombre de maestro", p: [
+      "La Escuela Rural N.º 33 lleva el nombre del maestro Luis Artigas Gómez Núñez. La comunidad educativa celebró esa nominación con un acto de homenaje al maestro."
+    ]},
+    {h: "Sembrando vida, cosechando futuro", p: [
+      "El proyecto productivo del CEI es su huerta. «Sembrando vida, cosechando futuro» es su lema, y también el trabajo de todos los días en la tierra, que une a estudiantes, docentes y familias."
+    ]},
+    {h: "Visitas", list: [
+      "Es un centro educativo en funcionamiento: para visitarlo, coordiná antes con la institución.",
+      "El horario es de 9 a 18 h.",
+      "Teléfono: 4770 2828. Correo: ceijavierdeviana@gmail.com."
+    ]}
+  ],
+  curious: "Esta guía, Descubrí Artigas, es un proyecto de los docentes del CEI Javier de Viana.",
+  facts: [["Ubicación", "Ruta 30, km 97,5"], ["Reúne", "Escuela N.º 33 y Liceo Javier de Viana"], ["Horario", "De 9 a 18 h"], ["Teléfono", "4770 2828"], ["Correo", "ceijavierdeviana@gmail.com"]],
+  howto: "Desde la ciudad de Artigas, por Ruta 30 hacia el oeste, hasta el kilómetro 97,5, cerca del pueblo Javier de Viana. Antes de ir, coordiná la visita por teléfono o por correo.",
+  sources: [
+    ["Lámina informativa del CEI Javier de Viana, aportada por docentes", ""],
+    ["DGEIP: La escuela rural N.º 33 de Artigas celebró su nominación homenajeando al maestro «Luis Artigas Gómez Núñez»", "https://www.dgeip.edu.uy/prensa/4266-la-escuela-rural-n%C2%B0-33-de-artigas-celebr%C3%B3-su-nominaci%C3%B3n-homenajeando-al-maestro-%E2%80%9Cluis-artigas-g%C3%B3mez-n%C3%BA%C3%B1ez%E2%80%9D/"],
+    ["DGES: Liceo «Javier de Viana» (Centro Educativo Integrado)", "https://www.dges.edu.uy/contacto/direcciones-y-telefonos/liceo-javier-viana-centro-educativo-integrado"],
+    ["Wikipedia: Javier de Viana (Uruguay)", "https://es.wikipedia.org/wiki/Javier_de_Viana_(Uruguay)"]
+  ]
+},
+{
   id: "javier-de-viana", cat: "his", name: "Estación ferroviaria de Javier de Viana",
   lat: -30.4328, lon: -56.7872,
   where: "Javier de Viana, kilómetro 100 de la Ruta 30",
@@ -1155,7 +1187,7 @@ const PLACES = [
 /* Nombres cortos para las etiquetas del mapa */
 const LABELS = {
   "estacion-fluvial": "Estación Fluvial", "isla-brasilera": "Isla Brasilera", "rincon-de-franquia": "Rincón de Franquía",
-  "baltasar-brum": "Estación Baltasar Brum", "codo-del-cuareim": "Codo del Cuareim", "javier-de-viana": "Estación Javier de Viana",
+  "baltasar-brum": "Estación Baltasar Brum", "codo-del-cuareim": "Codo del Cuareim", "javier-de-viana": "Estación Javier de Viana", "cei-javier-de-viana": "CEI Javier de Viana",
   "centro-artigas": "Plaza Artigas", "museo-piedra-preciosa": "Museo de la Piedra Preciosa", "paseo-7-de-setiembre": "Paseo 7 de Setiembre",
   "piedra-pintada": "Piedra Pintada", "los-catalanes": "Minas de Los Catalanes",
   "parque-rivera": "Parque Rivera", "museo-santa-rosa": "Museo Santa Rosa", "jefatura-de-policia": "Jefatura de Policía", "carnaval-de-artigas": "Carnaval",
@@ -1272,6 +1304,10 @@ const PHOTOS = {
     {"src": "img/museo-historico-2.jpg", "alt": "Una de las salas del museo", "by": "Lámina informativa del museo", "lic": "", "page": ""},
     {"src": "img/museo-historico-3.jpg", "alt": "Fósiles de megafauna: Glossotherium y Toxodon", "by": "Lámina informativa del museo", "lic": "", "page": ""},
     {"src": "img/museo-historico-4.jpg", "alt": "Una maqueta con soldados a caballo, en una de las salas", "by": "Lámina informativa del museo", "lic": "", "page": ""}
+  ],
+  "cei-javier-de-viana": [
+    {"src": "img/cei-javier-de-viana-1.jpg", "alt": "El edificio del CEI Javier de Viana", "by": "Lámina informativa del CEI Javier de Viana", "lic": "", "page": "", "pos": "center 45%"},
+    {"src": "img/cei-javier-de-viana-2.jpg", "alt": "La huerta del CEI, su proyecto productivo", "by": "Lámina informativa del CEI Javier de Viana", "lic": "", "page": ""}
   ]
 };
 

@@ -4,7 +4,7 @@ Un proyecto realizado por los docentes del **CEI Javier de Viana** (Artigas, Uru
 
 Dirección de la web: **https://cei-javierdeviana.github.io/descubri-artigas/**
 
-Guía web con diecisiete lugares para conocer en el departamento de Artigas (Uruguay): un mapa interactivo, una postal por lugar y una ficha completa con fotos, datos útiles y fuentes.
+Guía web con dieciocho lugares para conocer en el departamento de Artigas (Uruguay): un mapa interactivo, una postal por lugar y una ficha completa con fotos, datos útiles y fuentes.
 
 Es un sitio estático: no necesita servidor ni instalación. Todo está en `index.html`, las fotos en la carpeta `img/` y las fichas de cada lugar en la carpeta `fichas/`.
 
@@ -33,7 +33,7 @@ La web se publica en una **organización** de GitHub llamada `cei-javierdeviana`
 1. En la organización, tocá **New repository**. Revisá que el dueño (*Owner*) sea `cei-javierdeviana`.
 2. Nombre: `descubri-artigas`. Visibilidad: **Public**. No agregues README.
 3. En el repositorio vacío, entrá al enlace **uploading an existing file**.
-4. Arrastrá **el contenido** de esta carpeta (el `index.html`, las carpetas `img` y `fichas` y el `README.md`), no la carpeta entera. GitHub acepta hasta 100 archivos por vez y esta carpeta tiene 77.
+4. Arrastrá **el contenido** de esta carpeta (el `index.html`, las carpetas `img` y `fichas` y el `README.md`), no la carpeta entera. GitHub acepta hasta 100 archivos por vez y esta carpeta tiene 80.
 5. Tocá **Commit changes**.
 
 ### 3. Activar la página
@@ -77,6 +77,7 @@ No hay que tocar `index.html`: la página encuentra la ficha sola por su nombre.
 | Estación de Baltasar Brum | `baltasar-brum.jpg` |
 | Codo del Cuareim | `codo-del-cuareim.jpg` |
 | Cueva del Indio | `cueva-del-indio.jpg` |
+| CEI Javier de Viana | `cei-javier-de-viana.jpg` |
 | Estación ferroviaria de Javier de Viana | `javier-de-viana.jpg` |
 | Plaza Artigas e Iglesia San Eugenio | `centro-artigas.jpg` |
 | Jefatura de Policía de Artigas | `jefatura-de-policia.jpg` |
@@ -101,7 +102,7 @@ Si más adelante el CEI quiere una web propia en la dirección principal `https:
 
 ## Créditos de las fotos
 
-La mayoría de las fotos vienen de [Wikimedia Commons](https://commons.wikimedia.org) y tienen licencias libres. Las licencias CC BY y CC BY-SA piden citar al autor y la licencia: por eso cada ficha muestra estos datos y no hay que borrarlos. Las fotos del Museo Histórico Departamental salen de una lámina informativa aportada por docentes del CEI. Las de la Cueva del Indio son capturas del capítulo 6 del documental «La Huella de Sepé» (Identidad Antídoto y TNU, 2011), tomadas por estudiantes y mejoradas con inteligencia artificial para la web. Las fotos se redujeron o ampliaron de tamaño para la web.
+La mayoría de las fotos vienen de [Wikimedia Commons](https://commons.wikimedia.org) y tienen licencias libres. Las licencias CC BY y CC BY-SA piden citar al autor y la licencia: por eso cada ficha muestra estos datos y no hay que borrarlos. Las fotos del Museo Histórico Departamental y las del CEI Javier de Viana salen de láminas informativas aportadas por docentes del CEI. Las de la Cueva del Indio son capturas del capítulo 6 del documental «La Huella de Sepé» (Identidad Antídoto y TNU, 2011), tomadas por estudiantes y mejoradas con inteligencia artificial para la web. Las fotos se redujeron o ampliaron de tamaño para la web.
 
 **Estación Fluvial de Bella Unión**
 
@@ -157,6 +158,11 @@ La mayoría de las fotos vienen de [Wikimedia Commons](https://commons.wikimedia
 - `img/cueva-del-indio-2.jpg` — Un jinete entre los Talas del Sacrificio, a orillas del río Cuareim. Foto: Captura del documental [«La Huella de Sepé», cap. 6](https://www.youtube.com/playlist?list=PLuuHImgA8d0_C9KC72ZmXfp8_vbRcbxFM) (Identidad Antídoto y TNU, 2011).
 - `img/cueva-del-indio-3.jpg` — El Árbol de los Sacrificios. Foto: Captura del documental [«La Huella de Sepé», cap. 6](https://www.youtube.com/playlist?list=PLuuHImgA8d0_C9KC72ZmXfp8_vbRcbxFM) (Identidad Antídoto y TNU, 2011).
 - `img/cueva-del-indio-4.jpg` — Un mapa del departamento con la ubicación de la Cueva del Indio marcada en rojo. Foto: Captura del documental [«La Huella de Sepé», cap. 6](https://www.youtube.com/playlist?list=PLuuHImgA8d0_C9KC72ZmXfp8_vbRcbxFM) (Identidad Antídoto y TNU, 2011).
+
+**CEI Javier de Viana**
+
+- `img/cei-javier-de-viana-1.jpg` — El edificio del CEI Javier de Viana. Foto: Lámina informativa del CEI Javier de Viana.
+- `img/cei-javier-de-viana-2.jpg` — La huerta del CEI, su proyecto productivo. Foto: Lámina informativa del CEI Javier de Viana.
 
 **Estación ferroviaria de Javier de Viana**
 
