@@ -33,7 +33,7 @@ La web se publica en una **organización** de GitHub llamada `cei-javierdeviana`
 1. En la organización, tocá **New repository**. Revisá que el dueño (*Owner*) sea `cei-javierdeviana`.
 2. Nombre: `descubri-artigas`. Visibilidad: **Public**. No agregues README.
 3. En el repositorio vacío, entrá al enlace **uploading an existing file**.
-4. Arrastrá **el contenido** de esta carpeta (el `index.html`, las carpetas `img` y `fichas` y el `README.md`), no la carpeta entera. GitHub acepta hasta 100 archivos por vez y esta carpeta tiene 81.
+4. Arrastrá **el contenido** de esta carpeta (el `index.html`, las carpetas `img` y `fichas` y el `README.md`), no la carpeta entera. GitHub acepta hasta 100 archivos por vez y esta carpeta tiene 92.
 5. Tocá **Commit changes**.
 
 ### 3. Activar la página
@@ -102,7 +102,7 @@ Si más adelante el CEI quiere una web propia en la dirección principal `https:
 
 ## Créditos de las fotos
 
-La mayoría de las fotos vienen de [Wikimedia Commons](https://commons.wikimedia.org) y tienen licencias libres. Las licencias CC BY y CC BY-SA piden citar al autor y la licencia: por eso cada ficha muestra estos datos y no hay que borrarlos. Las fotos del Museo Histórico Departamental y las del CEI Javier de Viana salen de láminas informativas aportadas por docentes del CEI. Las de la Cueva del Indio son capturas del capítulo 6 del documental «La Huella de Sepé» (Identidad Antídoto y TNU, 2011), tomadas por estudiantes y mejoradas con inteligencia artificial para la web. Las fotos se redujeron o ampliaron de tamaño para la web.
+La mayoría de las fotos vienen de [Wikimedia Commons](https://commons.wikimedia.org) y tienen licencias libres. Las licencias CC BY y CC BY-SA piden citar al autor y la licencia: por eso cada ficha muestra estos datos y no hay que borrarlos. Las fotos del Museo Histórico Departamental salen de una lámina informativa aportada por docentes del CEI. Las del CEI Javier de Viana son de la propia institución; se mejoraron el brillo, el contraste y la nitidez, y se redujeron de tamaño para la web. Las de la Cueva del Indio son capturas del capítulo 6 del documental «La Huella de Sepé» (Identidad Antídoto y TNU, 2011), tomadas por estudiantes y mejoradas con inteligencia artificial para la web. Las fotos se redujeron o ampliaron de tamaño para la web.
 
 **Estación Fluvial de Bella Unión**
 
@@ -161,8 +161,19 @@ La mayoría de las fotos vienen de [Wikimedia Commons](https://commons.wikimedia
 
 **CEI Javier de Viana**
 
-- `img/cei-javier-de-viana-1.jpg` — El edificio del CEI Javier de Viana. Foto: Lámina informativa del CEI Javier de Viana.
-- `img/cei-javier-de-viana-2.jpg` — La huerta del CEI, su proyecto productivo. Foto: Lámina informativa del CEI Javier de Viana.
+- `img/cei-javier-de-viana-1.jpg` — Estudiantes, docentes y funcionarios frente al edificio del CEI. Foto: CEI Javier de Viana.
+- `img/cei-javier-de-viana-2.jpg` — Estudiantes del liceo en el caminito pintado de la entrada. Foto: CEI Javier de Viana.
+- `img/cei-javier-de-viana-3.jpg` — Un acto criollo visto desde el aire: la ronda, los jinetes y la bandera en el pasto. Foto: CEI Javier de Viana.
+- `img/cei-javier-de-viana-4.jpg` — Estudiantes, docentes y familias vestidos de criollo, junto a la bandera. Foto: CEI Javier de Viana.
+- `img/cei-javier-de-viana-5.jpg` — Una cabalgata con banderas por la ruta. Foto: CEI Javier de Viana.
+- `img/cei-javier-de-viana-6.jpg` — La comunidad del CEI, vestida de criollo, en una calle de tierra. Foto: CEI Javier de Viana.
+- `img/cei-javier-de-viana-7.jpg` — La comunidad del CEI en la foto del saludo por el Día del Trabajador. Foto: CEI Javier de Viana.
+- `img/cei-javier-de-viana-8.jpg` — Estudiantes del liceo en la biblioteca. Foto: CEI Javier de Viana.
+- `img/cei-javier-de-viana-9.jpg` — Lectura en grupo en la biblioteca. Foto: CEI Javier de Viana.
+- `img/cei-javier-de-viana-10.jpg` — Alumnos de la escuela y del liceo con docentes y funcionarios. Foto: CEI Javier de Viana.
+- `img/cei-javier-de-viana-11.jpg` — Docentes y funcionarios del CEI, con una muestra por el Año Internacional de la Mujer Agrícola. Foto: CEI Javier de Viana.
+- `img/cei-javier-de-viana-12.jpg` — «Desde nuestra institución, hacemos viral lo que suma»: el lema del CEI. Foto: CEI Javier de Viana.
+- `img/cei-javier-de-viana-13.jpg` — La huerta del CEI, su proyecto productivo. Foto: Lámina informativa del CEI Javier de Viana.
 
 **Estación ferroviaria de Javier de Viana**
 
