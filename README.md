@@ -1,6 +1,10 @@
 # Descubrí Artigas
 
-Un proyecto realizado por los docentes del **CEI Javier de Viana** (Artigas, Uruguay).
+Un proyecto del **CEI Javier de Viana** (Artigas, Uruguay).
+
+- **Autoría:** Pablo Montaña y Nelson Nuñez
+- **Diseño de la página:** Pablo Montaña
+- **Materiales:** docentes, estudiantes y equipo de dirección del CEI
 
 Dirección de la web: **https://cei-javierdeviana.github.io/descubri-artigas/**
 
@@ -246,4 +250,4 @@ La mayoría de las fotos vienen de [Wikimedia Commons](https://commons.wikimedia
 
 ## Fuentes de la información
 
-Cada ficha lista sus fuentes: Intendencia de Artigas, Ministerio de Turismo, Ministerio de Ambiente, Ministerio del Interior, Presidencia, IMPO, AFE, Museos del Uruguay, Udelar, prensa local y Wikipedia, además de láminas informativas aportadas por docentes del CEI. Información reunida entre octubre y noviembre de 2026; horarios, tarifas y accesos pueden cambiar.
+Cada ficha lista sus fuentes: Intendencia de Artigas, Ministerio de Turismo, Ministerio de Ambiente, Ministerio del Interior, Presidencia, IMPO, AFE, Museos del Uruguay, Udelar, prensa local y Wikipedia, además de láminas, fotos y textos aportados por docentes, estudiantes y el equipo de dirección del CEI. Información reunida entre octubre y noviembre de 2026; horarios, tarifas y accesos pueden cambiar.

@@ -278,6 +278,10 @@ body.on-detail .top{position:static;background:var(--hero-bg)}
 .foot .foot-credit svg{width:18px;height:22px;flex:none}
 .foot .foot-credit b{font-weight:600;color:var(--hero-accent)}
 .foot a{color:var(--hero-accent)}
+.foot-team{display:flex;flex-wrap:wrap;gap:12px 40px;margin:0 0 22px}
+.foot-team div{min-width:0}
+.foot-team dt{font-family:var(--font-mono);font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--hero-accent)}
+.foot-team dd{margin:4px 0 0;font-size:15.5px;line-height:1.4;color:var(--hero-ink)}
 
 /* ---------- modo presentación (#presentacion): para pantallas en stands y exposiciones ---------- */
 .show{position:fixed;inset:0;z-index:70;background:#0E0A14;color:#fff;overflow:hidden;cursor:pointer;-webkit-user-select:none;user-select:none}
@@ -456,8 +460,13 @@ body.on-detail .top{position:static;background:var(--hero-bg)}
 <footer class="foot">
   <div class="wrap">
     <strong>Descubrí Artigas</strong>
-    <p class="foot-credit"><svg viewBox="0 0 22 26" aria-hidden="true"><path d="M11 0 21 8 17 26H5L1 8Z" style="fill:#B48BEA"/><path d="M11 0 7 9l4 17 4-17Z" fill="#fff" fill-opacity=".3"/></svg><span>Un proyecto realizado por los docentes del <b>CEI Javier de Viana</b>, Artigas, Uruguay.</span></p>
-    <p>Información reunida entre octubre y noviembre de 2026 a partir de fuentes públicas (Intendencia de Artigas, ministerios, Presidencia, AFE, Museos del Uruguay, Udelar, prensa local y Wikipedia) y de materiales aportados por docentes del CEI. Cada ficha lista sus fuentes. Para mostrar la guía en una pantalla, en stands o exposiciones, usá el <a href="#presentacion">modo presentación</a>. Horarios, tarifas y accesos pueden cambiar: confirmá antes de viajar.</p>
+    <p class="foot-credit"><svg viewBox="0 0 22 26" aria-hidden="true"><path d="M11 0 21 8 17 26H5L1 8Z" style="fill:#B48BEA"/><path d="M11 0 7 9l4 17 4-17Z" fill="#fff" fill-opacity=".3"/></svg><span>Un proyecto del <b>CEI Javier de Viana</b>, Artigas, Uruguay.</span></p>
+    <dl class="foot-team">
+      <div><dt>Autoría</dt><dd>Pablo Montaña y Nelson Nuñez</dd></div>
+      <div><dt>Diseño de la página</dt><dd>Pablo Montaña</dd></div>
+      <div><dt>Materiales</dt><dd>Docentes, estudiantes y equipo de dirección del CEI</dd></div>
+    </dl>
+    <p>Información reunida entre octubre y noviembre de 2026 a partir de fuentes públicas (Intendencia de Artigas, ministerios, Presidencia, AFE, Museos del Uruguay, Udelar, prensa local y Wikipedia) y de materiales aportados por docentes, estudiantes y el equipo de dirección del CEI. Cada ficha lista sus fuentes. Para mostrar la guía en una pantalla, en stands o exposiciones, usá el <a href="#presentacion">modo presentación</a>. Horarios, tarifas y accesos pueden cambiar: confirmá antes de viajar.</p>
     <p>La mayoría de las fotos provienen de Wikimedia Commons y tienen licencias libres; cada ficha indica su origen, autor y licencia. Las marcadas como «foto de referencia» muestran el entorno o el tema del lugar, no el lugar exacto. El mapa usa un contorno simplificado del departamento; en zonas urbanas algunas ubicaciones son aproximadas y así se indica en cada ficha.</p>
   </div>
 </footer>
@@ -1851,7 +1860,7 @@ function showSlideHTML(p) {
 }
 function renderShow() {
   show.el.innerHTML = `${showIntroHTML()}${PLACES.map(showSlideHTML).join("")}
-    <div class="show-top"><div class="show-brand"><svg viewBox="0 0 22 26" aria-hidden="true"><path d="M11 0 21 8 17 26H5L1 8Z" style="fill:#B48BEA"/><path d="M11 0 7 9l4 17 4-17Z" fill="#fff" fill-opacity=".3"/></svg><div>Descubrí Artigas<small>Un proyecto de los docentes del CEI Javier de Viana</small></div></div>
+    <div class="show-top"><div class="show-brand"><svg viewBox="0 0 22 26" aria-hidden="true"><path d="M11 0 21 8 17 26H5L1 8Z" style="fill:#B48BEA"/><path d="M11 0 7 9l4 17 4-17Z" fill="#fff" fill-opacity=".3"/></svg><div>Descubrí Artigas<small>Un proyecto del CEI Javier de Viana · Pablo Montaña y Nelson Nuñez</small></div></div>
       <button type="button" class="show-fs" id="show-fs" aria-label="Pantalla completa"><svg viewBox="0 0 16 16"><path d="M2 6V2h4M14 6V2h-4M2 10v4h4M14 10v4h-4"/></svg></button></div>
     <figure class="show-qr">${QR_SVG}<figcaption>Escaneá y descubrí<small>cei-javierdeviana.github.io<br>/descubri-artigas</small></figcaption></figure>
     <p class="show-hint">Tocá la pantalla para explorar el mapa</p>
