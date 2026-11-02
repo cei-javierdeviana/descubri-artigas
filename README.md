@@ -4,7 +4,7 @@ Un proyecto del **CEI Javier de Viana** (Artigas, Uruguay).
 
 - **Autoría:** Pablo Montaña y Nelson Nuñez
 - **Diseño de la página:** Pablo Montaña
-- **Materiales:** docentes, estudiantes y equipo de dirección del CEI
+- **Materiales:** docentes, niñas, niños, estudiantes y equipo de dirección del CEI
 
 Dirección de la web: **https://cei-javierdeviana.github.io/descubri-artigas/**
 
@@ -168,13 +168,13 @@ La mayoría de las fotos vienen de [Wikimedia Commons](https://commons.wikimedia
 - `img/cei-javier-de-viana-1.jpg` — Estudiantes, docentes y funcionarios frente al edificio del CEI. Foto: CEI Javier de Viana.
 - `img/cei-javier-de-viana-2.jpg` — Estudiantes del liceo en el caminito pintado de la entrada. Foto: CEI Javier de Viana.
 - `img/cei-javier-de-viana-3.jpg` — Un acto criollo visto desde el aire: la ronda, los jinetes y la bandera en el pasto. Foto: CEI Javier de Viana.
-- `img/cei-javier-de-viana-4.jpg` — Estudiantes, docentes y familias vestidos de criollo, junto a la bandera. Foto: CEI Javier de Viana.
+- `img/cei-javier-de-viana-4.jpg` — Niñas, niños, estudiantes, docentes y familias vestidos de criollo, junto a la bandera. Foto: CEI Javier de Viana.
 - `img/cei-javier-de-viana-5.jpg` — Una cabalgata con banderas por la ruta. Foto: CEI Javier de Viana.
 - `img/cei-javier-de-viana-6.jpg` — La comunidad del CEI, vestida de criollo, en una calle de tierra. Foto: CEI Javier de Viana.
 - `img/cei-javier-de-viana-7.jpg` — La comunidad del CEI en la foto del saludo por el Día del Trabajador. Foto: CEI Javier de Viana.
 - `img/cei-javier-de-viana-8.jpg` — Estudiantes del liceo en la biblioteca. Foto: CEI Javier de Viana.
 - `img/cei-javier-de-viana-9.jpg` — Lectura en grupo en la biblioteca. Foto: CEI Javier de Viana.
-- `img/cei-javier-de-viana-10.jpg` — Alumnos de la escuela y del liceo con docentes y funcionarios. Foto: CEI Javier de Viana.
+- `img/cei-javier-de-viana-10.jpg` — Niñas y niños de la escuela y estudiantes del liceo, con docentes y funcionarios. Foto: CEI Javier de Viana.
 - `img/cei-javier-de-viana-11.jpg` — Docentes y funcionarios del CEI, con una muestra por el Año Internacional de la Mujer Agrícola. Foto: CEI Javier de Viana.
 - `img/cei-javier-de-viana-12.jpg` — «Desde nuestra institución, hacemos viral lo que suma»: el lema del CEI. Foto: CEI Javier de Viana.
 - `img/cei-javier-de-viana-13.jpg` — La huerta del CEI, su proyecto productivo. Foto: Lámina informativa del CEI Javier de Viana.
@@ -250,4 +250,4 @@ La mayoría de las fotos vienen de [Wikimedia Commons](https://commons.wikimedia
 
 ## Fuentes de la información
 
-Cada ficha lista sus fuentes: Intendencia de Artigas, Ministerio de Turismo, Ministerio de Ambiente, Ministerio del Interior, Presidencia, IMPO, AFE, Museos del Uruguay, Udelar, prensa local y Wikipedia, además de láminas, fotos y textos aportados por docentes, estudiantes y el equipo de dirección del CEI. Información reunida entre octubre y noviembre de 2026; horarios, tarifas y accesos pueden cambiar.
+Cada ficha lista sus fuentes: Intendencia de Artigas, Ministerio de Turismo, Ministerio de Ambiente, Ministerio del Interior, Presidencia, IMPO, AFE, Museos del Uruguay, Udelar, prensa local y Wikipedia, además de láminas, fotos y textos aportados por docentes, niñas, niños, estudiantes y el equipo de dirección del CEI. Información reunida entre octubre y noviembre de 2026; horarios, tarifas y accesos pueden cambiar.
