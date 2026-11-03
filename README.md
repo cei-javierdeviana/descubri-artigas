@@ -37,7 +37,7 @@ La web se publica en una **organización** de GitHub llamada `cei-javierdeviana`
 1. En la organización, tocá **New repository**. Revisá que el dueño (*Owner*) sea `cei-javierdeviana`.
 2. Nombre: `descubri-artigas`. Visibilidad: **Public**. No agregues README.
 3. En el repositorio vacío, entrá al enlace **uploading an existing file**.
-4. Arrastrá **el contenido** de esta carpeta (el `index.html`, las carpetas `img` y `fichas` y el `README.md`), no la carpeta entera. GitHub acepta hasta 100 archivos por vez y esta carpeta tiene 111.
+4. Arrastrá **el contenido** de esta carpeta (el `index.html`, las carpetas `img` y `fichas` y el `README.md`), no la carpeta entera. GitHub acepta hasta 100 archivos por vez y esta carpeta tiene 112.
 5. Tocá **Commit changes**.
 
 ### 3. Activar la página
@@ -107,7 +107,7 @@ Si más adelante el CEI quiere una web propia en la dirección principal `https:
 
 ## Créditos de las fotos
 
-La mayoría de las fotos vienen de [Wikimedia Commons](https://commons.wikimedia.org) y tienen licencias libres. Las licencias CC BY y CC BY-SA piden citar al autor y la licencia: por eso cada ficha muestra estos datos y no hay que borrarlos. Las fotos del Museo Histórico Departamental salen de una lámina informativa aportada por docentes del CEI. Las del CEI Javier de Viana son de la propia institución; se mejoraron el brillo, el contraste y la nitidez, y se redujeron de tamaño para la web. Las de la Cueva del Indio son capturas del capítulo 6 del documental «La Huella de Sepé» (Identidad Antídoto y TNU, 2011), tomadas por estudiantes y mejoradas con inteligencia artificial para la web. Las del Museo Ferroviario «Bibiano Gómez» son del CEI Javier de Viana y de Víctor Hernández; en la de portada se borró con inteligencia artificial a una persona que no es Bibiano Gómez. Las fotos se redujeron o ampliaron de tamaño para la web.
+La mayoría de las fotos vienen de [Wikimedia Commons](https://commons.wikimedia.org) y tienen licencias libres. Las licencias CC BY y CC BY-SA piden citar al autor y la licencia: por eso cada ficha muestra estos datos y no hay que borrarlos. Las fotos del Museo Histórico Departamental salen de una lámina informativa aportada por docentes del CEI. Las del CEI Javier de Viana son de la propia institución; se mejoraron el brillo, el contraste y la nitidez, y se redujeron de tamaño para la web. Las de la Cueva del Indio son capturas del capítulo 6 del documental «La Huella de Sepé» (Identidad Antídoto y TNU, 2011), tomadas por estudiantes y mejoradas con inteligencia artificial para la web. Las del Museo Ferroviario «Bibiano Gómez» son del CEI Javier de Viana y de Víctor Hernández; en la de portada se borraron con inteligencia artificial dos personas (ninguna es Bibiano Gómez) y su sombra. Las fotos se redujeron o ampliaron de tamaño para la web.
 
 **Estación Fluvial de Bella Unión**
 
@@ -189,6 +189,7 @@ La mayoría de las fotos vienen de [Wikimedia Commons](https://commons.wikimedia
 **Museo Ferroviario «Bibiano Gómez» (Javier de Viana)**
 
 - `img/javier-de-viana-1.jpg` — El cartel del museo y el mural del tren en la pared de la estación. Foto: CEI Javier de Viana.
+- `img/javier-de-viana-17.jpg` — El viejo cartel de la estación: «Javier de Viana. Distancia de Central K 780.287». Foto: CEI Javier de Viana (mejorada con inteligencia artificial).
 - `img/javier-de-viana-2.jpg` — Una de las salas del museo, con paneles, una vitrina y objetos ferroviarios. Foto: CEI Javier de Viana.
 - `img/javier-de-viana-3.jpg` — El cartel del Museo Ferroviario «Bibiano Gómez». Foto: CEI Javier de Viana.
 - `img/javier-de-viana-4.jpg` — El andén de la vieja estación, con valijas antiguas. Foto: CEI Javier de Viana.
