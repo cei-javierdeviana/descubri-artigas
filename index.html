@@ -394,10 +394,10 @@ body.on-detail .top{position:static;background:var(--hero-bg)}
       <div>
         <p class="kicker">Departamento de Artigas · Uruguay</p>
         <h1>Del Cuareim <em>al río Uruguay</em></h1>
-        <p class="lead">Una piedra que parece pintada, minas de amatistas, viejas estaciones de tren, un carnaval con escuelas de samba y una frontera con dos países. Diecinueve lugares para descubrir en el norte del Uruguay.</p>
+        <p class="lead">Una piedra que parece pintada, minas de amatistas, viejas estaciones de tren, un carnaval con escuelas de samba y una frontera con dos países. Veinte lugares para descubrir en el norte del Uruguay.</p>
         <div class="hero-cta"><a class="btn" href="#explorar">Explorar el mapa <span aria-hidden="true">↓</span></a><a class="btn btn-quiet" href="#postales">Ver las postales</a></div>
         <dl class="stats">
-          <div><dt>19</dt><dd>lugares para conocer</dd></div>
+          <div><dt>20</dt><dd>lugares para conocer</dd></div>
           <div><dt>3</dt><dd>países en la triple frontera</dd></div>
           <div><dt>130 M</dt><dd>de años tienen sus amatistas</dd></div>
         </dl>
@@ -1012,6 +1012,36 @@ const PLACES = [
   ]
 },
 {
+  id: "destacamento-policial-12", cat: "his", name: "Destacamento Policial N.º 12",
+  lat: -30.4332, lon: -56.8030, approx: true,
+  where: "Ruta 30, kilómetro 97, Javier de Viana",
+  short: "Inaugurado en 1973 como Seccional Policial 12.ª, forma parte de la historia de Javier de Viana y de la vida de su comunidad.",
+  body: [
+    {h: "Una institución con historia", p: [
+      "El Destacamento Policial N.º 12 está sobre la Ruta 30, en el kilómetro 97, en Javier de Viana. Fue inaugurado oficialmente el 10 de mayo de 1973, a las 10:30, como Seccional Policial 12.ª de Artigas.",
+      "La ceremonia contó con la presencia del entonces jefe de Policía de Artigas, coronel Dimas U. Rocha, de oficiales de la repartición, de autoridades departamentales y de vecinos de la localidad."
+    ]},
+    {h: "Creación y jurisdicción", p: [
+      "Su creación fue establecida por el Decreto del Poder Ejecutivo N.º 260/973, con la jurisdicción delimitada por el Decreto N.º 79/71, del 9 de febrero de 1971.",
+      "El viejo mapa de referencias de la seccional muestra su zona: se extiende entre el arroyo Tres Cruces y el río Cuareim, en la frontera con Brasil."
+    ]},
+    {h: "Al servicio de la comunidad", p: [
+      "Con 53 años de historia, es una institución importante para Javier de Viana: forma parte de su patrimonio histórico y de la vida de la comunidad."
+    ], list: [
+      "Encargada actual: agente Lorena Paz.",
+      "Teléfono fijo: 4770 2242.",
+      "Celular: 099 325 840."
+    ]}
+  ],
+  curious: "El acta inaugural de 1973, firmada por las autoridades y los vecinos que asistieron a la ceremonia, todavía se conserva enmarcada.",
+  facts: [["Ubicación", "Ruta 30, km 97, Javier de Viana"], ["Inauguración", "10 de mayo de 1973"], ["Creación", "Decreto N.º 260/973"], ["Encargada", "Agente Lorena Paz"], ["Teléfonos", "4770 2242 · 099 325 840"]],
+  howto: "Desde la ciudad de Artigas, por Ruta 30 hacia el oeste, hasta el kilómetro 97, en Javier de Viana. Ante una emergencia, llamá al 911.",
+  sources: [
+    ["Información y fotos del Destacamento Policial N.º 12, aportadas por el CEI Javier de Viana", ""],
+    ["Acta inaugural de la Seccional Policial 12.ª de Artigas (10 de mayo de 1973)", ""]
+  ]
+},
+{
   id: "capilla-santa-margarita", cat: "his", name: "Capilla Santa Margarita",
   lat: -30.4318, lon: -56.7905, approx: true,
   where: "Javier de Viana, Ruta 30, kilómetro 96",
@@ -1310,7 +1340,7 @@ const PLACES = [
 /* Nombres cortos para las etiquetas del mapa */
 const LABELS = {
   "estacion-fluvial": "Estación Fluvial", "isla-brasilera": "Isla Brasilera", "rincon-de-franquia": "Rincón de Franquía",
-  "baltasar-brum": "Estación Baltasar Brum", "codo-del-cuareim": "Codo del Cuareim", "javier-de-viana": "Museo Ferroviario", "cei-javier-de-viana": "CEI Javier de Viana", "capilla-santa-margarita": "Capilla Santa Margarita",
+  "baltasar-brum": "Estación Baltasar Brum", "codo-del-cuareim": "Codo del Cuareim", "javier-de-viana": "Museo Ferroviario", "cei-javier-de-viana": "CEI Javier de Viana", "capilla-santa-margarita": "Capilla Santa Margarita", "destacamento-policial-12": "Destacamento Policial",
   "centro-artigas": "Plaza Artigas", "museo-piedra-preciosa": "Museo de la Piedra Preciosa", "paseo-7-de-setiembre": "Paseo 7 de Setiembre",
   "piedra-pintada": "Piedra Pintada", "los-catalanes": "Minas de Los Catalanes",
   "parque-rivera": "Parque Rivera", "museo-santa-rosa": "Museo Santa Rosa", "jefatura-de-policia": "Jefatura de Policía", "carnaval-de-artigas": "Carnaval",
@@ -1461,6 +1491,11 @@ const PHOTOS = {
     {"src": "img/capilla-santa-margarita-1.jpg", "alt": "La fachada blanca de la capilla, con su campanario y sus cruces", "by": "CEI Javier de Viana", "lic": "", "page": "", "pos": "center 6%"},
     {"src": "img/capilla-santa-margarita-2.jpg", "alt": "Foto histórica de la inauguración de la capilla, el 28 de febrero de 1928", "by": "Foto histórica, fotografiada por el CEI Javier de Viana", "lic": "", "page": ""},
     {"src": "img/capilla-santa-margarita-3.jpg", "alt": "Carteles de las peregrinaciones en el predio de la capilla", "by": "CEI Javier de Viana", "lic": "", "page": ""}
+  ],
+  "destacamento-policial-12": [
+    {"src": "img/destacamento-policial-12-1.jpg", "alt": "El frente del destacamento, con su viejo cartel «Policía»", "by": "CEI Javier de Viana", "lic": "", "page": ""},
+    {"src": "img/destacamento-policial-12-2.jpg", "alt": "El acta inaugural de la Seccional Policial 12.ª, del 10 de mayo de 1973", "by": "CEI Javier de Viana", "lic": "", "page": ""},
+    {"src": "img/destacamento-policial-12-3.jpg", "alt": "El mapa de referencias de la Seccional 12, con su zona entre el arroyo Tres Cruces y el río Cuareim", "by": "CEI Javier de Viana", "lic": "", "page": ""}
   ]
 };
 

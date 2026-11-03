@@ -8,7 +8,7 @@ Un proyecto del **CEI Javier de Viana** (Artigas, Uruguay).
 
 Dirección de la web: **https://cei-javierdeviana.github.io/descubri-artigas/**
 
-Guía web con diecinueve lugares para conocer en el departamento de Artigas (Uruguay): un mapa interactivo, una postal por lugar y una ficha completa con fotos, datos útiles y fuentes.
+Guía web con veinte lugares para conocer en el departamento de Artigas (Uruguay): un mapa interactivo, una postal por lugar y una ficha completa con fotos, datos útiles y fuentes.
 
 Es un sitio estático: no necesita servidor ni instalación. Todo está en `index.html`, las fotos en la carpeta `img/` y las fichas de cada lugar en la carpeta `fichas/`.
 
@@ -37,7 +37,7 @@ La web se publica en una **organización** de GitHub llamada `cei-javierdeviana`
 1. En la organización, tocá **New repository**. Revisá que el dueño (*Owner*) sea `cei-javierdeviana`.
 2. Nombre: `descubri-artigas`. Visibilidad: **Public**. No agregues README.
 3. En el repositorio vacío, entrá al enlace **uploading an existing file**.
-4. Arrastrá **el contenido** de esta carpeta (el `index.html`, las carpetas `img` y `fichas` y el `README.md`), no la carpeta entera. GitHub acepta hasta 100 archivos por vez y esta carpeta tiene 112.
+4. Arrastrá **el contenido** de esta carpeta (el `index.html`, las carpetas `img` y `fichas` y el `README.md`), no la carpeta entera. GitHub acepta hasta 100 archivos por vez y esta carpeta tiene 115.
 5. Tocá **Commit changes**.
 
 ### 3. Activar la página
@@ -82,6 +82,7 @@ No hay que tocar `index.html`: la página encuentra la ficha sola por su nombre.
 | Codo del Cuareim | `codo-del-cuareim.jpg` |
 | Cueva del Indio | `cueva-del-indio.jpg` |
 | CEI Javier de Viana | `cei-javier-de-viana.jpg` |
+| Destacamento Policial N.º 12 | `destacamento-policial-12.jpg` |
 | Capilla Santa Margarita | `capilla-santa-margarita.jpg` |
 | Museo Ferroviario «Bibiano Gómez» (Javier de Viana) | `javier-de-viana.jpg` |
 | Plaza Artigas e Iglesia San Eugenio | `centro-artigas.jpg` |
@@ -179,6 +180,12 @@ La mayoría de las fotos vienen de [Wikimedia Commons](https://commons.wikimedia
 - `img/cei-javier-de-viana-11.jpg` — Docentes y funcionarios del CEI, con una muestra por el Año Internacional de la Mujer Agrícola. Foto: CEI Javier de Viana.
 - `img/cei-javier-de-viana-12.jpg` — «Desde nuestra institución, hacemos viral lo que suma»: el lema del CEI. Foto: CEI Javier de Viana.
 - `img/cei-javier-de-viana-13.jpg` — La huerta del CEI, su proyecto productivo. Foto: Lámina informativa del CEI Javier de Viana.
+
+**Destacamento Policial N.º 12**
+
+- `img/destacamento-policial-12-1.jpg` — El frente del destacamento, con su viejo cartel «Policía». Foto: CEI Javier de Viana.
+- `img/destacamento-policial-12-2.jpg` — El acta inaugural de la Seccional Policial 12.ª, del 10 de mayo de 1973. Foto: CEI Javier de Viana.
+- `img/destacamento-policial-12-3.jpg` — El mapa de referencias de la Seccional 12, con su zona entre el arroyo Tres Cruces y el río Cuareim. Foto: CEI Javier de Viana.
 
 **Capilla Santa Margarita**
 
