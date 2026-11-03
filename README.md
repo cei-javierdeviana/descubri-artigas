@@ -8,7 +8,7 @@ Un proyecto del **CEI Javier de Viana** (Artigas, Uruguay).
 
 Dirección de la web: **https://cei-javierdeviana.github.io/descubri-artigas/**
 
-Guía web con dieciocho lugares para conocer en el departamento de Artigas (Uruguay): un mapa interactivo, una postal por lugar y una ficha completa con fotos, datos útiles y fuentes.
+Guía web con diecinueve lugares para conocer en el departamento de Artigas (Uruguay): un mapa interactivo, una postal por lugar y una ficha completa con fotos, datos útiles y fuentes.
 
 Es un sitio estático: no necesita servidor ni instalación. Todo está en `index.html`, las fotos en la carpeta `img/` y las fichas de cada lugar en la carpeta `fichas/`.
 
@@ -82,6 +82,7 @@ No hay que tocar `index.html`: la página encuentra la ficha sola por su nombre.
 | Codo del Cuareim | `codo-del-cuareim.jpg` |
 | Cueva del Indio | `cueva-del-indio.jpg` |
 | CEI Javier de Viana | `cei-javier-de-viana.jpg` |
+| Capilla Santa Margarita | `capilla-santa-margarita.jpg` |
 | Estación ferroviaria de Javier de Viana | `javier-de-viana.jpg` |
 | Plaza Artigas e Iglesia San Eugenio | `centro-artigas.jpg` |
 | Jefatura de Policía de Artigas | `jefatura-de-policia.jpg` |
