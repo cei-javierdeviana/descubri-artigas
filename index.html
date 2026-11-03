@@ -258,8 +258,12 @@ body.on-detail .top{position:static;background:var(--hero-bg)}
 .credit{max-width:min(70ch,calc(100% - 32px));text-align:right;text-shadow:0 1px 4px rgba(0,0,0,.6)}
 .gallery figure{margin:0;display:grid;gap:6px;align-content:start}
 /* videos de YouTube: se ve la miniatura y el video recién carga al tocar */
-.videos{display:grid;gap:18px}
-.yt{margin:0;display:grid;gap:8px}
+.videos{display:grid;gap:10px}
+.yt-list{display:flex;flex-wrap:wrap;gap:18px;align-items:flex-start}
+.yt{margin:0;display:grid;gap:8px;flex:1 1 400px;min-width:0}
+.yt-v{flex:0 1 250px}
+.yt-v .yt-play,.yt.yt-v iframe{aspect-ratio:9/16}
+@media (max-width:640px){.yt-v{flex-basis:min(100%,280px);margin-inline:auto}}
 .yt-play{position:relative;display:block;aspect-ratio:16/9;border-radius:14px;overflow:hidden;background:#140E1A;color:#fff;text-decoration:none}
 .yt-play img{display:block;width:100%;height:100%;object-fit:cover;transition:transform .5s ease}
 .yt-play:hover img,.yt-play:focus-visible img{transform:scale(1.03)}
@@ -1016,6 +1020,10 @@ const PLACES = [
       "Teléfono: 4770 2828. Correo: ceijavierdeviana@gmail.com.",
       "¡Te esperamos para crecer, aprender y compartir juntos!"
     ]}
+  ],
+  videos: [
+    {yt: "gfcR1DPMEkc", title: "Estudiantes de Ed. Primaria en clase de Ed. Física", by: "CEI Javier de Viana"},
+    {yt: "DhRsoy7eizA", title: "Niños de Ed. Inicial disfrutando del recreo", by: "CEI Javier de Viana", vertical: true}
   ],
   curious: "«¡Juntos hacemos Escuela!» es el lema del CEI. Y esta guía, Descubrí Artigas, también nació en sus aulas.",
   facts: [["Dirección", "Ruta 30, km 97,5, Javier de Viana"], ["Reúne", "Escuela Rural N.º 33 y Liceo Javier de Viana"], ["Primaria", "De 8:00 a 13:00"], ["Media", "De 9:50 a 18:00"], ["Teléfono", "4770 2828"], ["Correo", "ceijavierdeviana@gmail.com"]],
@@ -1878,7 +1886,7 @@ function renderDetail(p) {
   const main = p.photos[0];
   const gallery = p.photos.length > 1 ? `<section><h2>Galería</h2><div class="gallery">${p.photos.map((ph, k) => `<figure><button type="button" data-photo="${k}" aria-label="Ampliar: ${esc(ph.alt)}">${cover(p, k, "mini")}</button><figcaption>${esc(ph.alt)}</figcaption></figure>`).join("")}</div></section>` : "";
   const vids = p.videos || [];
-  const videos = vids.length ? `<section class="videos"><h2>${vids.length > 1 ? "Videos" : "Video"}</h2>${vids.map(v => `<figure class="yt"><a class="yt-play" href="https://www.youtube.com/watch?v=${esc(v.yt)}" target="_blank" rel="noopener" data-yt="${esc(v.yt)}" data-yt-title="${esc(v.title)}" aria-label="Reproducir el video «${esc(v.title)}»"><img src="https://i.ytimg.com/vi/${esc(v.yt)}/maxresdefault.jpg" alt="" loading="lazy" data-yt-thumb><span class="yt-btn" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 4l15 8-15 8z"/></svg></span><span class="yt-lab">Ver video</span></a><figcaption><b>${esc(v.title)}</b>${v.by ? ` · Video de ${esc(v.by)}` : ""} · YouTube</figcaption></figure>`).join("")}</section>` : "";
+  const videos = vids.length ? `<section class="videos"><h2>${vids.length > 1 ? "Videos" : "Video"}</h2><div class="yt-list">${vids.map(v => `<figure class="yt${v.vertical ? " yt-v" : ""}"><a class="yt-play" href="https://www.youtube.com/${v.vertical ? "shorts/" : "watch?v="}${esc(v.yt)}" target="_blank" rel="noopener" data-yt="${esc(v.yt)}" data-yt-title="${esc(v.title)}" aria-label="Reproducir el video «${esc(v.title)}»"><img src="https://i.ytimg.com/vi/${esc(v.yt)}/${v.vertical ? "oardefault" : "maxresdefault"}.jpg" alt="" loading="lazy" data-yt-thumb><span class="yt-btn" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 4l15 8-15 8z"/></svg></span><span class="yt-lab">Ver video</span></a><figcaption><b>${esc(v.title)}</b>${v.by ? ` · Video de ${esc(v.by)}` : ""} · YouTube</figcaption></figure>`).join("")}</div></section>` : "";
   const photoCred = p.photos.length ? `<section class="photo-cred"><h2>Créditos de las fotos</h2><ul>${p.photos.map(ph => `<li><b>${esc(ph.alt)}</b>${creditLine(ph)}${/commons\.wikimedia/.test(ph.page || "") ? " · Wikimedia Commons" : ""}</li>`).join("")}</ul></section>` : "";
   return `<header class="d-cover cat-${p.cat}">
       <div class="d-cover-img">${cover(p)}</div><div class="d-cover-shade"></div>
@@ -1969,8 +1977,8 @@ $("#lb-prev").addEventListener("click", () => { lb.k = (lb.k - 1 + lb.p.photos.l
 $("#lb-next").addEventListener("click", () => { lb.k = (lb.k + 1) % lb.p.photos.length; showLb(); });
 lb.el.addEventListener("click", e => { if (e.target === lb.el) closeLb(); });
 /* videos: la miniatura grande no existe en todos los videos; si falta, se usa la estándar */
-$("#view-detail").addEventListener("load", e => { const im = e.target; if (im.matches && im.matches("[data-yt-thumb]") && im.naturalWidth <= 120 && !im.dataset.fb) { im.dataset.fb = 1; im.src = im.src.replace("maxresdefault", "hqdefault"); } }, true);
-$("#view-detail").addEventListener("error", e => { const im = e.target; if (im.matches && im.matches("[data-yt-thumb]") && !im.dataset.fb) { im.dataset.fb = 1; im.src = im.src.replace("maxresdefault", "hqdefault"); } }, true);
+$("#view-detail").addEventListener("load", e => { const im = e.target; if (im.matches && im.matches("[data-yt-thumb]") && im.naturalWidth <= 120 && !im.dataset.fb) { im.dataset.fb = 1; im.src = im.src.replace(/(maxresdefault|oardefault)/, "hqdefault"); } }, true);
+$("#view-detail").addEventListener("error", e => { const im = e.target; if (im.matches && im.matches("[data-yt-thumb]") && !im.dataset.fb) { im.dataset.fb = 1; im.src = im.src.replace(/(maxresdefault|oardefault)/, "hqdefault"); } }, true);
 $("#view-detail").addEventListener("click", e => {
   const a = e.target.closest("[data-yt]"); if (!a || e.ctrlKey || e.metaKey || e.shiftKey) return;
   e.preventDefault();

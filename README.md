@@ -98,11 +98,15 @@ No hay que tocar `index.html`: la página encuentra la ficha sola por su nombre.
 
 Un lugar puede mostrar videos de YouTube en su página, en la sección **Video**, entre el texto y la galería. Primero se ve la miniatura y el video recién carga cuando alguien lo toca, así la página no se pone lenta.
 
+También funcionan los Shorts (videos verticales): se muestran en formato vertical.
+
 Para sumar un video, subilo a YouTube (por ejemplo, al canal del CEI) como público o no listado, y pasá el enlace a quien mantiene la web.
 
 | Lugar | Video |
 |---|---|
 | Rincón de Franquía | [«Rincón de Franquía»](https://www.youtube.com/watch?v=Ao5kOan3eeQ), canal CEI Javier de Viana |
+| CEI Javier de Viana | [«Estudiantes de Ed. Primaria en clase de Ed. Física»](https://www.youtube.com/watch?v=gfcR1DPMEkc), canal CEI Javier de Viana |
+| CEI Javier de Viana | [«Niños de Ed. Inicial disfrutando del recreo»](https://www.youtube.com/shorts/DhRsoy7eizA) (Short, vertical), canal CEI Javier de Viana |
 
 ## Sumar a otras personas del CEI
 
