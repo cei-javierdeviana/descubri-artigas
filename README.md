@@ -4,7 +4,7 @@ Un proyecto del **CEI Javier de Viana** (Artigas, Uruguay).
 
 - **Idea original y acompañamiento docente:** Docentes de la Coordinación de Centro del CEI Javier de Viana (maestras y profesores), año 2026
 - **Desarrollo, ejecución y creación:** Niños y niñas de Educación Inicial y Primaria y estudiantes de Educación Secundaria del CEI Javier de Viana
-- **Diseño y desarrollo web:** Prof. Pablo Montaña
+- **Diseño y desarrollo web:** Prof. Pablo Montaña Conti
 
 Dirección de la web: **https://cei-javierdeviana.github.io/descubri-artigas/**
 
