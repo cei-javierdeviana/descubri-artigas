@@ -37,7 +37,7 @@ La web se publica en una **organización** de GitHub llamada `cei-javierdeviana`
 1. En la organización, tocá **New repository**. Revisá que el dueño (*Owner*) sea `cei-javierdeviana`.
 2. Nombre: `descubri-artigas`. Visibilidad: **Public**. No agregues README.
 3. En el repositorio vacío, entrá al enlace **uploading an existing file**.
-4. Arrastrá **el contenido** de esta carpeta (el `index.html`, las carpetas `img` y `fichas` y el `README.md`), no la carpeta entera. GitHub acepta hasta 100 archivos por vez y esta carpeta tiene 93.
+4. Arrastrá **el contenido** de esta carpeta (el `index.html`, las carpetas `img` y `fichas` y el `README.md`), no la carpeta entera. GitHub acepta hasta 100 archivos por vez y esta carpeta tiene 96.
 5. Tocá **Commit changes**.
 
 ### 3. Activar la página
@@ -179,6 +179,12 @@ La mayoría de las fotos vienen de [Wikimedia Commons](https://commons.wikimedia
 - `img/cei-javier-de-viana-11.jpg` — Docentes y funcionarios del CEI, con una muestra por el Año Internacional de la Mujer Agrícola. Foto: CEI Javier de Viana.
 - `img/cei-javier-de-viana-12.jpg` — «Desde nuestra institución, hacemos viral lo que suma»: el lema del CEI. Foto: CEI Javier de Viana.
 - `img/cei-javier-de-viana-13.jpg` — La huerta del CEI, su proyecto productivo. Foto: Lámina informativa del CEI Javier de Viana.
+
+**Capilla Santa Margarita**
+
+- `img/capilla-santa-margarita-1.jpg` — La fachada blanca de la capilla, con su campanario y sus cruces. Foto: CEI Javier de Viana.
+- `img/capilla-santa-margarita-2.jpg` — Foto histórica de la inauguración de la capilla, el 28 de febrero de 1928. Foto histórica, fotografiada por el CEI Javier de Viana.
+- `img/capilla-santa-margarita-3.jpg` — Carteles de las peregrinaciones en el predio de la capilla. Foto: CEI Javier de Viana.
 
 **Estación ferroviaria de Javier de Viana**
 
