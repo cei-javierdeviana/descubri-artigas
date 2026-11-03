@@ -257,6 +257,19 @@ body.on-detail .top{position:static;background:var(--hero-bg)}
 .credit a{color:inherit;text-decoration:underline;text-decoration-color:rgba(255,255,255,.4);text-underline-offset:2px}
 .credit{max-width:min(70ch,calc(100% - 32px));text-align:right;text-shadow:0 1px 4px rgba(0,0,0,.6)}
 .gallery figure{margin:0;display:grid;gap:6px;align-content:start}
+/* videos de YouTube: se ve la miniatura y el video recién carga al tocar */
+.videos{display:grid;gap:18px}
+.yt{margin:0;display:grid;gap:8px}
+.yt-play{position:relative;display:block;aspect-ratio:16/9;border-radius:14px;overflow:hidden;background:#140E1A;color:#fff;text-decoration:none}
+.yt-play img{display:block;width:100%;height:100%;object-fit:cover;transition:transform .5s ease}
+.yt-play:hover img,.yt-play:focus-visible img{transform:scale(1.03)}
+.yt-play::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(20,14,26,0) 55%,rgba(20,14,26,.55))}
+.yt-btn{position:absolute;left:50%;top:50%;z-index:1;width:78px;height:56px;margin:-28px 0 0 -39px;border-radius:16px;background:rgba(20,14,26,.82);display:grid;place-items:center;transition:background .2s,transform .2s}
+.yt-btn svg{width:26px;height:26px;fill:#fff;margin-left:4px}
+.yt-play:hover .yt-btn,.yt-play:focus-visible .yt-btn{background:var(--cat);transform:scale(1.06)}
+.yt-lab{position:absolute;left:14px;bottom:12px;z-index:1;font-family:var(--font-mono);font-size:12px;letter-spacing:.04em}
+.yt iframe{display:block;width:100%;height:auto;aspect-ratio:16/9;border:0;border-radius:14px;background:#000}
+.yt figcaption{font-size:13px;line-height:1.35;color:var(--muted)}
 .gallery figcaption{font-size:13px;line-height:1.35;color:var(--muted)}
 .photo-cred ul{margin:0;padding:0;list-style:none;display:grid;gap:9px}
 .photo-cred li{font-size:13.5px;line-height:1.4;color:var(--muted)}
@@ -867,6 +880,7 @@ const PLACES = [
       "Todo empezó en 2004, cuando un grupo de vecinos de Bella Unión propuso proteger la zona. En 2011 el Municipio la declaró reserva y dos años después entró al SNAP. La ONG local GruPAmA fue la primera organización de la sociedad civil en co-gestionar un área del sistema."
     ]}
   ],
+  videos: [{yt: "Ao5kOan3eeQ", title: "Rincón de Franquía", by: "CEI Javier de Viana"}],
   curious: "Del otro lado de los ríos hay áreas protegidas en Brasil (el Parque Estadual do Espinilho) y en Argentina. Existe la idea de unirlas en un parque trinacional.",
   facts: [["Protección", "SNAP, desde 2013"], ["Categoría", "Manejo de hábitats y/o especies"], ["Aves", "223 especies registradas"], ["Gestión", "Ministerio de Ambiente, con Intendencia, Municipio y organizaciones locales"]],
   howto: "Se llega desde Bella Unión hacia el norte de la ciudad. También se puede recorrer en un paseo náutico desde la Estación Fluvial, que funciona como puerta de entrada al área.",
@@ -1863,6 +1877,8 @@ function renderDetail(p) {
   const sections = p.body.map(b => `<section><h2>${esc(b.h)}</h2>${(b.p || []).map(t => `<p>${esc(t)}</p>`).join("")}${b.list ? `<ul>${b.list.map(t => `<li>${esc(t)}</li>`).join("")}</ul>` : ""}</section>`).join("");
   const main = p.photos[0];
   const gallery = p.photos.length > 1 ? `<section><h2>Galería</h2><div class="gallery">${p.photos.map((ph, k) => `<figure><button type="button" data-photo="${k}" aria-label="Ampliar: ${esc(ph.alt)}">${cover(p, k, "mini")}</button><figcaption>${esc(ph.alt)}</figcaption></figure>`).join("")}</div></section>` : "";
+  const vids = p.videos || [];
+  const videos = vids.length ? `<section class="videos"><h2>${vids.length > 1 ? "Videos" : "Video"}</h2>${vids.map(v => `<figure class="yt"><a class="yt-play" href="https://www.youtube.com/watch?v=${esc(v.yt)}" target="_blank" rel="noopener" data-yt="${esc(v.yt)}" data-yt-title="${esc(v.title)}" aria-label="Reproducir el video «${esc(v.title)}»"><img src="https://i.ytimg.com/vi/${esc(v.yt)}/maxresdefault.jpg" alt="" loading="lazy" data-yt-thumb><span class="yt-btn" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 4l15 8-15 8z"/></svg></span><span class="yt-lab">Ver video</span></a><figcaption><b>${esc(v.title)}</b>${v.by ? ` · Video de ${esc(v.by)}` : ""} · YouTube</figcaption></figure>`).join("")}</section>` : "";
   const photoCred = p.photos.length ? `<section class="photo-cred"><h2>Créditos de las fotos</h2><ul>${p.photos.map(ph => `<li><b>${esc(ph.alt)}</b>${creditLine(ph)}${/commons\.wikimedia/.test(ph.page || "") ? " · Wikimedia Commons" : ""}</li>`).join("")}</ul></section>` : "";
   return `<header class="d-cover cat-${p.cat}">
       <div class="d-cover-img">${cover(p)}</div><div class="d-cover-shade"></div>
@@ -1878,7 +1894,7 @@ function renderDetail(p) {
     </header>
     <div class="wrap cat-${p.cat}">
       <div class="d-body">
-        <div class="d-main">${sections}${gallery}
+        <div class="d-main">${sections}${videos}${gallery}
           <aside class="curious"><span class="lab">${icon(p.cat)}Dato curioso</span><p>${esc(p.curious)}</p></aside>
         </div>
         <aside class="d-side">
@@ -1952,6 +1968,19 @@ $("#lb-close").addEventListener("click", closeLb);
 $("#lb-prev").addEventListener("click", () => { lb.k = (lb.k - 1 + lb.p.photos.length) % lb.p.photos.length; showLb(); });
 $("#lb-next").addEventListener("click", () => { lb.k = (lb.k + 1) % lb.p.photos.length; showLb(); });
 lb.el.addEventListener("click", e => { if (e.target === lb.el) closeLb(); });
+/* videos: la miniatura grande no existe en todos los videos; si falta, se usa la estándar */
+$("#view-detail").addEventListener("load", e => { const im = e.target; if (im.matches && im.matches("[data-yt-thumb]") && im.naturalWidth <= 120 && !im.dataset.fb) { im.dataset.fb = 1; im.src = im.src.replace("maxresdefault", "hqdefault"); } }, true);
+$("#view-detail").addEventListener("error", e => { const im = e.target; if (im.matches && im.matches("[data-yt-thumb]") && !im.dataset.fb) { im.dataset.fb = 1; im.src = im.src.replace("maxresdefault", "hqdefault"); } }, true);
+$("#view-detail").addEventListener("click", e => {
+  const a = e.target.closest("[data-yt]"); if (!a || e.ctrlKey || e.metaKey || e.shiftKey) return;
+  e.preventDefault();
+  const f = document.createElement("iframe");
+  f.src = "https://www.youtube-nocookie.com/embed/" + encodeURIComponent(a.dataset.yt) + "?autoplay=1&rel=0&playsinline=1";
+  f.title = a.dataset.ytTitle || "Video";
+  f.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
+  f.referrerPolicy = "strict-origin-when-cross-origin"; f.allowFullscreen = true;
+  a.replaceWith(f); f.focus();
+});
 $("#view-detail").addEventListener("click", e => { const b = e.target.closest("[data-photo]"); if (b) { const p = byId[decodeURIComponent(location.hash.slice(1))]; if (p) openLightbox(p, +b.dataset.photo); } });
 document.addEventListener("keydown", e => {
   if (!lb.el.hidden) { if (e.key === "Escape") closeLb(); if (e.key === "ArrowLeft") $("#lb-prev").click(); if (e.key === "ArrowRight") $("#lb-next").click(); return; }

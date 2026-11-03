@@ -94,6 +94,16 @@ No hay que tocar `index.html`: la página encuentra la ficha sola por su nombre.
 | Piedra Pintada | `piedra-pintada.jpg` |
 | Minas de amatistas de Los Catalanes | `los-catalanes.jpg` |
 
+## Videos
+
+Un lugar puede mostrar videos de YouTube en su página, en la sección **Video**, entre el texto y la galería. Primero se ve la miniatura y el video recién carga cuando alguien lo toca, así la página no se pone lenta.
+
+Para sumar un video, subilo a YouTube (por ejemplo, al canal del CEI) como público o no listado, y pasá el enlace a quien mantiene la web.
+
+| Lugar | Video |
+|---|---|
+| Rincón de Franquía | [«Rincón de Franquía»](https://www.youtube.com/watch?v=Ao5kOan3eeQ), canal CEI Javier de Viana |
+
 ## Sumar a otras personas del CEI
 
 Para que la web no dependa de una sola persona, sumá al menos a otra persona del CEI como dueña de la organización:
