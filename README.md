@@ -8,7 +8,7 @@ Un proyecto del **CEI Javier de Viana** (Artigas, Uruguay).
 
 Dirección de la web: **https://cei-javierdeviana.github.io/descubri-artigas/**
 
-Guía web con veinte lugares para conocer en el departamento de Artigas (Uruguay): un mapa interactivo, una postal por lugar y una ficha completa con fotos, datos útiles y fuentes.
+Guía web con veintiún lugares para conocer en el departamento de Artigas (Uruguay): un mapa interactivo, una postal por lugar y una ficha completa con fotos, datos útiles y fuentes.
 
 Es un sitio estático: no necesita servidor ni instalación. Todo está en `index.html`, las fotos en la carpeta `img/` y las fichas de cada lugar en la carpeta `fichas/`.
 
@@ -37,7 +37,7 @@ La web se publica en una **organización** de GitHub llamada `cei-javierdeviana`
 1. En la organización, tocá **New repository**. Revisá que el dueño (*Owner*) sea `cei-javierdeviana`.
 2. Nombre: `descubri-artigas`. Visibilidad: **Public**. No agregues README.
 3. En el repositorio vacío, entrá al enlace **uploading an existing file**.
-4. Arrastrá **el contenido** de esta carpeta (el `index.html`, las carpetas `img` y `fichas` y el `README.md`), no la carpeta entera. GitHub acepta hasta 100 archivos por vez y esta carpeta tiene 115.
+4. Arrastrá **el contenido** de esta carpeta (el `index.html`, las carpetas `img` y `fichas` y el `README.md`), no la carpeta entera. GitHub acepta hasta 100 archivos por vez y esta carpeta tiene 119.
 5. Tocá **Commit changes**.
 
 ### 3. Activar la página
@@ -92,6 +92,7 @@ No hay que tocar `index.html`: la página encuentra la ficha sola por su nombre.
 | Museo de la Piedra Preciosa | `museo-piedra-preciosa.jpg` |
 | Paseo 7 de Setiembre y Puente de la Concordia | `paseo-7-de-setiembre.jpg` |
 | Piedra Pintada | `piedra-pintada.jpg` |
+| Safari Minero de Artigas | `safari-minero.jpg` |
 | Minas de amatistas de Los Catalanes | `los-catalanes.jpg` |
 
 ## Videos
@@ -285,6 +286,15 @@ La mayoría de las fotos vienen de [Wikimedia Commons](https://commons.wikimedia
 
 - `img/piedra-pintada-1.jpg` — La Piedra Pintada, con su color verde rojizo. Foto: [Gerardo Conti P](https://commons.wikimedia.org/wiki/File:Piedra_Pintada_3.jpg), CC0.
 - `img/piedra-pintada-2.jpg` — Vista aérea de la zona de Piedra Pintada en enero de 1988. Foto: [Starbock1948](https://commons.wikimedia.org/wiki/File:Vista_aerea_Piedra_Pintada.JPG), [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/).
+
+**Safari Minero de Artigas**
+
+No hay fotos libres de la excursión: son fotos de referencia de una mina de la zona y de amatistas de Artigas.
+
+- `img/los-catalanes-2.jpg` — Una mina de amatistas a cielo abierto en la zona de Catalán (la misma foto que usa Los Catalanes). Foto: [Javier Techera](https://commons.wikimedia.org/wiki/File:Mina_amatista.JPG), Dominio público.
+- `img/safari-minero-2.jpg` — Geoda de amatista de Artigas, abierta (ejemplar de colección). Foto: [Robert M. Lavinsky](https://commons.wikimedia.org/wiki/File:Quartz-212109.jpg), [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/).
+- `img/safari-minero-3.jpg` — Racimo de cristales de amatista de Artigas (ejemplar de colección). Foto: [Robert M. Lavinsky](https://commons.wikimedia.org/wiki/File:Quartz-208669.jpg), [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/).
+- `img/safari-minero-4.jpg` — Amatista de la mina Santino, en Artigas, exhibida en un museo. Foto: [James St. John](https://commons.wikimedia.org/wiki/File:Amethyst_after_calcite_(Santino_Mine,_Artigas,_Uruguay)_(30323704822).jpg), [CC BY 2.0](https://creativecommons.org/licenses/by/2.0/).
 
 **Minas de amatistas de Los Catalanes**
 

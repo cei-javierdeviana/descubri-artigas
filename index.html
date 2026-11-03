@@ -422,10 +422,10 @@ body.on-detail .top{position:static;background:var(--hero-bg)}
       <div>
         <p class="kicker">Departamento de Artigas · Uruguay</p>
         <h1>Del Cuareim <em>al río Uruguay</em></h1>
-        <p class="lead">Una piedra que parece pintada, minas de amatistas, viejas estaciones de tren, un carnaval con escuelas de samba y una frontera con dos países. Veinte lugares para descubrir en el norte del Uruguay.</p>
+        <p class="lead">Una piedra que parece pintada, minas de amatistas, viejas estaciones de tren, un carnaval con escuelas de samba y una frontera con dos países. Veintiún lugares para descubrir en el norte del Uruguay.</p>
         <div class="hero-cta"><a class="btn" href="#explorar">Explorar el mapa <span aria-hidden="true">↓</span></a><a class="btn btn-quiet" href="#postales">Ver las postales</a></div>
         <dl class="stats">
-          <div><dt>20</dt><dd>lugares para conocer</dd></div>
+          <div><dt>21</dt><dd>lugares para conocer</dd></div>
           <div><dt>3</dt><dd>países en la triple frontera</dd></div>
           <div><dt>130 M</dt><dd>de años tienen sus amatistas</dd></div>
         </dl>
@@ -1339,6 +1339,37 @@ const PLACES = [
   ]
 },
 {
+  id: "safari-minero", cat: "ame", name: "Safari Minero de Artigas",
+  lat: -30.7450, lon: -56.3300, approx: true,
+  where: "Zona minera de Catalán, a unos 40 km de la ciudad de Artigas",
+  short: "Una excursión guiada a las minas de ágatas y amatistas: túneles, canteras a cielo abierto y talleres donde se pulen las piedras.",
+  body: [
+    {h: "Una aventura entre piedras", p: [
+      "El Safari Minero es una excursión turística guiada a la zona minera de Catalán, a unos 40 km de la ciudad de Artigas por la Ruta 30. En compañía de un guía, se recorren minas de ágatas y amatistas para entender cómo se formaron estas piedras y cómo se extraen.",
+      "La propuesta lleva más de diez años. Nació de una idea surgida en el Centro Figari de UTU Artigas y forma parte del turismo minero del departamento. Hoy se reserva en la ciudad, a través del Hotel Casino San Eugenio del Cuareim."
+    ]},
+    {h: "Qué se recorre", list: [
+      "Un túnel minero acondicionado para visitas, con geodas incrustadas en las paredes.",
+      "Canteras a cielo abierto, algunas en actividad, donde se ve cómo se trabaja la piedra.",
+      "Un rato para juntar muestras propias (ágatas, amatistas, calcitas o jaspes), con orientación y el equipo adecuado.",
+      "Un taller en la ciudad donde las piedras se cortan, se pulen y se clasifican, y un salón de exposición y venta."
+    ]},
+    {h: "Antes de ir", p: [
+      "Hay que reservar con anticipación y consultar disponibilidad, horarios, precios y condiciones de la visita. Las minas están en predios privados y en actividad: no se visitan por cuenta propia."
+    ]}
+  ],
+  curious: "En la mina funciona un restaurante de comida criolla dentro de los túneles. El Ministerio de Turismo lo presentó como «el único restaurante minero del Uruguay».",
+  facts: [["Qué es", "Excursión guiada de turismo minero"], ["Dónde", "Zona de Catalán, a unos 40 km de Artigas"], ["Duración", "Unas 5 horas, según el itinerario"], ["Reservas", "WhatsApp 092 249 505"], ["Teléfono", "4772 0710 / 0711 / 0712"], ["Correo", "turismo@hoteartigas.com"], ["Oficina", "Luis A. de Herrera 298, Artigas"], ["Web", "safariminero.com"]],
+  howto: "Se reserva en la ciudad de Artigas, por WhatsApp o en la oficina del Safari Minero (Luis A. de Herrera 298). Las minas quedan a unos 40 km, por la Ruta 30, en la zona de Catalán. Consultá antes disponibilidad, horarios y precios.",
+  sources: [
+    ["Safari Minero: sitio oficial", "https://safariminero.com/"],
+    ["Ministerio de Turismo: Fam Press de turismo minero en el norte del país (2020)", "https://www.gub.uy/ministerio-turismo/comunicacion/noticias/ministerio-turismo-apoyo-fam-press-turismo-minero-norte-del-pais"],
+    ["La Mañana: la ruta de las ágatas y amatistas en Artigas (2021)", "https://www.xn--lamaana-7za.uy/agro/la-ruta-de-las-agatas-y-amatistas-en-artigas"],
+    ["Innovaturismo (Ministerio de Turismo y ANII): proyecto Safari Minero", "https://www.innovaturismo.gub.uy/index.php/proyectos-aprobados/item/43-safari-minero-artigas"],
+    ["Ficha del Safari Minero elaborada por docentes del CEI Javier de Viana", ""]
+  ]
+},
+{
   id: "los-catalanes", cat: "ame", name: "Minas de amatistas de Los Catalanes",
   lat: -30.7928, lon: -56.2703,
   where: "Zona de Catalán, a unos 50 km de Artigas por Ruta 30",
@@ -1377,7 +1408,7 @@ const LABELS = {
   "estacion-fluvial": "Estación Fluvial", "isla-brasilera": "Isla Brasilera", "rincon-de-franquia": "Rincón de Franquía",
   "baltasar-brum": "Estación Baltasar Brum", "codo-del-cuareim": "Codo del Cuareim", "javier-de-viana": "Museo Ferroviario", "cei-javier-de-viana": "CEI Javier de Viana", "capilla-santa-margarita": "Capilla Santa Margarita", "destacamento-policial-12": "Destacamento Policial",
   "centro-artigas": "Plaza Artigas", "museo-piedra-preciosa": "Museo de la Piedra Preciosa", "paseo-7-de-setiembre": "Paseo 7 de Setiembre",
-  "piedra-pintada": "Piedra Pintada", "los-catalanes": "Minas de Los Catalanes",
+  "piedra-pintada": "Piedra Pintada", "los-catalanes": "Minas de Los Catalanes", "safari-minero": "Safari Minero",
   "parque-rivera": "Parque Rivera", "museo-santa-rosa": "Museo Santa Rosa", "jefatura-de-policia": "Jefatura de Policía", "carnaval-de-artigas": "Carnaval",
   "cueva-del-indio": "Cueva del Indio", "museo-historico": "Museo Histórico"
 };
@@ -1531,6 +1562,12 @@ const PHOTOS = {
     {"src": "img/destacamento-policial-12-1.jpg", "alt": "El frente del destacamento, con su viejo cartel «Policía»", "by": "CEI Javier de Viana", "lic": "", "page": ""},
     {"src": "img/destacamento-policial-12-2.jpg", "alt": "El acta inaugural de la Seccional Policial 12.ª, del 10 de mayo de 1973", "by": "CEI Javier de Viana", "lic": "", "page": ""},
     {"src": "img/destacamento-policial-12-3.jpg", "alt": "El mapa de referencias de la Seccional 12, con su zona entre el arroyo Tres Cruces y el río Cuareim", "by": "CEI Javier de Viana", "lic": "", "page": ""}
+  ],
+  "safari-minero": [
+    {"src": "img/los-catalanes-2.jpg", "alt": "Una mina de amatistas a cielo abierto en la zona de Catalán", "by": "Javier Techera", "lic": "Public domain", "page": "https://commons.wikimedia.org/wiki/File:Mina_amatista.JPG", "ref": true},
+    {"src": "img/safari-minero-2.jpg", "alt": "Geoda de amatista de Artigas, abierta (ejemplar de colección)", "by": "Robert M. Lavinsky", "lic": "CC BY-SA 3.0", "page": "https://commons.wikimedia.org/wiki/File:Quartz-212109.jpg", "licUrl": "https://creativecommons.org/licenses/by-sa/3.0/", "ref": true},
+    {"src": "img/safari-minero-3.jpg", "alt": "Racimo de cristales de amatista de Artigas (ejemplar de colección)", "by": "Robert M. Lavinsky", "lic": "CC BY-SA 3.0", "page": "https://commons.wikimedia.org/wiki/File:Quartz-208669.jpg", "licUrl": "https://creativecommons.org/licenses/by-sa/3.0/", "ref": true},
+    {"src": "img/safari-minero-4.jpg", "alt": "Amatista de la mina Santino, en Artigas, exhibida en un museo", "by": "James St. John", "lic": "CC BY 2.0", "page": "https://commons.wikimedia.org/wiki/File:Amethyst_after_calcite_(Santino_Mine,_Artigas,_Uruguay)_(30323704822).jpg", "licUrl": "https://creativecommons.org/licenses/by/2.0/", "ref": true}
   ]
 };
 
