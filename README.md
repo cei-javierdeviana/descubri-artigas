@@ -37,7 +37,7 @@ La web se publica en una **organización** de GitHub llamada `cei-javierdeviana`
 1. En la organización, tocá **New repository**. Revisá que el dueño (*Owner*) sea `cei-javierdeviana`.
 2. Nombre: `descubri-artigas`. Visibilidad: **Public**. No agregues README.
 3. En el repositorio vacío, entrá al enlace **uploading an existing file**.
-4. Arrastrá **el contenido** de esta carpeta (el `index.html`, las carpetas `img` y `fichas` y el `README.md`), no la carpeta entera. GitHub acepta hasta 100 archivos por vez y esta carpeta tiene 108.
+4. Arrastrá **el contenido** de esta carpeta (el `index.html`, las carpetas `img` y `fichas` y el `README.md`), no la carpeta entera. GitHub acepta hasta 100 archivos por vez y esta carpeta tiene 111.
 5. Tocá **Commit changes**.
 
 ### 3. Activar la página
@@ -107,7 +107,7 @@ Si más adelante el CEI quiere una web propia en la dirección principal `https:
 
 ## Créditos de las fotos
 
-La mayoría de las fotos vienen de [Wikimedia Commons](https://commons.wikimedia.org) y tienen licencias libres. Las licencias CC BY y CC BY-SA piden citar al autor y la licencia: por eso cada ficha muestra estos datos y no hay que borrarlos. Las fotos del Museo Histórico Departamental salen de una lámina informativa aportada por docentes del CEI. Las del CEI Javier de Viana son de la propia institución; se mejoraron el brillo, el contraste y la nitidez, y se redujeron de tamaño para la web. Las de la Cueva del Indio son capturas del capítulo 6 del documental «La Huella de Sepé» (Identidad Antídoto y TNU, 2011), tomadas por estudiantes y mejoradas con inteligencia artificial para la web. Las fotos se redujeron o ampliaron de tamaño para la web.
+La mayoría de las fotos vienen de [Wikimedia Commons](https://commons.wikimedia.org) y tienen licencias libres. Las licencias CC BY y CC BY-SA piden citar al autor y la licencia: por eso cada ficha muestra estos datos y no hay que borrarlos. Las fotos del Museo Histórico Departamental salen de una lámina informativa aportada por docentes del CEI. Las del CEI Javier de Viana son de la propia institución; se mejoraron el brillo, el contraste y la nitidez, y se redujeron de tamaño para la web. Las de la Cueva del Indio son capturas del capítulo 6 del documental «La Huella de Sepé» (Identidad Antídoto y TNU, 2011), tomadas por estudiantes y mejoradas con inteligencia artificial para la web. Las del Museo Ferroviario «Bibiano Gómez» son del CEI Javier de Viana y de Víctor Hernández; en la de portada se borró con inteligencia artificial a una persona que no es Bibiano Gómez. Las fotos se redujeron o ampliaron de tamaño para la web.
 
 **Estación Fluvial de Bella Unión**
 
@@ -201,6 +201,9 @@ La mayoría de las fotos vienen de [Wikimedia Commons](https://commons.wikimedia
 - `img/javier-de-viana-11.jpg` — Una niña vestida de época, con abanico. Foto: CEI Javier de Viana.
 - `img/javier-de-viana-12.jpg` — Un adulto y dos niños vestidos de ferroviarios junto al cartel «Tres Cruces». Foto: Víctor Hernández.
 - `img/javier-de-viana-13.jpg` — Un vagón pintado para sacarse fotos: «Museo Ferroviario Bibiano Gómez». Foto: Víctor Hernández.
+- `img/javier-de-viana-14.jpg` — Antigua estación de Cuareim, otra estación del ferrocarril en el departamento. Foto: [Ulises Icardi](https://commons.wikimedia.org/wiki/File:Antigua_estaci%C3%B3n_ferroviaria_de_Cuareim.jpg), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/). *(foto de referencia)*
+- `img/javier-de-viana-15.jpg` — Locomotora a vapor exhibida en la ciudad de Artigas. Foto: [Gerardo c](https://commons.wikimedia.org/wiki/File:Locomotrora_artigas.jpg), Dominio público. *(foto de referencia)*
+- `img/javier-de-viana-16.jpg` — La estación de San Eugenio (hoy ciudad de Artigas) hacia 1890. Foto: [John Fitz Patrick](https://commons.wikimedia.org/wiki/File:Uruguay_Northern_Railway_San_Eugenio_station.jpg), CC0. *(foto de referencia)*
 
 **Plaza Artigas e Iglesia San Eugenio**
 
@@ -209,7 +212,7 @@ La mayoría de las fotos vienen de [Wikimedia Commons](https://commons.wikimedia
 - `img/centro-artigas-3.jpg` — El Ibirapitá frente a la Terminal de Ómnibus. Foto: [Maywiki](https://commons.wikimedia.org/wiki/File:Ibirapit%C3%A1_de_Artigas.JPG), [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/).
 - `img/centro-artigas-4.jpg` — Obelisco a la Gloria de los Héroes de 1825, en la Plaza Batlle. Foto: [Derys Benitez](https://commons.wikimedia.org/wiki/File:Obelisco_a_la_Gloria_de_los_H%C3%A9roes.jpg), [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/).
 - `img/centro-artigas-5.jpg` — Fachada del ex Mercado Municipal. Foto: [Amurru](https://commons.wikimedia.org/wiki/File:Mercado_Municipal_de_Artigas.jpg), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/).
-- `img/javier-de-viana-3.jpg` — La antigua estación de tren hacia 1890, donde hoy está la Terminal. Foto: [John Fitz Patrick](https://commons.wikimedia.org/wiki/File:Uruguay_Northern_Railway_San_Eugenio_station.jpg), CC0.
+- `img/javier-de-viana-16.jpg` — La antigua estación de tren hacia 1890, donde hoy está la Terminal. Foto: [John Fitz Patrick](https://commons.wikimedia.org/wiki/File:Uruguay_Northern_Railway_San_Eugenio_station.jpg), CC0.
 
 **Jefatura de Policía de Artigas**
 
