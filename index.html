@@ -2165,11 +2165,17 @@ function route() {
     viewDetail.hidden = true; viewMap.hidden = false; viewDetail.innerHTML = ""; viewDetail.dataset.view = ""; document.body.classList.remove("on-detail", "on-ficha");
     document.title = "Descubrí Artigas";
     applyView(true);
-    const target = MAP_ANCHORS.includes(id) && id && id !== "mapa" ? document.getElementById(id) : null;
-    if (wasDetail && !target) {
-      window.scrollTo({top: mapScroll, behavior: "auto"});
-      if (state.selected) { const q = byId[state.selected]; if (q) openPlacePopup(q); }
-    } else if (target) target.scrollIntoView({behavior: "auto", block: "start"});
+    // al volver de un lugar se ve el mapa limpio (el lugar queda marcado, sin la tarjeta encima)
+    closePopup();
+    // «Volver al mapa» (#mapa) lleva siempre a la sección del mapa; el botón Atrás del navegador vuelve adonde estaba
+    const target = id === "mapa" ? document.getElementById("explorar") : (MAP_ANCHORS.includes(id) && id ? document.getElementById(id) : null);
+    if (target) {
+      target.scrollIntoView({behavior: "auto", block: "start"});
+      if (id === "mapa") {   // en pantallas bajas, que el mapa entre entero
+        const r = wrap.getBoundingClientRect();
+        if (r.bottom > window.innerHeight) window.scrollBy(0, Math.min(r.top - 12, r.bottom - window.innerHeight + 12));
+      }
+    } else if (wasDetail) window.scrollTo({top: mapScroll, behavior: "auto"});
   }
   if (id === "presentacion") openShow(); else closeShow();
 }
