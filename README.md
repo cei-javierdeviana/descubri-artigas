@@ -37,7 +37,7 @@ La web se publica en una **organización** de GitHub llamada `cei-javierdeviana`
 1. En la organización, tocá **New repository**. Revisá que el dueño (*Owner*) sea `cei-javierdeviana`.
 2. Nombre: `descubri-artigas`. Visibilidad: **Public**. No agregues README.
 3. En el repositorio vacío, entrá al enlace **uploading an existing file**.
-4. Arrastrá **el contenido** de esta carpeta (el `index.html`, las carpetas `img` y `fichas` y el `README.md`), no la carpeta entera. GitHub acepta hasta 100 archivos por vez y esta carpeta tiene 97.
+4. Arrastrá **el contenido** de esta carpeta (el `index.html`, las carpetas `img` y `fichas` y el `README.md`), no la carpeta entera. GitHub acepta hasta 100 archivos por vez y esta carpeta tiene 108.
 5. Tocá **Commit changes**.
 
 ### 3. Activar la página
@@ -83,7 +83,7 @@ No hay que tocar `index.html`: la página encuentra la ficha sola por su nombre.
 | Cueva del Indio | `cueva-del-indio.jpg` |
 | CEI Javier de Viana | `cei-javier-de-viana.jpg` |
 | Capilla Santa Margarita | `capilla-santa-margarita.jpg` |
-| Estación ferroviaria de Javier de Viana | `javier-de-viana.jpg` |
+| Museo Ferroviario «Bibiano Gómez» (Javier de Viana) | `javier-de-viana.jpg` |
 | Plaza Artigas e Iglesia San Eugenio | `centro-artigas.jpg` |
 | Jefatura de Policía de Artigas | `jefatura-de-policia.jpg` |
 | Museo Histórico Departamental | `museo-historico.jpg` |
@@ -186,11 +186,21 @@ La mayoría de las fotos vienen de [Wikimedia Commons](https://commons.wikimedia
 - `img/capilla-santa-margarita-2.jpg` — Foto histórica de la inauguración de la capilla, el 28 de febrero de 1928. Foto histórica, fotografiada por el CEI Javier de Viana.
 - `img/capilla-santa-margarita-3.jpg` — Carteles de las peregrinaciones en el predio de la capilla. Foto: CEI Javier de Viana.
 
-**Estación ferroviaria de Javier de Viana**
+**Museo Ferroviario «Bibiano Gómez» (Javier de Viana)**
 
-- `img/javier-de-viana-1.jpg` — Antigua estación de Cuareim, otra estación del ferrocarril en el departamento. Foto: [Ulises Icardi](https://commons.wikimedia.org/wiki/File:Antigua_estaci%C3%B3n_ferroviaria_de_Cuareim.jpg), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/). *(foto de referencia)*
-- `img/javier-de-viana-2.jpg` — Locomotora a vapor exhibida en la ciudad de Artigas. Foto: [Gerardo c](https://commons.wikimedia.org/wiki/File:Locomotrora_artigas.jpg), Dominio público. *(foto de referencia)*
-- `img/javier-de-viana-3.jpg` — La estación de San Eugenio (hoy ciudad de Artigas) hacia 1890. Foto: [John Fitz Patrick](https://commons.wikimedia.org/wiki/File:Uruguay_Northern_Railway_San_Eugenio_station.jpg), CC0. *(foto de referencia)*
+- `img/javier-de-viana-1.jpg` — El cartel del museo y el mural del tren en la pared de la estación. Foto: CEI Javier de Viana.
+- `img/javier-de-viana-2.jpg` — Una de las salas del museo, con paneles, una vitrina y objetos ferroviarios. Foto: CEI Javier de Viana.
+- `img/javier-de-viana-3.jpg` — El cartel del Museo Ferroviario «Bibiano Gómez». Foto: CEI Javier de Viana.
+- `img/javier-de-viana-4.jpg` — El andén de la vieja estación, con valijas antiguas. Foto: CEI Javier de Viana.
+- `img/javier-de-viana-5.jpg` — Niñas, niños, estudiantes y docentes vestidos de época bajo el cartel «Tres Cruces». Foto: CEI Javier de Viana.
+- `img/javier-de-viana-6.jpg` — La comunidad vestida de época junto al cartel de la estación. Foto: CEI Javier de Viana.
+- `img/javier-de-viana-7.jpg` — Niños vestidos de ferroviarios en el andén. Foto: CEI Javier de Viana.
+- `img/javier-de-viana-8.jpg` — Niñas vestidas de época con valijas antiguas en el andén. Foto: CEI Javier de Viana.
+- `img/javier-de-viana-9.jpg` — Un niño vestido de jefe de estación, en una sala del museo. Foto: CEI Javier de Viana.
+- `img/javier-de-viana-10.jpg` — Niñas vestidas de época en la estación. Foto: CEI Javier de Viana.
+- `img/javier-de-viana-11.jpg` — Una niña vestida de época, con abanico. Foto: CEI Javier de Viana.
+- `img/javier-de-viana-12.jpg` — Un adulto y dos niños vestidos de ferroviarios junto al cartel «Tres Cruces». Foto: Víctor Hernández.
+- `img/javier-de-viana-13.jpg` — Un vagón pintado para sacarse fotos: «Museo Ferroviario Bibiano Gómez». Foto: Víctor Hernández.
 
 **Plaza Artigas e Iglesia San Eugenio**
 
