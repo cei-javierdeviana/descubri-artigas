@@ -422,10 +422,10 @@ body.on-detail .top{position:static;background:var(--hero-bg)}
       <div>
         <p class="kicker">Departamento de Artigas · Uruguay</p>
         <h1>Del Cuareim <em>al río Uruguay</em></h1>
-        <p class="lead">Una piedra que parece pintada, minas de amatistas, viejas estaciones de tren, un carnaval con escuelas de samba y una frontera con dos países. Veintiún lugares para descubrir en el norte del Uruguay.</p>
+        <p class="lead">Una piedra que parece pintada, minas de amatistas, viejas estaciones de tren, un carnaval con escuelas de samba y una frontera con dos países. Veintidós lugares para descubrir en el norte del Uruguay.</p>
         <div class="hero-cta"><a class="btn" href="#explorar">Explorar el mapa <span aria-hidden="true">↓</span></a><a class="btn btn-quiet" href="#postales">Ver las postales</a></div>
         <dl class="stats">
-          <div><dt>21</dt><dd>lugares para conocer</dd></div>
+          <div><dt>22</dt><dd>lugares para conocer</dd></div>
           <div><dt>3</dt><dd>países en la triple frontera</dd></div>
           <div><dt>130 M</dt><dd>de años tienen sus amatistas</dd></div>
         </dl>
@@ -1077,6 +1077,29 @@ const PLACES = [
   ]
 },
 {
+  id: "puente-tres-cruces", cat: "nat", name: "Puente Tres Cruces",
+  lat: -30.4393, lon: -56.7984,
+  where: "Arroyo Tres Cruces, Ruta 30 km 95, junto a Javier de Viana",
+  short: "El «puente viejo» sobre el arroyo Tres Cruces, entre monte ribereño y agua que corre: un lugar tranquilo para pasar el día.",
+  body: [
+    {h: "El puente viejo", p: [
+      "El Puente Tres Cruces, el puente «viejo», como se lo conoce popularmente, está ubicado sobre el antiguo pasaje de la Ruta 30, en el arroyo Tres Cruces.",
+      "Muy cerca pasa hoy la Ruta 30 por un puente nuevo de 170 metros, que se inauguró en 2019 con las obras que corrigieron el trazado de la ruta cerca de Javier de Viana."
+    ]},
+    {h: "Un día en la naturaleza", p: [
+      "La zona es conocida por su vegetación ribereña y sus aguas corrientes, ideales para disfrutar un día en la tranquilidad que da la naturaleza."
+    ]}
+  ],
+  curious: "Desde el puente nuevo de la Ruta 30 se ve el viejo, a pocos metros. El nuevo se inauguró en octubre de 2019, junto con las obras de otros cuatro puentes de la ruta entre Artigas y Bella Unión.",
+  facts: [["Ubicación", "Ruta 30, km 95,4"], ["Desde Artigas", "Unos 20 minutos en auto"], ["Acceso", "Camino transitable para automóviles"], ["Ideal para", "Pasar el día junto al arroyo"]],
+  howto: "Desde la ciudad de Artigas, por la Ruta 30 hacia Javier de Viana. El arroyo Tres Cruces está en el km 95, a unos 20 minutos, y se llega por un camino transitable para automóviles.",
+  sources: [
+    ["Texto y fotos aportados por el CEI Javier de Viana", ""],
+    ["Presidencia: Transporte construye cuatro puentes en la Ruta 30 (2018)", "https://www.gub.uy/presidencia/comunicacion/noticias/transporte-construye-cuatro-puentes-ruta-30-cumplimiento-del-compromiso"],
+    ["Presidencia: inauguración de las obras de cinco puentes en la Ruta 30 (2019)", "https://www.gub.uy/presidencia/comunicacion/noticias/ministerio-transporte-obras-publicas-inauguro-obras-cinco-puentes-sobre-ruta"]
+  ]
+},
+{
   id: "capilla-santa-margarita", cat: "his", name: "Capilla Santa Margarita",
   lat: -30.4318, lon: -56.7905, approx: true,
   where: "Javier de Viana, Ruta 30, kilómetro 96",
@@ -1408,7 +1431,7 @@ const LABELS = {
   "estacion-fluvial": "Estación Fluvial", "isla-brasilera": "Isla Brasilera", "rincon-de-franquia": "Rincón de Franquía",
   "baltasar-brum": "Estación Baltasar Brum", "codo-del-cuareim": "Codo del Cuareim", "javier-de-viana": "Museo Ferroviario", "cei-javier-de-viana": "CEI Javier de Viana", "capilla-santa-margarita": "Capilla Santa Margarita", "destacamento-policial-12": "Destacamento Policial",
   "centro-artigas": "Plaza Artigas", "museo-piedra-preciosa": "Museo de la Piedra Preciosa", "paseo-7-de-setiembre": "Paseo 7 de Setiembre",
-  "piedra-pintada": "Piedra Pintada", "los-catalanes": "Minas de Los Catalanes", "safari-minero": "Safari Minero",
+  "piedra-pintada": "Piedra Pintada", "los-catalanes": "Minas de Los Catalanes", "safari-minero": "Safari Minero", "puente-tres-cruces": "Puente Tres Cruces",
   "parque-rivera": "Parque Rivera", "museo-santa-rosa": "Museo Santa Rosa", "jefatura-de-policia": "Jefatura de Policía", "carnaval-de-artigas": "Carnaval",
   "cueva-del-indio": "Cueva del Indio", "museo-historico": "Museo Histórico"
 };
@@ -1568,6 +1591,13 @@ const PHOTOS = {
     {"src": "img/safari-minero-2.jpg", "alt": "Geoda de amatista de Artigas, abierta (ejemplar de colección)", "by": "Robert M. Lavinsky", "lic": "CC BY-SA 3.0", "page": "https://commons.wikimedia.org/wiki/File:Quartz-212109.jpg", "licUrl": "https://creativecommons.org/licenses/by-sa/3.0/", "ref": true},
     {"src": "img/safari-minero-3.jpg", "alt": "Racimo de cristales de amatista de Artigas (ejemplar de colección)", "by": "Robert M. Lavinsky", "lic": "CC BY-SA 3.0", "page": "https://commons.wikimedia.org/wiki/File:Quartz-208669.jpg", "licUrl": "https://creativecommons.org/licenses/by-sa/3.0/", "ref": true},
     {"src": "img/safari-minero-4.jpg", "alt": "Amatista de la mina Santino, en Artigas, exhibida en un museo", "by": "James St. John", "lic": "CC BY 2.0", "page": "https://commons.wikimedia.org/wiki/File:Amethyst_after_calcite_(Santino_Mine,_Artigas,_Uruguay)_(30323704822).jpg", "licUrl": "https://creativecommons.org/licenses/by/2.0/", "ref": true}
+  ],
+  "puente-tres-cruces": [
+    {"src": "img/puente-tres-cruces-1.jpg", "alt": "El puente viejo sobre el arroyo Tres Cruces, entre el monte ribereño", "by": "CEI Javier de Viana", "lic": "", "page": "", "pos": "center 55%"},
+    {"src": "img/puente-tres-cruces-2.jpg", "alt": "Estudiantes descansando a orillas del arroyo, bajo el puente", "by": "CEI Javier de Viana", "lic": "", "page": ""},
+    {"src": "img/puente-tres-cruces-3.jpg", "alt": "La estructura de hierro del puente y su estribo de piedra, vistos desde abajo", "by": "CEI Javier de Viana", "lic": "", "page": ""},
+    {"src": "img/puente-tres-cruces-4.jpg", "alt": "Caminando por el antiguo pasaje de la Ruta 30", "by": "CEI Javier de Viana", "lic": "", "page": ""},
+    {"src": "img/puente-tres-cruces-5.jpg", "alt": "La Ruta 30 actual, cerca del arroyo Tres Cruces", "by": "CEI Javier de Viana", "lic": "", "page": ""}
   ]
 };
 

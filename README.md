@@ -8,7 +8,7 @@ Un proyecto del **CEI Javier de Viana** (Artigas, Uruguay).
 
 Dirección de la web: **https://cei-javierdeviana.github.io/descubri-artigas/**
 
-Guía web con veintiún lugares para conocer en el departamento de Artigas (Uruguay): un mapa interactivo, una postal por lugar y una ficha completa con fotos, datos útiles y fuentes.
+Guía web con veintidós lugares para conocer en el departamento de Artigas (Uruguay): un mapa interactivo, una postal por lugar y una ficha completa con fotos, datos útiles y fuentes.
 
 Es un sitio estático: no necesita servidor ni instalación. Todo está en `index.html`, las fotos en la carpeta `img/` y las fichas de cada lugar en la carpeta `fichas/`.
 
@@ -37,7 +37,7 @@ La web se publica en una **organización** de GitHub llamada `cei-javierdeviana`
 1. En la organización, tocá **New repository**. Revisá que el dueño (*Owner*) sea `cei-javierdeviana`.
 2. Nombre: `descubri-artigas`. Visibilidad: **Public**. No agregues README.
 3. En el repositorio vacío, entrá al enlace **uploading an existing file**.
-4. Arrastrá **el contenido** de esta carpeta (el `index.html`, las carpetas `img` y `fichas` y el `README.md`), no la carpeta entera. GitHub acepta hasta 100 archivos por vez y esta carpeta tiene 119.
+4. Arrastrá **el contenido** de esta carpeta (el `index.html`, las carpetas `img` y `fichas` y el `README.md`), no la carpeta entera. GitHub acepta hasta 100 archivos por vez y esta carpeta tiene 124.
 5. Tocá **Commit changes**.
 
 ### 3. Activar la página
@@ -83,6 +83,7 @@ No hay que tocar `index.html`: la página encuentra la ficha sola por su nombre.
 | Cueva del Indio | `cueva-del-indio.jpg` |
 | CEI Javier de Viana | `cei-javier-de-viana.jpg` |
 | Destacamento Policial N.º 12 | `destacamento-policial-12.jpg` |
+| Puente Tres Cruces | `puente-tres-cruces.jpg` |
 | Capilla Santa Margarita | `capilla-santa-margarita.jpg` |
 | Museo Ferroviario «Bibiano Gómez» (Javier de Viana) | `javier-de-viana.jpg` |
 | Plaza Artigas e Iglesia San Eugenio | `centro-artigas.jpg` |
@@ -203,6 +204,16 @@ La mayoría de las fotos vienen de [Wikimedia Commons](https://commons.wikimedia
 - `img/destacamento-policial-12-1.jpg` — El frente del destacamento, con su viejo cartel «Policía». Foto: CEI Javier de Viana.
 - `img/destacamento-policial-12-2.jpg` — El acta inaugural de la Seccional Policial 12.ª, del 10 de mayo de 1973. Foto: CEI Javier de Viana.
 - `img/destacamento-policial-12-3.jpg` — El mapa de referencias de la Seccional 12, con su zona entre el arroyo Tres Cruces y el río Cuareim. Foto: CEI Javier de Viana.
+
+**Puente Tres Cruces**
+
+Fotos del CEI Javier de Viana (noviembre de 2026).
+
+- `img/puente-tres-cruces-1.jpg` — El puente viejo sobre el arroyo Tres Cruces, entre el monte ribereño.
+- `img/puente-tres-cruces-2.jpg` — Estudiantes descansando a orillas del arroyo, bajo el puente.
+- `img/puente-tres-cruces-3.jpg` — La estructura de hierro del puente y su estribo de piedra, vistos desde abajo.
+- `img/puente-tres-cruces-4.jpg` — Caminando por el antiguo pasaje de la Ruta 30.
+- `img/puente-tres-cruces-5.jpg` — La Ruta 30 actual, cerca del arroyo Tres Cruces.
 
 **Capilla Santa Margarita**
 
