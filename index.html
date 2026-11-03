@@ -260,12 +260,18 @@ body.on-detail .top{position:static;background:var(--hero-bg)}
 .credit{max-width:min(70ch,calc(100% - 32px));text-align:right;text-shadow:0 1px 4px rgba(0,0,0,.6)}
 .gallery figure{margin:0;display:grid;gap:6px;align-content:start}
 /* videos de YouTube: se ve la miniatura y el video recién carga al tocar */
-.videos{display:grid;gap:10px}
-.yt-list{display:flex;flex-wrap:wrap;gap:18px;align-items:flex-start}
-.yt{margin:0;display:grid;gap:8px;flex:1 1 400px;min-width:0}
-.yt-v{flex:0 1 250px}
+.videos{display:grid;gap:10px;container-type:inline-size}
+/* horizontales en una columna; verticales (Shorts) juntos, uno al lado del otro */
+.yt-grid{display:grid;gap:18px;align-items:start}
+.yt-col{display:grid;gap:18px;min-width:0}
+.yt-row{display:flex;gap:14px;justify-content:center}
+.yt{margin:0;display:grid;gap:8px;min-width:0;align-content:start}
+.yt-row .yt-v{flex:1 1 0;max-width:260px}
 .yt-v .yt-play,.yt.yt-v iframe{aspect-ratio:9/16}
-@media (max-width:640px){.yt-v{flex-basis:min(100%,280px);margin-inline:auto}}
+@container (min-width:700px){
+  .yt-grid.mix{grid-template-columns:minmax(0,1fr) auto}
+  .yt-grid.mix .yt-row .yt-v{flex:0 0 clamp(190px,28cqi,230px)}
+}
 .yt-play{position:relative;display:block;aspect-ratio:16/9;border-radius:14px;overflow:hidden;background:#140E1A;color:#fff;text-decoration:none}
 .yt-play img{display:block;width:100%;height:100%;object-fit:cover;transition:transform .5s ease}
 .yt-play:hover img,.yt-play:focus-visible img{transform:scale(1.03)}
@@ -1889,8 +1895,9 @@ function renderDetail(p) {
   const sections = p.body.map(b => `<section><h2>${esc(b.h)}</h2>${(b.p || []).map(t => `<p>${esc(t)}</p>`).join("")}${b.list ? `<ul>${b.list.map(t => `<li>${esc(t)}</li>`).join("")}</ul>` : ""}</section>`).join("");
   const main = p.photos[0];
   const gallery = p.photos.length > 1 ? `<section><h2>Galería</h2><div class="gallery">${p.photos.map((ph, k) => `<figure><button type="button" data-photo="${k}" aria-label="Ampliar: ${esc(ph.alt)}">${cover(p, k, "mini")}</button><figcaption>${esc(ph.alt)}</figcaption></figure>`).join("")}</div></section>` : "";
-  const vids = p.videos || [];
-  const videos = vids.length ? `<section class="videos"><h2>${vids.length > 1 ? "Videos" : "Video"}</h2><div class="yt-list">${vids.map(v => `<figure class="yt${v.vertical ? " yt-v" : ""}"><a class="yt-play" href="https://www.youtube.com/${v.vertical ? "shorts/" : "watch?v="}${esc(v.yt)}" target="_blank" rel="noopener" data-yt="${esc(v.yt)}" data-yt-title="${esc(v.title)}" aria-label="Reproducir el video «${esc(v.title)}»"><img src="https://i.ytimg.com/vi/${esc(v.yt)}/${v.vertical ? "oardefault" : "maxresdefault"}.jpg" alt="" loading="lazy" data-yt-thumb><span class="yt-btn" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 4l15 8-15 8z"/></svg></span><span class="yt-lab">Ver video</span></a><figcaption><b>${esc(v.title)}</b>${v.by ? ` · Video de ${esc(v.by)}` : ""} · YouTube</figcaption></figure>`).join("")}</div></section>` : "";
+  const vids = p.videos || [], land = vids.filter(v => !v.vertical), vert = vids.filter(v => v.vertical);
+  const ytFig = v => `<figure class="yt${v.vertical ? " yt-v" : ""}"><a class="yt-play" href="https://www.youtube.com/${v.vertical ? "shorts/" : "watch?v="}${esc(v.yt)}" target="_blank" rel="noopener" data-yt="${esc(v.yt)}" data-yt-title="${esc(v.title)}" aria-label="Reproducir el video «${esc(v.title)}»"><img src="https://i.ytimg.com/vi/${esc(v.yt)}/${v.vertical ? "oardefault" : "maxresdefault"}.jpg" alt="" loading="lazy" data-yt-thumb><span class="yt-btn" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 4l15 8-15 8z"/></svg></span><span class="yt-lab">Ver video</span></a><figcaption><b>${esc(v.title)}</b>${v.by ? ` · Video de ${esc(v.by)}` : ""} · YouTube</figcaption></figure>`;
+  const videos = vids.length ? `<section class="videos"><h2>${vids.length > 1 ? "Videos" : "Video"}</h2><div class="yt-grid${land.length && vert.length ? " mix" : ""}">${land.length ? `<div class="yt-col">${land.map(ytFig).join("")}</div>` : ""}${vert.length ? `<div class="yt-row">${vert.map(ytFig).join("")}</div>` : ""}</div></section>` : "";
   const photoCred = p.photos.length ? `<section class="photo-cred"><h2>Créditos de las fotos</h2><ul>${p.photos.map(ph => `<li><b>${esc(ph.alt)}</b>${creditLine(ph)}${/commons\.wikimedia/.test(ph.page || "") ? " · Wikimedia Commons" : ""}</li>`).join("")}</ul></section>` : "";
   return `<header class="d-cover cat-${p.cat}">
       <div class="d-cover-img">${cover(p)}</div><div class="d-cover-shade"></div>
