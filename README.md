@@ -105,7 +105,7 @@ Para sumar un video, subilo a YouTube (por ejemplo, al canal del CEI) como públ
 
 | Lugar | Video |
 |---|---|
-| Rincón de Franquía | [«Rincón de Franquía»](https://www.youtube.com/watch?v=Ao5kOan3eeQ), canal CEI Javier de Viana |
+| Rincón de Franquía | [«Rincón de Franquía»](https://www.youtube.com/watch?v=URfbr5-VRpQ), canal CEI Javier de Viana |
 | CEI Javier de Viana | [«Estudiantes de Ed. Primaria en clase de Ed. Física»](https://www.youtube.com/watch?v=gfcR1DPMEkc), canal CEI Javier de Viana |
 | CEI Javier de Viana | [«Niños de Ed. Inicial disfrutando del recreo»](https://www.youtube.com/shorts/DhRsoy7eizA) (Short, vertical), canal CEI Javier de Viana |
 | CEI Javier de Viana | [Canción «Mi CEI Javier de Viana»](https://www.youtube.com/watch?v=UgAZEAd9l6E), canal CEI Javier de Viana |
