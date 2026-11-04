@@ -111,6 +111,7 @@ Para sumar un video, subilo a YouTube (por ejemplo, al canal del CEI) como públ
 | CEI Javier de Viana | [«Niños de Ed. Inicial disfrutando del recreo»](https://www.youtube.com/shorts/DhRsoy7eizA) (Short, vertical), canal CEI Javier de Viana |
 | CEI Javier de Viana | [Canción «Mi CEI Javier de Viana»](https://www.youtube.com/watch?v=UgAZEAd9l6E), canal CEI Javier de Viana |
 | CEI Javier de Viana | [«Bienvenidos al CEI Javier de Viana»](https://www.youtube.com/shorts/Z-w8EmEfLH0) (Short, vertical), canal CEI Javier de Viana |
+| Puente Tres Cruces | [«Puente Arroyo Tres Cruces»](https://www.youtube.com/watch?v=Jap1ct8RjBA), canal CEI Javier de Viana |
 
 ## Sumar a otras personas del CEI
 
@@ -209,8 +210,8 @@ La mayoría de las fotos vienen de [Wikimedia Commons](https://commons.wikimedia
 
 Fotos del CEI Javier de Viana (noviembre de 2026).
 
-- `img/puente-tres-cruces-1.jpg` — El puente viejo sobre el arroyo Tres Cruces, entre el monte ribereño.
-- `img/puente-tres-cruces-2.jpg` — Estudiantes descansando a orillas del arroyo, bajo el puente.
+- `img/puente-tres-cruces-1.jpg` — El puente ferroviario sobre el arroyo Tres Cruces, entre monte ribereño.
+- `img/puente-tres-cruces-2.jpg` — Estudiantes descansando a orillas del arroyo, bajo el puente ferroviario.
 - `img/puente-tres-cruces-3.jpg` — La estructura de hierro del puente y su estribo de piedra, vistos desde abajo.
 - `img/puente-tres-cruces-4.jpg` — Caminando por el antiguo pasaje de la Ruta 30.
 - `img/puente-tres-cruces-5.jpg` — La Ruta 30 actual, cerca del arroyo Tres Cruces.
