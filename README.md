@@ -113,6 +113,10 @@ Para sumar un video, subilo a YouTube (por ejemplo, al canal del CEI) como públ
 | CEI Javier de Viana | [«Bienvenidos al CEI Javier de Viana»](https://www.youtube.com/shorts/Z-w8EmEfLH0) (Short, vertical), canal CEI Javier de Viana |
 | Puente Tres Cruces | [«Puente Arroyo Tres Cruces»](https://www.youtube.com/watch?v=Jap1ct8RjBA), canal CEI Javier de Viana |
 
+## Estadísticas de visitas
+
+La página cuenta las visitas con **Cloudflare Web Analytics**, que es gratis y no usa cookies ni guarda datos personales de quien la visita. Las estadísticas (visitas por día, páginas más vistas, países, celular o computadora) se ven en el panel de Cloudflare, en «Análisis web» (Web Analytics), con la cuenta del Prof. Pablo Montaña Conti. El código está al final de `index.html`, antes de `</body>`.
+
 ## Sumar a otras personas del CEI
 
 Para que la web no dependa de una sola persona, sumá al menos a otra persona del CEI como dueña de la organización:
