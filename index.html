@@ -364,7 +364,11 @@ body.on-detail .top{position:static;background:var(--hero-bg)}
 [hidden]{display:none!important}
 .d-actions{display:flex;flex-wrap:wrap;gap:10px;margin:16px 0 0}
 .btn-ficha{background:var(--hero-accent);color:#24160A;box-shadow:0 6px 18px rgba(0,0,0,.3)}
-.btn-ficha svg,.f-actions svg{width:16px;height:16px;flex:none;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.btn-map{background:rgba(20,14,26,.55);color:#fff;border:1px solid rgba(255,255,255,.45);box-shadow:0 6px 18px rgba(0,0,0,.25)}
+.btn-map:hover{background:rgba(20,14,26,.75)}
+.howto-go{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px;margin-top:12px!important}
+.howto-go small{font-family:var(--font-mono);font-size:11.5px;color:var(--muted)}
+.btn-map svg,.howto-go svg,.btn-ficha svg,.f-actions svg{width:16px;height:16px;flex:none;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 .ficha-card a{display:block;border:1px solid var(--line);border-radius:14px;overflow:hidden;background:var(--surface);box-shadow:var(--shadow-sm);text-decoration:none;color:var(--ink);transition:transform .25s ease,box-shadow .25s ease}
 .ficha-card a:hover{transform:translateY(-3px);box-shadow:var(--shadow)}
 .ficha-card img{display:block;width:100%;aspect-ratio:4/5;object-fit:cover;object-position:top;background:var(--map-bg)}
@@ -771,7 +775,7 @@ const CATS = {
 const PLACES = [
 {
   id: "estacion-fluvial", cat: "rio", name: "Estación Fluvial de Bella Unión",
-  lat: -30.2552, lon: -57.6088, approx: true,
+  lat: -30.2607, lon: -57.6114,
   where: "Puerto de Bella Unión, sobre el río Uruguay",
   short: "El muelle desde donde salen los paseos náuticos por la triple frontera, las islas del río y Rincón de Franquía.",
   body: [
@@ -851,7 +855,7 @@ const PLACES = [
 },
 {
   id: "isla-brasilera", cat: "rio", name: "Isla Brasilera y la triple frontera",
-  lat: -30.1850, lon: -57.6300,
+  lat: -30.1850, lon: -57.6247,
   where: "Confluencia del río Cuareim con el río Uruguay",
   short: "Una isla deshabitada justo donde se juntan Uruguay, Argentina y Brasil. La administra Brasil y la reclama Uruguay.",
   body: [
@@ -875,7 +879,7 @@ const PLACES = [
 },
 {
   id: "rincon-de-franquia", cat: "nat", name: "Rincón de Franquía",
-  lat: -30.2120, lon: -57.6000,
+  lat: -30.2222, lon: -57.6206,
   where: "Al norte de Bella Unión, en la desembocadura del Cuareim",
   short: "Área protegida en la triple frontera, con monte, humedales y más de 220 especies de aves registradas.",
   body: [
@@ -905,7 +909,7 @@ const PLACES = [
 },
 {
   id: "baltasar-brum", cat: "his", name: "Estación de Baltasar Brum",
-  lat: -30.7167, lon: -57.3333, approx: true,
+  lat: -30.7213, lon: -57.3275,
   where: "Baltasar Brum, suroeste del departamento",
   short: "El cruce ferroviario donde la vía se abre en dos: un ramal a Bella Unión y otro a Artigas. En la vieja estación funciona un museo.",
   body: [
@@ -929,7 +933,7 @@ const PLACES = [
 },
 {
   id: "codo-del-cuareim", cat: "rio", name: "Codo del Cuareim",
-  lat: -30.0856, lon: -56.9517,
+  lat: -30.0854, lon: -57.0669,
   where: "Extremo norte del departamento, sobre el río Cuareim",
   short: "El punto más al norte del Uruguay, en una curva del río que nos separa de Brasil.",
   body: [
@@ -942,16 +946,17 @@ const PLACES = [
     ]}
   ],
   curious: "Ningún otro país tiene su extremo norte tan al sur como Uruguay.",
-  facts: [["Coordenadas", "30°05′08″ S · 56°57′06″ O"], ["Río", "Cuareim, límite con Brasil"], ["Tipo", "Punto geográfico"], ["Acceso", "Rural, sin servicios"]],
+  facts: [["Coordenadas", "30°05′07″ S · 57°04′01″ O"], ["Río", "Cuareim, límite con Brasil"], ["Tipo", "Punto geográfico"], ["Acceso", "Rural, sin servicios"]],
   howto: "Está en el norte del departamento, en zona de campo. No hay un acceso señalizado: consultá caminos y permisos con vecinos de la zona o en el Municipio.",
   sources: [
+    ["OpenStreetMap: río Cuareim, límite con Brasil", "https://www.openstreetmap.org/way/40835721"],
     ["Wikipedia: Extreme points of Uruguay", "https://en.wikipedia.org/wiki/Extreme_points_of_Uruguay"],
     ["Wikipedia: Departamento de Artigas", "https://es.wikipedia.org/wiki/Departamento_de_Artigas"]
   ]
 },
 {
   id: "cueva-del-indio", cat: "his", name: "Cueva del Indio",
-  lat: -30.125, lon: -56.83, approx: true,
+  lat: -30.1000, lon: -56.8250, approx: true,
   where: "Estancia El Indio, a unos 20 km de Topador",
   short: "Un refugio de piedra a orillas del Cuareim, ligado a la memoria de los charrúas que sobrevivieron a Salsipuedes.",
   body: [
@@ -1219,7 +1224,7 @@ const PLACES = [
 },
 {
   id: "museo-historico", cat: "his", name: "Museo Histórico Departamental",
-  lat: -30.4045, lon: -56.4695,
+  lat: -30.4043, lon: -56.4699,
   where: "José Pedro Varela 278, esquina Av. Lecueder, ciudad de Artigas",
   short: "Fósiles de megafauna, objetos y documentos de la historia del departamento y muestras de arte, con entrada gratuita.",
   body: [
@@ -1279,7 +1284,7 @@ const PLACES = [
 },
 {
   id: "museo-piedra-preciosa", cat: "ame", name: "Museo de la Piedra Preciosa",
-  lat: -30.3984, lon: -56.4630,
+  lat: -30.3984, lon: -56.4628,
   where: "Av. Coronel Carlos Lecueder 157, esquina Amaro F. Ramos, ciudad de Artigas",
   short: "Un centro cultural interactivo que cuenta la historia de las ágatas y amatistas, desde los volcanes hasta la exportación.",
   body: [
@@ -1307,7 +1312,7 @@ const PLACES = [
 },
 {
   id: "paseo-7-de-setiembre", cat: "rio", name: "Paseo 7 de Setiembre y Puente de la Concordia",
-  lat: -30.3942, lon: -56.459, approx: true,
+  lat: -30.3921, lon: -56.4597,
   where: "Costanera del río Cuareim, ciudad de Artigas",
   short: "El gran parque sobre el río Cuareim y el puente que une Artigas con Quaraí, del lado brasileño.",
   body: [
@@ -1364,7 +1369,7 @@ const PLACES = [
 },
 {
   id: "safari-minero", cat: "ame", name: "Safari Minero de Artigas",
-  lat: -30.7450, lon: -56.3300, approx: true,
+  lat: -30.7722, lon: -56.2547, approx: true,
   where: "Zona minera de Catalán, a unos 40 km de la ciudad de Artigas",
   short: "Una excursión guiada a las minas de ágatas y amatistas: túneles, canteras a cielo abierto y talleres donde se pulen las piedras.",
   body: [
@@ -1975,7 +1980,7 @@ function renderDetail(p) {
         <h1>${esc(p.name)}</h1>
         <p class="d-lead">${esc(p.short)}</p>
         <p class="d-meta"><span>${esc(p.where)}</span><span>${coordText(p)}${p.approx ? " (ubicación aproximada)" : ""}</span></p>
-        <p class="d-actions" data-ficha hidden><a class="btn btn-ficha" href="#${esc(p.id)}/ficha">${FICHA_ICON}Ver ficha</a></p>
+        <p class="d-actions"><a class="btn btn-ficha" data-ficha hidden href="#${esc(p.id)}/ficha">${FICHA_ICON}Ver ficha</a><a class="btn btn-map" href="${esc(gmapsURL(p))}" target="_blank" rel="noopener">${GMAPS_ICON}Ver en Google Maps</a></p>
       </div>
       ${refTag(p)}${main ? `<p class="credit">${main.ref ? `Foto de referencia: ${esc(main.alt)} · ` : ""}${creditLine(main)}</p>` : `<p class="credit">Ilustración</p>`}
     </header>
@@ -1988,7 +1993,7 @@ function renderDetail(p) {
           <section class="ficha-card" data-ficha hidden><h2>Ficha del lugar</h2><a href="#${esc(p.id)}/ficha"><img data-ficha-img alt="Ficha de ${esc(p.name)}"><span class="go">Ver ficha <span aria-hidden="true">→</span></span></a><p>${FICHA_BY}</p></section>
           <figure class="locator">${locatorSVG(p)}<figcaption>Ubicación en el departamento</figcaption></figure>
           <section class="facts"><h2>Datos útiles</h2><dl>${p.facts.map(([k, v]) => `<dt>${esc(k)}</dt><dd>${esc(v)}</dd>`).join("")}</dl></section>
-          <section class="howto"><h2>Cómo llegar</h2><p>${esc(p.howto)}</p></section>
+          <section class="howto"><h2>Cómo llegar</h2><p>${esc(p.howto)}</p><p class="howto-go"><a class="btn btn-quiet" href="${esc(dirURL(p))}" target="_blank" rel="noopener">${GMAPS_ICON}Cómo llegar con Google Maps</a>${p.approx ? `<small>El punto marcado es aproximado.</small>` : ""}</p></section>
           ${photoCred}
           <section class="sources"><h2>Fuentes</h2><ul>${p.sources.map(([t, u]) => `<li>${u ? `<a href="${esc(u)}" target="_blank" rel="noopener">${esc(t)}</a>` : esc(t)}</li>`).join("")}</ul></section>
         </aside>
@@ -2001,6 +2006,9 @@ function renderDetail(p) {
 }
 /* ---------- fichas: una imagen por lugar en fichas/<id>.jpg (o .png); si no existe, no se muestra nada ---------- */
 const FICHA_BY = "Ficha elaborada por docentes del CEI Javier de Viana.";
+const GMAPS_ICON = `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s7-6.2 7-12a7 7 0 0 0-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="10" r="2.6"/></svg>`;
+const gmapsURL = p => p.gmaps || `https://www.google.com/maps/search/?api=1&query=${p.lat}%2C${p.lon}`;
+const dirURL = p => `https://www.google.com/maps/dir/?api=1&destination=${p.lat}%2C${p.lon}`;
 const FICHA_ICON = `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h7l5 5v13H7z"/><path d="M14 3v5h5M10 13h6M10 17h6"/></svg>`;
 const FICHA_EXT = ["jpg", "png", "jpeg"];
 const fichaCache = {};
