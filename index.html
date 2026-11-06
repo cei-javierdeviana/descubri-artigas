@@ -366,6 +366,10 @@ body.on-detail .top{position:static;background:var(--hero-bg)}
 .btn-ficha{background:var(--hero-accent);color:#24160A;box-shadow:0 6px 18px rgba(0,0,0,.3)}
 .btn-map{background:rgba(20,14,26,.55);color:#fff;border:1px solid rgba(255,255,255,.45);box-shadow:0 6px 18px rgba(0,0,0,.25)}
 .btn-map:hover{background:rgba(20,14,26,.75)}
+.gmap{margin:0 0 14px;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:var(--map-bg)}
+.gmap iframe{display:block;width:100%;aspect-ratio:4/3;border:0}
+@media (max-width:900px){.gmap iframe{aspect-ratio:16/11}}
+.gmap figcaption{padding:8px 12px;font-family:var(--font-mono);font-size:11.5px;color:var(--muted);border-top:1px solid var(--line);background:var(--surface)}
 .howto-go{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px;margin-top:12px!important}
 .howto-go small{font-family:var(--font-mono);font-size:11.5px;color:var(--muted)}
 .btn-map svg,.howto-go svg,.btn-ficha svg,.f-actions svg{width:16px;height:16px;flex:none;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
@@ -855,7 +859,7 @@ const PLACES = [
 },
 {
   id: "isla-brasilera", cat: "rio", name: "Isla Brasilera y la triple frontera",
-  lat: -30.1850, lon: -57.6247,
+  lat: -30.1850, lon: -57.6247, zoom: 14,
   where: "Confluencia del río Cuareim con el río Uruguay",
   short: "Una isla deshabitada justo donde se juntan Uruguay, Argentina y Brasil. La administra Brasil y la reclama Uruguay.",
   body: [
@@ -879,7 +883,7 @@ const PLACES = [
 },
 {
   id: "rincon-de-franquia", cat: "nat", name: "Rincón de Franquía",
-  lat: -30.2222, lon: -57.6206,
+  lat: -30.2222, lon: -57.6206, zoom: 13,
   where: "Al norte de Bella Unión, en la desembocadura del Cuareim",
   short: "Área protegida en la triple frontera, con monte, humedales y más de 220 especies de aves registradas.",
   body: [
@@ -933,7 +937,7 @@ const PLACES = [
 },
 {
   id: "codo-del-cuareim", cat: "rio", name: "Codo del Cuareim",
-  lat: -30.0854, lon: -57.0669,
+  lat: -30.0854, lon: -57.0669, zoom: 14,
   where: "Extremo norte del departamento, sobre el río Cuareim",
   short: "El punto más al norte del Uruguay, en una curva del río que nos separa de Brasil.",
   body: [
@@ -996,7 +1000,7 @@ const PLACES = [
 },
 {
   id: "puente-tres-cruces", cat: "nat", name: "Puente Tres Cruces",
-  lat: -30.4393, lon: -56.7984,
+  lat: -30.4393, lon: -56.7984, zoom: 16,
   where: "Arroyo Tres Cruces, Ruta 30 km 95, junto a Javier de Viana",
   short: "El «puente viejo» sobre el arroyo Tres Cruces, entre monte ribereño y agua que corre: un lugar tranquilo para pasar el día.",
   body: [
@@ -1312,7 +1316,7 @@ const PLACES = [
 },
 {
   id: "paseo-7-de-setiembre", cat: "rio", name: "Paseo 7 de Setiembre y Puente de la Concordia",
-  lat: -30.3921, lon: -56.4597,
+  lat: -30.3921, lon: -56.4597, zoom: 16,
   where: "Costanera del río Cuareim, ciudad de Artigas",
   short: "El gran parque sobre el río Cuareim y el puente que une Artigas con Quaraí, del lado brasileño.",
   body: [
@@ -1340,7 +1344,7 @@ const PLACES = [
 },
 {
   id: "piedra-pintada", cat: "nat", name: "Piedra Pintada",
-  lat: -30.5113, lon: -56.3785,
+  lat: -30.5113, lon: -56.3785, zoom: 15,
   where: "A unos 17 km de la ciudad de Artigas",
   short: "Una mole de arenisca de 19 metros, rodeada de monte nativo, dentro del Parque Congreso de Abril.",
   body: [
@@ -1400,7 +1404,7 @@ const PLACES = [
 },
 {
   id: "los-catalanes", cat: "ame", name: "Minas de amatistas de Los Catalanes",
-  lat: -30.7928, lon: -56.2703,
+  lat: -30.7928, lon: -56.2703, zoom: 14,
   where: "Zona de Catalán, a unos 50 km de Artigas por Ruta 30",
   short: "El distrito donde se extraen las amatistas que hicieron famoso a Artigas, en minas a cielo abierto y en galería.",
   body: [
@@ -1993,7 +1997,7 @@ function renderDetail(p) {
           <section class="ficha-card" data-ficha hidden><h2>Ficha del lugar</h2><a href="#${esc(p.id)}/ficha"><img data-ficha-img alt="Ficha de ${esc(p.name)}"><span class="go">Ver ficha <span aria-hidden="true">→</span></span></a><p>${FICHA_BY}</p></section>
           <figure class="locator">${locatorSVG(p)}<figcaption>Ubicación en el departamento</figcaption></figure>
           <section class="facts"><h2>Datos útiles</h2><dl>${p.facts.map(([k, v]) => `<dt>${esc(k)}</dt><dd>${esc(v)}</dd>`).join("")}</dl></section>
-          <section class="howto"><h2>Cómo llegar</h2><p>${esc(p.howto)}</p><p class="howto-go"><a class="btn btn-quiet" href="${esc(dirURL(p))}" target="_blank" rel="noopener">${GMAPS_ICON}Cómo llegar con Google Maps</a>${p.approx ? `<small>El punto marcado es aproximado.</small>` : ""}</p></section>
+          <section class="howto"><h2>Cómo llegar</h2>${gmapEmbed(p)}<p>${esc(p.howto)}</p><p class="howto-go"><a class="btn btn-quiet" href="${esc(dirURL(p))}" target="_blank" rel="noopener">${GMAPS_ICON}Cómo llegar con Google Maps</a>${p.approx ? `<small>El punto marcado es aproximado.</small>` : ""}</p></section>
           ${photoCred}
           <section class="sources"><h2>Fuentes</h2><ul>${p.sources.map(([t, u]) => `<li>${u ? `<a href="${esc(u)}" target="_blank" rel="noopener">${esc(t)}</a>` : esc(t)}</li>`).join("")}</ul></section>
         </aside>
@@ -2008,6 +2012,9 @@ function renderDetail(p) {
 const FICHA_BY = "Ficha elaborada por docentes del CEI Javier de Viana.";
 const GMAPS_ICON = `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s7-6.2 7-12a7 7 0 0 0-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="10" r="2.6"/></svg>`;
 const gmapsURL = p => p.gmaps || `https://www.google.com/maps/search/?api=1&query=${p.lat}%2C${p.lon}`;
+const gmapEmbed = p => { const z = p.zoom || (p.approx ? 13 : 16);
+  const src = `https://maps.google.com/maps?q=${p.lat}%2C${p.lon}&z=${z}${z <= 14 ? "&t=h" : ""}&hl=es&output=embed`;
+  return `<figure class="gmap"><iframe src="${src}" title="Mapa de Google Maps: ${esc(p.name)}" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe><figcaption>${p.approx ? "Zona aproximada · " : ""}Mapa de Google Maps</figcaption></figure>`; };
 const dirURL = p => `https://www.google.com/maps/dir/?api=1&destination=${p.lat}%2C${p.lon}`;
 const FICHA_ICON = `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h7l5 5v13H7z"/><path d="M14 3v5h5M10 13h6M10 17h6"/></svg>`;
 const FICHA_EXT = ["jpg", "png", "jpeg"];
