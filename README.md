@@ -19,6 +19,7 @@ Es un sitio estático: no necesita servidor ni instalación. Todo está en `inde
 | `index.html` | La página completa (textos, mapa, estilos y código) |
 | `img/` | Las fotos de cada lugar (portadas, tarjetas y galerías) |
 | `fichas/` | Las fichas (láminas) que elaboran los docentes, una por lugar |
+| `og-image.jpg` | La imagen que muestran Facebook, WhatsApp y otras redes cuando se comparte el enlace |
 | `.nojekyll` | Le indica a GitHub Pages que publique los archivos tal cual |
 
 ## Publicarla en GitHub Pages (organización del CEI)
@@ -37,7 +38,7 @@ La web se publica en una **organización** de GitHub llamada `cei-javierdeviana`
 1. En la organización, tocá **New repository**. Revisá que el dueño (*Owner*) sea `cei-javierdeviana`.
 2. Nombre: `descubri-artigas`. Visibilidad: **Public**. No agregues README.
 3. En el repositorio vacío, entrá al enlace **uploading an existing file**.
-4. Arrastrá **el contenido** de esta carpeta (el `index.html`, las carpetas `img` y `fichas` y el `README.md`), no la carpeta entera. GitHub acepta hasta 100 archivos por vez y esta carpeta tiene 126.
+4. Arrastrá **el contenido** de esta carpeta (el `index.html`, el `og-image.jpg`, las carpetas `img` y `fichas` y el `README.md`), no la carpeta entera. GitHub acepta hasta 100 archivos por vez y esta carpeta tiene 127.
 5. Tocá **Commit changes**.
 
 ### 3. Activar la página
@@ -321,3 +322,7 @@ No hay fotos libres de la excursión: son fotos de referencia de una mina de la 
 ## Fuentes de la información
 
 Cada ficha lista sus fuentes: Intendencia de Artigas, Ministerio de Turismo, Ministerio de Ambiente, Ministerio del Interior, Presidencia, IMPO, AFE, Museos del Uruguay, Udelar, prensa local y Wikipedia, además de láminas, fotos y textos aportados por docentes, niñas, niños, estudiantes y el equipo de dirección del CEI. Información reunida entre octubre y noviembre de 2026; horarios, tarifas y accesos pueden cambiar.
+
+## Vista previa al compartir el enlace
+
+Cuando alguien pega el enlace en Facebook, WhatsApp o X, la red muestra una tarjeta con la imagen `og-image.jpg`, el título y una descripción. Esos datos están en las etiquetas `og:` del principio de `index.html`. Si se cambia la imagen o el texto, Facebook guarda la versión vieja por un tiempo: para actualizarla, pegá el enlace en el [Depurador de contenido compartido de Facebook](https://developers.facebook.com/tools/debug/) y tocá «Volver a extraer».
