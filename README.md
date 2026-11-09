@@ -21,6 +21,7 @@ Es un sitio estático: no necesita servidor ni instalación. Todo está en `inde
 | `fichas/` | Las fichas (láminas) que elaboran los docentes, una por lugar |
 | `og-image.jpg` | La imagen que muestran Facebook, WhatsApp y otras redes cuando se comparte el enlace |
 | `sitemap.xml` | El mapa del sitio para Google: la dirección de la página y sus fotos principales |
+| `google63d47089fb676f9d.html` | Confirma ante Google Search Console que la página es del CEI. No hay que borrarlo |
 | `.nojekyll` | Le indica a GitHub Pages que publique los archivos tal cual |
 
 ## Publicarla en GitHub Pages (organización del CEI)
@@ -39,7 +40,7 @@ La web se publica en una **organización** de GitHub llamada `cei-javierdeviana`
 1. En la organización, tocá **New repository**. Revisá que el dueño (*Owner*) sea `cei-javierdeviana`.
 2. Nombre: `descubri-artigas`. Visibilidad: **Public**. No agregues README.
 3. En el repositorio vacío, entrá al enlace **uploading an existing file**.
-4. Arrastrá **el contenido** de esta carpeta (el `index.html`, el `og-image.jpg`, el `sitemap.xml`, las carpetas `img` y `fichas` y el `README.md`), no la carpeta entera. GitHub acepta hasta 100 archivos por vez y esta carpeta tiene 128.
+4. Arrastrá **el contenido** de esta carpeta (el `index.html`, el `og-image.jpg`, el `sitemap.xml`, las carpetas `img` y `fichas` y el `README.md`), no la carpeta entera. GitHub acepta hasta 100 archivos por vez y esta carpeta tiene 129.
 5. Tocá **Commit changes**.
 
 ### 3. Activar la página
