@@ -20,6 +20,7 @@ Es un sitio estático: no necesita servidor ni instalación. Todo está en `inde
 | `img/` | Las fotos de cada lugar (portadas, tarjetas y galerías) |
 | `fichas/` | Las fichas (láminas) que elaboran los docentes, una por lugar |
 | `og-image.jpg` | La imagen que muestran Facebook, WhatsApp y otras redes cuando se comparte el enlace |
+| `sitemap.xml` | El mapa del sitio para Google: la dirección de la página y sus fotos principales |
 | `.nojekyll` | Le indica a GitHub Pages que publique los archivos tal cual |
 
 ## Publicarla en GitHub Pages (organización del CEI)
@@ -38,7 +39,7 @@ La web se publica en una **organización** de GitHub llamada `cei-javierdeviana`
 1. En la organización, tocá **New repository**. Revisá que el dueño (*Owner*) sea `cei-javierdeviana`.
 2. Nombre: `descubri-artigas`. Visibilidad: **Public**. No agregues README.
 3. En el repositorio vacío, entrá al enlace **uploading an existing file**.
-4. Arrastrá **el contenido** de esta carpeta (el `index.html`, el `og-image.jpg`, las carpetas `img` y `fichas` y el `README.md`), no la carpeta entera. GitHub acepta hasta 100 archivos por vez y esta carpeta tiene 127.
+4. Arrastrá **el contenido** de esta carpeta (el `index.html`, el `og-image.jpg`, el `sitemap.xml`, las carpetas `img` y `fichas` y el `README.md`), no la carpeta entera. GitHub acepta hasta 100 archivos por vez y esta carpeta tiene 128.
 5. Tocá **Commit changes**.
 
 ### 3. Activar la página
@@ -326,3 +327,7 @@ Cada ficha lista sus fuentes: Intendencia de Artigas, Ministerio de Turismo, Min
 ## Vista previa al compartir el enlace
 
 Cuando alguien pega el enlace en Facebook, WhatsApp o X, la red muestra una tarjeta con la imagen `og-image.jpg`, el título y una descripción. Esos datos están en las etiquetas `og:` del principio de `index.html`. Si se cambia la imagen o el texto, Facebook guarda la versión vieja por un tiempo: para actualizarla, pegá el enlace en el [Depurador de contenido compartido de Facebook](https://developers.facebook.com/tools/debug/) y tocá «Volver a extraer».
+
+## Google Search Console
+
+La página se registra en [Google Search Console](https://search.google.com/search-console) como propiedad de tipo «Prefijo de la URL», con la dirección `https://cei-javierdeviana.github.io/descubri-artigas/`. Ahí se ve cómo aparece en las búsquedas de Google: cuántas veces se mostró, cuántos clics recibió y con qué palabras la encontraron. El mapa del sitio que se le envía a Google es `sitemap.xml`. Si se agregan lugares o fotos nuevas, conviene actualizar la fecha `lastmod` de ese archivo.
