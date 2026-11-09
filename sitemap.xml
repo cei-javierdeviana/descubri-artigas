@@ -3,28 +3,237 @@
   <url>
     <loc>https://cei-javierdeviana.github.io/descubri-artigas/</loc>
     <lastmod>2026-11-09</lastmod>
+    <priority>1.0</priority>
     <image:image><image:loc>https://cei-javierdeviana.github.io/descubri-artigas/og-image.jpg</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://cei-javierdeviana.github.io/descubri-artigas/lugares/</loc>
+    <lastmod>2026-11-09</lastmod>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://cei-javierdeviana.github.io/descubri-artigas/lugares/estacion-fluvial/</loc>
+    <lastmod>2026-11-09</lastmod>
+    <priority>0.8</priority>
     <image:image><image:loc>https://cei-javierdeviana.github.io/descubri-artigas/img/estacion-fluvial-1.jpg</image:loc></image:image>
+    <image:image><image:loc>https://cei-javierdeviana.github.io/descubri-artigas/img/estacion-fluvial-2.jpg</image:loc></image:image>
+    <image:image><image:loc>https://cei-javierdeviana.github.io/descubri-artigas/img/estacion-fluvial-3.jpg</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://cei-javierdeviana.github.io/descubri-artigas/lugares/parque-rivera/</loc>
+    <lastmod>2026-11-09</lastmod>
+    <priority>0.8</priority>
     <image:image><image:loc>https://cei-javierdeviana.github.io/descubri-artigas/img/parque-rivera-1.jpg</image:loc></image:image>
+    <image:image><image:loc>https://cei-javierdeviana.github.io/descubri-artigas/img/parque-rivera-2.jpg</image:loc></image:image>
+    <image:image><image:loc>https://cei-javierdeviana.github.io/descubri-artigas/img/parque-rivera-3.jpg</image:loc></image:image>
+    <image:image><image:loc>https://cei-javierdeviana.github.io/descubri-artigas/img/parque-rivera-4.jpg</image:loc></image:image>
+    <image:image><image:loc>https://cei-javierdeviana.github.io/descubri-artigas/img/parque-rivera-5.jpg</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://cei-javierdeviana.github.io/descubri-artigas/lugares/museo-santa-rosa/</loc>
+    <lastmod>2026-11-09</lastmod>
+    <priority>0.8</priority>
     <image:image><image:loc>https://cei-javierdeviana.github.io/descubri-artigas/img/museo-santa-rosa-1.jpg</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://cei-javierdeviana.github.io/descubri-artigas/lugares/isla-brasilera/</loc>
+    <lastmod>2026-11-09</lastmod>
+    <priority>0.8</priority>
     <image:image><image:loc>https://cei-javierdeviana.github.io/descubri-artigas/img/isla-brasilera-1.jpg</image:loc></image:image>
+    <image:image><image:loc>https://cei-javierdeviana.github.io/descubri-artigas/img/isla-brasilera-2.jpg</image:loc></image:image>
+    <image:image><image:loc>https://cei-javierdeviana.github.io/descubri-artigas/img/isla-brasilera-3.jpg</image:loc></image:image>
+    <image:image><image:loc>https://cei-javierdeviana.github.io/descubri-artigas/img/isla-brasilera-4.jpg</image:loc></image:image>
+    <image:image><image:loc>https://cei-javierdeviana.github.io/descubri-artigas/img/isla-brasilera-5.jpg</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://cei-javierdeviana.github.io/descubri-artigas/lugares/rincon-de-franquia/</loc>
+    <lastmod>2026-11-09</lastmod>
+    <priority>0.8</priority>
     <image:image><image:loc>https://cei-javierdeviana.github.io/descubri-artigas/img/rincon-de-franquia-1.jpg</image:loc></image:image>
+    <image:image><image:loc>https://cei-javierdeviana.github.io/descubri-artigas/img/rincon-de-franquia-2.jpg</image:loc></image:image>
+    <image:image><image:loc>https://cei-javierdeviana.github.io/descubri-artigas/img/rincon-de-franquia-3.jpg</image:loc></image:image>
+    <image:image><image:loc>https://cei-javierdeviana.github.io/descubri-artigas/img/rincon-de-franquia-4.jpg</image:loc></image:image>
+    <image:image><image:loc>https://cei-javierdeviana.github.io/descubri-artigas/img/rincon-de-franquia-5.jpg</image:loc></image:image>
+    <image:image><image:loc>https://cei-javierdeviana.github.io/descubri-artigas/img/rincon-de-franquia-6.jpg</image:loc></image:image>
+    <image:image><image:loc>https://cei-javierdeviana.github.io/descubri-artigas/img/rincon-de-franquia-7.jpg</image:loc></image:image>
+    <image:image><image:loc>https://cei-javierdeviana.github.io/descubri-artigas/img/rincon-de-franquia-8.jpg</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://cei-javierdeviana.github.io/descubri-artigas/lugares/baltasar-brum/</loc>
+    <lastmod>2026-11-09</lastmod>
+    <priority>0.8</priority>
     <image:image><image:loc>https://cei-javierdeviana.github.io/descubri-artigas/img/baltasar-brum-1.jpg</image:loc></image:image>
+    <image:image><image:loc>https://cei-javierdeviana.github.io/descubri-artigas/img/baltasar-brum-2.jpg</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://cei-javierdeviana.github.io/descubri-artigas/lugares/codo-del-cuareim/</loc>
+    <lastmod>2026-11-09</lastmod>
+    <priority>0.8</priority>
     <image:image><image:loc>https://cei-javierdeviana.github.io/descubri-artigas/img/codo-del-cuareim-1.jpg</image:loc></image:image>
+    <image:image><image:loc>https://cei-javierdeviana.github.io/descubri-artigas/img/codo-del-cuareim-2.jpg</image:loc></image:image>
+    <image:image><image:loc>https://cei-javierdeviana.github.io/descubri-artigas/img/codo-del-cuareim-3.jpg</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://cei-javierdeviana.github.io/descubri-artigas/lugares/cueva-del-indio/</loc>
+    <lastmod>2026-11-09</lastmod>
+    <priority>0.8</priority>
     <image:image><image:loc>https://cei-javierdeviana.github.io/descubri-artigas/img/cueva-del-indio-1.jpg</image:loc></image:image>
+    <image:image><image:loc>https://cei-javierdeviana.github.io/descubri-artigas/img/cueva-del-indio-2.jpg</image:loc></image:image>
+    <image:image><image:loc>https://cei-javierdeviana.github.io/descubri-artigas/img/cueva-del-indio-3.jpg</image:loc></image:image>
+    <image:image><image:loc>https://cei-javierdeviana.github.io/descubri-artigas/img/cueva-del-indio-4.jpg</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://cei-javierdeviana.github.io/descubri-artigas/lugares/puente-tres-cruces/</loc>
+    <lastmod>2026-11-09</lastmod>
+    <priority>0.8</priority>
     <image:image><image:loc>https://cei-javierdeviana.github.io/descubri-artigas/img/puente-tres-cruces-1.jpg</image:loc></image:image>
+    <image:image><image:loc>https://cei-javierdeviana.github.io/descubri-artigas/img/puente-tres-cruces-2.jpg</image:loc></image:image>
+    <image:image><image:loc>https://cei-javierdeviana.github.io/descubri-artigas/img/puente-tres-cruces-3.jpg</image:loc></image:image>
+    <image:image><image:loc>https://cei-javierdeviana.github.io/descubri-artigas/img/puente-tres-cruces-4.jpg</image:loc></image:image>
+    <image:image><image:loc>https://cei-javierdeviana.github.io/descubri-artigas/img/puente-tres-cruces-5.jpg</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://cei-javierdeviana.github.io/descubri-artigas/lugares/javier-de-viana/</loc>
+    <lastmod>2026-11-09</lastmod>
+    <priority>0.8</priority>
     <image:image><image:loc>https://cei-javierdeviana.github.io/descubri-artigas/img/javier-de-viana-1.jpg</image:loc></image:image>
+    <image:image><image:loc>https://cei-javierdeviana.github.io/descubri-artigas/img/javier-de-viana-17.jpg</image:loc></image:image>
+    <image:image><image:loc>https://cei-javierdeviana.github.io/descubri-artigas/img/javier-de-viana-2.jpg</image:loc></image:image>
+    <image:image><image:loc>https://cei-javierdeviana.github.io/descubri-artigas/img/javier-de-viana-3.jpg</image:loc></image:image>
+    <image:image><image:loc>https://cei-javierdeviana.github.io/descubri-artigas/img/javier-de-viana-4.jpg</image:loc></image:image>
+    <image:image><image:loc>https://cei-javierdeviana.github.io/descubri-artigas/img/javier-de-viana-5.jpg</image:loc></image:image>
+    <image:image><image:loc>https://cei-javierdeviana.github.io/descubri-artigas/img/javier-de-viana-6.jpg</image:loc></image:image>
+    <image:image><image:loc>https://cei-javierdeviana.github.io/descubri-artigas/img/javier-de-viana-7.jpg</image:loc></image:image>
+    <image:image><image:loc>https://cei-javierdeviana.github.io/descubri-artigas/img/javier-de-viana-8.jpg</image:loc></image:image>
+    <image:image><image:loc>https://cei-javierdeviana.github.io/descubri-artigas/img/javier-de-viana-9.jpg</image:loc></image:image>
+    <image:image><image:loc>https://cei-javierdeviana.github.io/descubri-artigas/img/javier-de-viana-10.jpg</image:loc></image:image>
+    <image:image><image:loc>https://cei-javierdeviana.github.io/descubri-artigas/img/javier-de-viana-11.jpg</image:loc></image:image>
+    <image:image><image:loc>https://cei-javierdeviana.github.io/descubri-artigas/img/javier-de-viana-12.jpg</image:loc></image:image>
+    <image:image><image:loc>https://cei-javierdeviana.github.io/descubri-artigas/img/javier-de-viana-13.jpg</image:loc></image:image>
+    <image:image><image:loc>https://cei-javierdeviana.github.io/descubri-artigas/img/javier-de-viana-14.jpg</image:loc></image:image>
+    <image:image><image:loc>https://cei-javierdeviana.github.io/descubri-artigas/img/javier-de-viana-15.jpg</image:loc></image:image>
+    <image:image><image:loc>https://cei-javierdeviana.github.io/descubri-artigas/img/javier-de-viana-16.jpg</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://cei-javierdeviana.github.io/descubri-artigas/lugares/capilla-santa-margarita/</loc>
+    <lastmod>2026-11-09</lastmod>
+    <priority>0.8</priority>
     <image:image><image:loc>https://cei-javierdeviana.github.io/descubri-artigas/img/capilla-santa-margarita-1.jpg</image:loc></image:image>
+    <image:image><image:loc>https://cei-javierdeviana.github.io/descubri-artigas/img/capilla-santa-margarita-2.jpg</image:loc></image:image>
+    <image:image><image:loc>https://cei-javierdeviana.github.io/descubri-artigas/img/capilla-santa-margarita-3.jpg</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://cei-javierdeviana.github.io/descubri-artigas/lugares/cei-javier-de-viana/</loc>
+    <lastmod>2026-11-09</lastmod>
+    <priority>0.8</priority>
     <image:image><image:loc>https://cei-javierdeviana.github.io/descubri-artigas/img/cei-javier-de-viana-1.jpg</image:loc></image:image>
+    <image:image><image:loc>https://cei-javierdeviana.github.io/descubri-artigas/img/cei-javier-de-viana-2.jpg</image:loc></image:image>
+    <image:image><image:loc>https://cei-javierdeviana.github.io/descubri-artigas/img/cei-javier-de-viana-3.jpg</image:loc></image:image>
+    <image:image><image:loc>https://cei-javierdeviana.github.io/descubri-artigas/img/cei-javier-de-viana-4.jpg</image:loc></image:image>
+    <image:image><image:loc>https://cei-javierdeviana.github.io/descubri-artigas/img/cei-javier-de-viana-5.jpg</image:loc></image:image>
+    <image:image><image:loc>https://cei-javierdeviana.github.io/descubri-artigas/img/cei-javier-de-viana-6.jpg</image:loc></image:image>
+    <image:image><image:loc>https://cei-javierdeviana.github.io/descubri-artigas/img/cei-javier-de-viana-7.jpg</image:loc></image:image>
+    <image:image><image:loc>https://cei-javierdeviana.github.io/descubri-artigas/img/cei-javier-de-viana-8.jpg</image:loc></image:image>
+    <image:image><image:loc>https://cei-javierdeviana.github.io/descubri-artigas/img/cei-javier-de-viana-9.jpg</image:loc></image:image>
+    <image:image><image:loc>https://cei-javierdeviana.github.io/descubri-artigas/img/cei-javier-de-viana-10.jpg</image:loc></image:image>
+    <image:image><image:loc>https://cei-javierdeviana.github.io/descubri-artigas/img/cei-javier-de-viana-11.jpg</image:loc></image:image>
+    <image:image><image:loc>https://cei-javierdeviana.github.io/descubri-artigas/img/cei-javier-de-viana-12.jpg</image:loc></image:image>
+    <image:image><image:loc>https://cei-javierdeviana.github.io/descubri-artigas/img/cei-javier-de-viana-13.jpg</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://cei-javierdeviana.github.io/descubri-artigas/lugares/destacamento-policial-12/</loc>
+    <lastmod>2026-11-09</lastmod>
+    <priority>0.8</priority>
     <image:image><image:loc>https://cei-javierdeviana.github.io/descubri-artigas/img/destacamento-policial-12-1.jpg</image:loc></image:image>
+    <image:image><image:loc>https://cei-javierdeviana.github.io/descubri-artigas/img/destacamento-policial-12-2.jpg</image:loc></image:image>
+    <image:image><image:loc>https://cei-javierdeviana.github.io/descubri-artigas/img/destacamento-policial-12-3.jpg</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://cei-javierdeviana.github.io/descubri-artigas/lugares/centro-artigas/</loc>
+    <lastmod>2026-11-09</lastmod>
+    <priority>0.8</priority>
     <image:image><image:loc>https://cei-javierdeviana.github.io/descubri-artigas/img/centro-artigas-1.jpg</image:loc></image:image>
+    <image:image><image:loc>https://cei-javierdeviana.github.io/descubri-artigas/img/centro-artigas-2.jpg</image:loc></image:image>
+    <image:image><image:loc>https://cei-javierdeviana.github.io/descubri-artigas/img/centro-artigas-3.jpg</image:loc></image:image>
+    <image:image><image:loc>https://cei-javierdeviana.github.io/descubri-artigas/img/centro-artigas-4.jpg</image:loc></image:image>
+    <image:image><image:loc>https://cei-javierdeviana.github.io/descubri-artigas/img/centro-artigas-5.jpg</image:loc></image:image>
+    <image:image><image:loc>https://cei-javierdeviana.github.io/descubri-artigas/img/javier-de-viana-16.jpg</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://cei-javierdeviana.github.io/descubri-artigas/lugares/jefatura-de-policia/</loc>
+    <lastmod>2026-11-09</lastmod>
+    <priority>0.8</priority>
     <image:image><image:loc>https://cei-javierdeviana.github.io/descubri-artigas/img/jefatura-de-policia-1.jpg</image:loc></image:image>
+    <image:image><image:loc>https://cei-javierdeviana.github.io/descubri-artigas/img/jefatura-de-policia-2.jpg</image:loc></image:image>
+    <image:image><image:loc>https://cei-javierdeviana.github.io/descubri-artigas/img/jefatura-de-policia-3.jpg</image:loc></image:image>
+    <image:image><image:loc>https://cei-javierdeviana.github.io/descubri-artigas/img/jefatura-de-policia-4.jpg</image:loc></image:image>
+    <image:image><image:loc>https://cei-javierdeviana.github.io/descubri-artigas/img/jefatura-de-policia-5.jpg</image:loc></image:image>
+    <image:image><image:loc>https://cei-javierdeviana.github.io/descubri-artigas/img/jefatura-de-policia-6.jpg</image:loc></image:image>
+    <image:image><image:loc>https://cei-javierdeviana.github.io/descubri-artigas/img/jefatura-de-policia-7.jpg</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://cei-javierdeviana.github.io/descubri-artigas/lugares/museo-historico/</loc>
+    <lastmod>2026-11-09</lastmod>
+    <priority>0.8</priority>
     <image:image><image:loc>https://cei-javierdeviana.github.io/descubri-artigas/img/museo-historico-1.jpg</image:loc></image:image>
+    <image:image><image:loc>https://cei-javierdeviana.github.io/descubri-artigas/img/museo-historico-2.jpg</image:loc></image:image>
+    <image:image><image:loc>https://cei-javierdeviana.github.io/descubri-artigas/img/museo-historico-3.jpg</image:loc></image:image>
+    <image:image><image:loc>https://cei-javierdeviana.github.io/descubri-artigas/img/museo-historico-4.jpg</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://cei-javierdeviana.github.io/descubri-artigas/lugares/carnaval-de-artigas/</loc>
+    <lastmod>2026-11-09</lastmod>
+    <priority>0.8</priority>
     <image:image><image:loc>https://cei-javierdeviana.github.io/descubri-artigas/img/carnaval-de-artigas-1.jpg</image:loc></image:image>
+    <image:image><image:loc>https://cei-javierdeviana.github.io/descubri-artigas/img/carnaval-de-artigas-2.jpg</image:loc></image:image>
+    <image:image><image:loc>https://cei-javierdeviana.github.io/descubri-artigas/img/carnaval-de-artigas-3.jpg</image:loc></image:image>
+    <image:image><image:loc>https://cei-javierdeviana.github.io/descubri-artigas/img/carnaval-de-artigas-4.jpg</image:loc></image:image>
+    <image:image><image:loc>https://cei-javierdeviana.github.io/descubri-artigas/img/carnaval-de-artigas-5.jpg</image:loc></image:image>
+    <image:image><image:loc>https://cei-javierdeviana.github.io/descubri-artigas/img/carnaval-de-artigas-6.jpg</image:loc></image:image>
+    <image:image><image:loc>https://cei-javierdeviana.github.io/descubri-artigas/img/carnaval-de-artigas-7.jpg</image:loc></image:image>
+    <image:image><image:loc>https://cei-javierdeviana.github.io/descubri-artigas/img/carnaval-de-artigas-8.jpg</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://cei-javierdeviana.github.io/descubri-artigas/lugares/museo-piedra-preciosa/</loc>
+    <lastmod>2026-11-09</lastmod>
+    <priority>0.8</priority>
     <image:image><image:loc>https://cei-javierdeviana.github.io/descubri-artigas/img/museo-piedra-preciosa-1.jpg</image:loc></image:image>
+    <image:image><image:loc>https://cei-javierdeviana.github.io/descubri-artigas/img/museo-piedra-preciosa-2.jpg</image:loc></image:image>
+    <image:image><image:loc>https://cei-javierdeviana.github.io/descubri-artigas/img/museo-piedra-preciosa-3.jpg</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://cei-javierdeviana.github.io/descubri-artigas/lugares/paseo-7-de-setiembre/</loc>
+    <lastmod>2026-11-09</lastmod>
+    <priority>0.8</priority>
     <image:image><image:loc>https://cei-javierdeviana.github.io/descubri-artigas/img/paseo-7-de-setiembre-1.jpg</image:loc></image:image>
+    <image:image><image:loc>https://cei-javierdeviana.github.io/descubri-artigas/img/paseo-7-de-setiembre-2.jpg</image:loc></image:image>
+    <image:image><image:loc>https://cei-javierdeviana.github.io/descubri-artigas/img/paseo-7-de-setiembre-3.jpg</image:loc></image:image>
+    <image:image><image:loc>https://cei-javierdeviana.github.io/descubri-artigas/img/paseo-7-de-setiembre-4.jpg</image:loc></image:image>
+    <image:image><image:loc>https://cei-javierdeviana.github.io/descubri-artigas/img/paseo-7-de-setiembre-5.jpg</image:loc></image:image>
+    <image:image><image:loc>https://cei-javierdeviana.github.io/descubri-artigas/img/paseo-7-de-setiembre-6.jpg</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://cei-javierdeviana.github.io/descubri-artigas/lugares/piedra-pintada/</loc>
+    <lastmod>2026-11-09</lastmod>
+    <priority>0.8</priority>
     <image:image><image:loc>https://cei-javierdeviana.github.io/descubri-artigas/img/piedra-pintada-1.jpg</image:loc></image:image>
+    <image:image><image:loc>https://cei-javierdeviana.github.io/descubri-artigas/img/piedra-pintada-2.jpg</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://cei-javierdeviana.github.io/descubri-artigas/lugares/safari-minero/</loc>
+    <lastmod>2026-11-09</lastmod>
+    <priority>0.8</priority>
     <image:image><image:loc>https://cei-javierdeviana.github.io/descubri-artigas/img/los-catalanes-2.jpg</image:loc></image:image>
+    <image:image><image:loc>https://cei-javierdeviana.github.io/descubri-artigas/img/safari-minero-2.jpg</image:loc></image:image>
+    <image:image><image:loc>https://cei-javierdeviana.github.io/descubri-artigas/img/safari-minero-3.jpg</image:loc></image:image>
+    <image:image><image:loc>https://cei-javierdeviana.github.io/descubri-artigas/img/safari-minero-4.jpg</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://cei-javierdeviana.github.io/descubri-artigas/lugares/los-catalanes/</loc>
+    <lastmod>2026-11-09</lastmod>
+    <priority>0.8</priority>
     <image:image><image:loc>https://cei-javierdeviana.github.io/descubri-artigas/img/los-catalanes-1.jpg</image:loc></image:image>
+    <image:image><image:loc>https://cei-javierdeviana.github.io/descubri-artigas/img/los-catalanes-2.jpg</image:loc></image:image>
+    <image:image><image:loc>https://cei-javierdeviana.github.io/descubri-artigas/img/los-catalanes-3.jpg</image:loc></image:image>
   </url>
 </urlset>

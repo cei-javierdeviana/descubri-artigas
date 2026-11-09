@@ -20,7 +20,9 @@ Es un sitio estático: no necesita servidor ni instalación. Todo está en `inde
 | `img/` | Las fotos de cada lugar (portadas, tarjetas y galerías) |
 | `fichas/` | Las fichas (láminas) que elaboran los docentes, una por lugar |
 | `og-image.jpg` | La imagen que muestran Facebook, WhatsApp y otras redes cuando se comparte el enlace |
-| `sitemap.xml` | El mapa del sitio para Google: la dirección de la página y sus fotos principales |
+| `lugares/` | Una página para cada lugar, más la página con todos los lugares, para que Google los encuentre por separado. Se generan solas (ver «Páginas de cada lugar») |
+| `herramientas/` | El programa que genera las páginas de `lugares/` y el `sitemap.xml` |
+| `sitemap.xml` | El mapa del sitio para Google: la portada, las páginas de los lugares y sus fotos |
 | `google63d47089fb676f9d.html` | Confirma ante Google Search Console que la página es del CEI. No hay que borrarlo |
 | `.nojekyll` | Le indica a GitHub Pages que publique los archivos tal cual |
 
@@ -40,7 +42,7 @@ La web se publica en una **organización** de GitHub llamada `cei-javierdeviana`
 1. En la organización, tocá **New repository**. Revisá que el dueño (*Owner*) sea `cei-javierdeviana`.
 2. Nombre: `descubri-artigas`. Visibilidad: **Public**. No agregues README.
 3. En el repositorio vacío, entrá al enlace **uploading an existing file**.
-4. Arrastrá **el contenido** de esta carpeta (el `index.html`, el `og-image.jpg`, el `sitemap.xml`, las carpetas `img` y `fichas` y el `README.md`), no la carpeta entera. GitHub acepta hasta 100 archivos por vez y esta carpeta tiene 129.
+4. Arrastrá **el contenido** de esta carpeta (el `index.html`, el `og-image.jpg`, el `sitemap.xml`, las carpetas `img`, `fichas`, `lugares` y `herramientas` y el `README.md`), no la carpeta entera. GitHub acepta hasta 100 archivos por vez y esta carpeta tiene 176.
 5. Tocá **Commit changes**.
 
 ### 3. Activar la página
@@ -62,6 +64,7 @@ La web se publica en una **organización** de GitHub llamada `cei-javierdeviana`
 
 3. La **primera** foto de cada lugar es la portada del mapa, la postal y la ficha. Para cambiar la portada, mové la línea al primer lugar.
 4. Si una foto muestra el entorno o el tema y no el lugar exacto, agregá `"ref": true` y la página la marca como «Foto de referencia».
+5. Volvé a generar las páginas de los lugares (ver «Páginas de cada lugar»).
 
 ## Agregar la ficha de un lugar
 
@@ -72,7 +75,7 @@ Cada lugar puede tener una ficha: una lámina informativa hecha por docentes. Cu
 3. Copiala en la carpeta `fichas/`.
 4. En GitHub Desktop: escribí un resumen (por ejemplo «Agrego ficha de Piedra Pintada»), tocá **Commit to main** y después **Push origin**.
 
-No hay que tocar `index.html`: la página encuentra la ficha sola por su nombre. Para reemplazar una ficha, guardá la nueva con el mismo nombre encima de la anterior.
+No hay que tocar `index.html`: la página encuentra la ficha sola por su nombre. Para que el botón también aparezca en la página propia del lugar, volvé a generar las páginas (ver «Páginas de cada lugar»). Para reemplazar una ficha, guardá la nueva con el mismo nombre encima de la anterior.
 
 | Lugar | Nombre del archivo |
 |---|---|
@@ -331,4 +334,16 @@ Cuando alguien pega el enlace en Facebook, WhatsApp o X, la red muestra una tarj
 
 ## Google Search Console
 
-La página se registra en [Google Search Console](https://search.google.com/search-console) como propiedad de tipo «Prefijo de la URL», con la dirección `https://cei-javierdeviana.github.io/descubri-artigas/`. Ahí se ve cómo aparece en las búsquedas de Google: cuántas veces se mostró, cuántos clics recibió y con qué palabras la encontraron. El mapa del sitio que se le envía a Google es `sitemap.xml`. Si se agregan lugares o fotos nuevas, conviene actualizar la fecha `lastmod` de ese archivo.
+La página se registra en [Google Search Console](https://search.google.com/search-console) como propiedad de tipo «Prefijo de la URL», con la dirección `https://cei-javierdeviana.github.io/descubri-artigas/`. Ahí se ve cómo aparece en las búsquedas de Google: cuántas veces se mostró, cuántos clics recibió y con qué palabras la encontraron. El mapa del sitio que se le envía a Google es `sitemap.xml`; se actualiza solo al generar las páginas de los lugares.
+
+## Páginas de cada lugar (para Google)
+
+El mapa interactivo es una sola página, y Google la ve como una sola. Por eso, cada lugar tiene además su propia página en `lugares/`, por ejemplo `lugares/piedra-pintada/`, con su título, su texto, sus fotos, sus datos útiles, cómo llegar y sus fuentes. Así alguien que busca «Piedra Pintada Artigas» puede llegar directo a ese lugar, y al compartir esa dirección en WhatsApp o Facebook aparece la foto del lugar. La página `lugares/` reúne los 22 lugares por zona.
+
+Esas páginas **no se editan a mano**: se generan a partir de `index.html`. Cada vez que se cambian textos, lugares o fotos en `index.html` (o se agrega una ficha), hay que volver a generarlas:
+
+1. Abrí una terminal en la carpeta del repositorio. En GitHub Desktop: menú **Repository → Open in Terminal**.
+2. Ejecutá: `python3 herramientas/generar_paginas.py`
+3. Debería decir «Listo: 22 páginas de lugares…». Después hacé **Commit to main** y **Push origin** como siempre.
+
+Necesita Python 3. Las miniaturas de `lugares/th/` se hacen con Pillow (`pip install pillow`); si no está instalado, las páginas usan la foto de portada completa. La apariencia de esas páginas está en `lugares/estilo.css`.
